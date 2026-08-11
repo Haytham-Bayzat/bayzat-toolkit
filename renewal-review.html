@@ -188,6 +188,26 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
 .saveline{margin-top:14px;font-size:13px;padding:10px 12px;border-radius:11px;
   background:var(--mint-soft);color:var(--mint);font-weight:650}
 
+/* ---------- service package ---------- */
+.svcwrap{display:grid;grid-template-columns:1fr 1.6fr;gap:16px}
+@media(max-width:860px){.svcwrap{grid-template-columns:1fr}}
+.svccard{background:var(--surface);border:1px solid var(--edge);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.svctier{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.svcbadge{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 11px;border-radius:99px;background:var(--purple-soft);color:var(--purple);margin-bottom:12px}
+.svcprice{font-size:30px;font-weight:800;margin-top:14px;letter-spacing:-.02em}
+.svcwas{font-size:15px;color:var(--dimmer);text-decoration:line-through;margin-right:9px;font-weight:600}
+.svcper{font-size:12.5px;color:var(--dim);margin-top:2px}
+.svcoff{display:inline-block;margin-top:12px;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;
+  background:var(--mint-soft);color:var(--mint)}
+.svcnote{margin-top:14px;font-size:12.5px;color:var(--dim)}
+.svclist{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px}
+@media(max-width:640px){.svclist{grid-template-columns:1fr}}
+.svcitem{display:flex;gap:9px;align-items:flex-start;font-size:13.5px}
+.svcitem i{width:7px;height:7px;border-radius:99px;background:var(--purple);flex:0 0 7px;margin-top:7px}
+.svcitem b{font-weight:650}
+.svcitem span{color:var(--dim)}
+
 /* ---------- checklist ---------- */
 .steps{display:grid;gap:10px}
 .step{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1px solid var(--edge);
@@ -260,6 +280,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
       <a href="#coming">Coming next</a>
       <a href="#plan">Plan</a>
       <a href="#pricing">Renewal</a>
+      <a href="#service">Support</a>
       <a href="#next">Next steps</a>
       <button class="btn" id="themeBtn" type="button">Dark mode</button>
       <button class="btn solid" id="editBtn" type="button">Edit details</button>
@@ -374,6 +395,15 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
   </div>
 </section>
 
+<section id="service">
+  <div class="wrap">
+    <p class="sechead">Service and support</p>
+    <h2 id="svcTitle">Your service package</h2>
+    <p class="sub">Support levels, response times and training that sit alongside your subscription.</p>
+    <div class="svcwrap" id="svcWrap"></div>
+  </div>
+</section>
+
 <section id="next" class="tinted">
   <div class="wrap">
     <p class="sechead">Next steps</p>
@@ -453,6 +483,20 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
     </div>
 
     <div class="fset">
+      <h4>Service package</h4>
+      <div class="f"><label for="e_svc_tier">Package</label>
+        <p class="hint">Bronze, Silver or Gold. Type None to hide this section.</p>
+        <input id="e_svc_tier"></div>
+      <div class="f"><label for="e_svc_price">Price, AED per year</label>
+        <p class="hint">Leave at 0 to show no price.</p>
+        <input id="e_svc_price" type="number" step="1"></div>
+      <div class="f"><label for="e_svc_disc">Discount, %</label>
+        <p class="hint">Leave at 0 for no discount.</p>
+        <input id="e_svc_disc" type="number" step="1"></div>
+      <div class="f"><label for="e_svc_note">Note under the price</label><input id="e_svc_note"></div>
+    </div>
+
+    <div class="fset">
       <h4>Your details</h4>
       <div class="f"><label for="e_name">Name</label><input id="e_name"></div>
       <div class="f"><label for="e_role">Role line</label><input id="e_role"></div>
@@ -527,6 +571,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
     {"t":"Internal approval and signature","m":"Before the renewal date","who":"Client"},
     {"t":"Kick off the 90 day plan","m":"Week of the renewal date","who":"Joint"}
   ],
+  "service": {"show":true,"tier":"Gold","price":1750,"discount":0,"note":"Renewed annually alongside your subscription."},
   "csm": {"name":"Haytham Ghali","role":"Your dedicated Customer Success Manager","email":"haytham@bayzat.com","phone":"+971 4549 0371"}
 }
 </script>
@@ -584,6 +629,66 @@ function coming(){
     </div>`;
   }).join("");
 }
+const TIERS = {
+  Bronze: [
+    ["Customer support","Multi channel, 4 hour SLA"],
+    ["Customer success","Email support"],
+    ["Solutions engineer","Up to 10 hours a year"],
+    ["Technical support","Email, 24 to 48 hour response"],
+    ["Platform configurations","1 additional a year"],
+    ["Training","Recorded webinars"],
+    ["Custom reports","5 a year"]
+  ],
+  Silver: [
+    ["Customer support","Multi channel, 2 hour SLA"],
+    ["Customer success","Remote CSM, 24 hour SLA"],
+    ["Solutions engineer","Up to 20 hours a year"],
+    ["Technical support","Multi channel with a dedicated specialist"],
+    ["Platform configurations","3 additional a year"],
+    ["Training","Live and recorded webinars"],
+    ["Custom reports","15 a year"]
+  ],
+  Gold: [
+    ["Customer support","Multi channel, 30 minute SLA"],
+    ["Customer success","In market CSM, 24 hour SLA"],
+    ["Solutions engineer","Up to 30 hours a year"],
+    ["Technical support","Dedicated specialist plus one to one"],
+    ["Platform configurations","Unlimited"],
+    ["Training","Unlimited QA, one to one and live sessions"],
+    ["Custom reports","Unlimited"]
+  ]
+};
+
+function service(){
+  const sec = document.getElementById("service");
+  const sv = CONFIG.service || {};
+  if (sv.show === false) { sec.style.display = "none"; return; }
+  sec.style.display = "";
+  const tier = TIERS[sv.tier] ? sv.tier : "Bronze";
+  const price = Number(sv.price) || 0;
+  const disc = Number(sv.discount) || 0;
+  const net = price * (1 - disc/100);
+  $("svcTitle").textContent = "Your service package";
+  const priceBlock = price > 0
+    ? `<div class="svcprice">${disc > 0 ? `<span class="svcwas">${money(price)}</span>` : ""}${money(net)}</div>
+       <div class="svcper">per year</div>
+       ${disc > 0 ? `<span class="svcoff">${disc}% off, saving ${money(price - net)}</span>` : ""}`
+    : `<div class="svcper" style="margin-top:14px">Pricing confirmed on your quote.</div>`;
+  $("svcWrap").innerHTML = `
+    <div class="svccard">
+      <span class="svcbadge">Service package</span>
+      <div class="svctier">${esc(tier)}</div>
+      ${priceBlock}
+      ${sv.note ? `<p class="svcnote">${esc(sv.note)}</p>` : ""}
+    </div>
+    <div class="svccard">
+      <span class="svcbadge">What ${esc(tier)} includes</span>
+      <div class="svclist">
+        ${TIERS[tier].map(r => `<div class="svcitem"><i></i><span><b>${esc(r[0])}</b><br>${esc(r[1])}</span></div>`).join("")}
+      </div>
+    </div>`;
+}
+
 function priorities(){
   $("priorities").innerHTML = CONFIG.priorities.map(p => `
     <div class="card">
@@ -647,7 +752,7 @@ function renderAll(){
   $("hc").value = CONFIG.headcount;
   $("rate").value = CONFIG.listRate;
   hero(); tiles("kpis", CONFIG.kpis); tiles("valueGrid", CONFIG.value);
-  modules(); cards("releases", CONFIG.releases); coming(); priorities(); phases();
+  modules(); cards("releases", CONFIG.releases); coming(); priorities(); phases(); service();
   pricing(); steps(); footerBlock();
   document.title = CONFIG.client + " | Bayzat renewal review";
 }
@@ -671,6 +776,11 @@ function fillForm(){
   $("e_priorities").value = CONFIG.priorities.map(p => [p.h,p.p,p.why,p.impact].join(" | ")).join("\n");
   $("e_phases").value = CONFIG.phases.map(p => [p.when,p.h,p.owner,(p.items||[]).join("; ")].join(" | ")).join("\n");
   $("e_steps").value = CONFIG.steps.map(s => [s.t,s.m,s.who].join(" | ")).join("\n");
+  const sv0 = CONFIG.service || {};
+  $("e_svc_tier").value = sv0.show === false ? "None" : (sv0.tier || "Bronze");
+  $("e_svc_price").value = sv0.price || 0;
+  $("e_svc_disc").value = sv0.discount || 0;
+  $("e_svc_note").value = sv0.note || "";
   $("e_name").value = CONFIG.csm.name; $("e_role").value = CONFIG.csm.role;
   $("e_email").value = CONFIG.csm.email; $("e_phone").value = CONFIG.csm.phone;
 }
@@ -704,6 +814,15 @@ function readForm(){
   CONFIG.phases = lines($("e_phases").value).map(l => { const p = parts(l);
     return {when:p[0],h:p[1]||"",owner:p[2]||"",items:(p[3]||"").split(";").map(x=>x.trim()).filter(Boolean)}; });
   CONFIG.steps = lines($("e_steps").value).map(l => { const p = parts(l); return {t:p[0],m:p[1]||"",who:p[2]||""}; });
+  const tierRaw = ($("e_svc_tier").value || "").trim();
+  const tierKey = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1).toLowerCase();
+  CONFIG.service = {
+    show: !/^none$/i.test(tierRaw),
+    tier: ["Bronze","Silver","Gold"].includes(tierKey) ? tierKey : "Bronze",
+    price: Number($("e_svc_price").value) || 0,
+    discount: Number($("e_svc_disc").value) || 0,
+    note: $("e_svc_note").value
+  };
   CONFIG.csm = { name:$("e_name").value, role:$("e_role").value, email:$("e_email").value, phone:$("e_phone").value };
 }
 

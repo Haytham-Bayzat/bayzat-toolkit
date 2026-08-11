@@ -66,6 +66,15 @@ body{margin:0;background:var(--bg);color:var(--text);
 .callout{background:var(--mint-soft);color:#0A7A63;border-radius:11px;padding:11px 14px;
   font-size:11.5px;font-weight:650}
 
+.svcrow{border:1px solid var(--edge);border-radius:12px;padding:12px 15px;margin-top:9px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.svcrow .tier{font-size:15px;font-weight:800}
+.svcrow .lvl{font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.1em}
+.svcrow .feat{font-size:11.5px;color:var(--dim);flex:1 1 200px}
+.svcrow .amt{margin-left:auto;text-align:right}
+.svcrow .amt .n{font-size:16px;font-weight:800;color:var(--purple)}
+.svcrow .amt .was{font-size:11.5px;color:var(--dimmer);text-decoration:line-through;margin-right:7px}
+.svcrow .amt .s{font-size:10px;color:var(--dim)}
 .opt{border:1px solid var(--edge);border-radius:12px;padding:13px 16px;margin-bottom:9px;
   display:grid;grid-template-columns:1.05fr .95fr .9fr;gap:10px;align-items:center;position:relative}
 .opt .term{font-size:16px;font-weight:750}
@@ -171,6 +180,7 @@ body{margin:0;background:var(--bg);color:var(--text);
         <p class="lbl">Your renewal options</p>
         <div id="opts"></div>
       </div>
+      <div id="svcBlock"></div>
       <div class="block">
         <p class="lbl">Next steps</p>
         <div class="steps" id="steps"></div>
@@ -213,6 +223,18 @@ body{margin:0;background:var(--bg);color:var(--text);
         <p class="hint">One per line: label | months | discount % | payment terms | total override (leave blank to calculate)</p>
         <textarea id="e_terms" style="min-height:110px"></textarea></div>
     </div>
+    <div class="fset">
+      <h4>Service package</h4>
+      <div class="f"><label for="e_svc_tier">Package</label>
+        <p class="hint">Bronze, Silver or Gold. Type None to hide this block.</p>
+        <input id="e_svc_tier"></div>
+      <div class="f"><label for="e_svc_price">Price, AED per year</label>
+        <p class="hint">Leave at 0 to show no price.</p>
+        <input id="e_svc_price" type="number" step="1"></div>
+      <div class="f"><label for="e_svc_disc">Discount, %</label>
+        <input id="e_svc_disc" type="number" step="1"></div>
+    </div>
+
     <div class="fset">
       <h4>Next steps and contact</h4>
       <div class="f"><label for="e_steps">Four steps</label>
@@ -258,6 +280,7 @@ body{margin:0;background:var(--bg);color:var(--text);
     {"t":"Approval and signature","who":"You"},
     {"t":"Kick off the 90 day plan","who":"Joint"}
   ],
+  "service": {"show":true,"tier":"Gold","price":1750,"discount":0},
   "contact": "Haytham Ghali  |  Customer Success, Bayzat  |  haytham@bayzat.com  |  +971 4549 0371"
 }
 </script>
@@ -267,6 +290,31 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const money = n => "AED " + Math.round(n).toLocaleString("en-AE");
 let CONFIG = JSON.parse($("cfg").textContent);
+
+const TIERS = {
+  Bronze:{sla:"4 hour support SLA",cs:"Email customer success",se:"10 SE hours a year",rep:"5 custom reports"},
+  Silver:{sla:"2 hour support SLA",cs:"Remote CSM",se:"20 SE hours a year",rep:"15 custom reports"},
+  Gold:{sla:"30 minute support SLA",cs:"In market CSM",se:"30 SE hours a year",rep:"Unlimited reports"}
+};
+function serviceRow(){
+  const el = document.getElementById("svcBlock");
+  const sv = CONFIG.service || {};
+  if (sv.show === false || !TIERS[sv.tier]) { el.innerHTML = ""; return; }
+  const t = TIERS[sv.tier];
+  const price = Number(sv.price)||0, disc = Number(sv.discount)||0;
+  const net = price*(1-disc/100);
+  const amt = price > 0
+    ? `<div class="amt"><div class="n">${disc>0?`<span class="was">${money(price)}</span>`:""}${money(net)}</div>
+       <div class="s">per year${disc>0?", "+disc+"% off":""}</div></div>`
+    : `<div class="amt"><div class="s">Priced on your quote</div></div>`;
+  el.innerHTML = `<p class="lbl" style="margin-top:16px">Service and support</p>
+    <div class="svcrow">
+      <div><div class="lvl">Package</div><div class="tier">${esc(sv.tier)}</div></div>
+      <div class="feat">${esc(t.sla)} &#8226; ${esc(t.cs)} &#8226; ${esc(t.se)} &#8226; ${esc(t.rep)}</div>
+      ${amt}
+    </div>`;
+}
+
 
 function render(){
   $("client").textContent = CONFIG.client;
@@ -297,6 +345,7 @@ function render(){
     </div>`;
   }).join("");
 
+  serviceRow();
   $("steps").innerHTML = CONFIG.steps.map(s =>
     `<div class="stp"><b>${esc(s.t)}</b><span>${esc(s.who)}</span></div>`).join("");
   $("contact").textContent = CONFIG.contact;
@@ -317,6 +366,10 @@ function fillForm(){
   $("e_callout").value = CONFIG.callout;
   $("e_terms").value = CONFIG.terms.map(t =>
     [t.label,t.months,Math.round((t.discount||0)*100),t.payment,(t.total||"")].join(" | ")).join("\n");
+  const sv0 = CONFIG.service || {};
+  $("e_svc_tier").value = sv0.show === false ? "None" : (sv0.tier || "Bronze");
+  $("e_svc_price").value = sv0.price || 0;
+  $("e_svc_disc").value = sv0.discount || 0;
   $("e_steps").value = CONFIG.steps.map(s => [s.t,s.who].join(" | ")).join("\n");
   $("e_contact").value = CONFIG.contact;
 }
@@ -337,6 +390,14 @@ function readForm(){
   });
   if(t.length){ let bi=0; t.forEach((x,i)=>{ if(x.months>t[bi].months) bi=i; });
     t.forEach((x,i)=>{ x.best = (i===bi && t.length>1); }); CONFIG.terms = t; }
+  const tierRaw = ($("e_svc_tier").value || "").trim();
+  const tierKey = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1).toLowerCase();
+  CONFIG.service = {
+    show: !/^none$/i.test(tierRaw),
+    tier: ["Bronze","Silver","Gold"].includes(tierKey) ? tierKey : "Bronze",
+    price: Number($("e_svc_price").value) || 0,
+    discount: Number($("e_svc_disc").value) || 0
+  };
   CONFIG.steps = lines($("e_steps").value).slice(0,4).map(l => { const p = parts(l); return {t:p[0],who:p[1]||""}; });
   CONFIG.contact = $("e_contact").value;
 }

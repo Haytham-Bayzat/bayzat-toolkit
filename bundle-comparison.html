@@ -80,6 +80,15 @@ body{margin:0;background:var(--bg);color:var(--text);
 .chip{background:var(--purple-soft);color:#5B21B6;border-radius:99px;padding:4px 10px;font-size:10.5px;font-weight:650}
 .chip.plus{background:var(--mint-soft);color:#0A7A63}
 
+.svcrow{border:1px solid var(--edge);border-radius:12px;padding:12px 15px;margin-top:9px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.svcrow .tier{font-size:15px;font-weight:800}
+.svcrow .lvl{font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.1em}
+.svcrow .feat{font-size:11.5px;color:var(--dim);flex:1 1 200px}
+.svcrow .amt{margin-left:auto;text-align:right}
+.svcrow .amt .n{font-size:16px;font-weight:800;color:var(--purple)}
+.svcrow .amt .was{font-size:11.5px;color:var(--dimmer);text-decoration:line-through;margin-right:7px}
+.svcrow .amt .s{font-size:10px;color:var(--dim)}
 .strip{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;margin-top:18px}
 @media(max-width:860px){.strip{grid-template-columns:1fr}}
 .uplift{background:var(--mint-soft);border-radius:12px;padding:13px 16px}
@@ -161,6 +170,8 @@ body{margin:0;background:var(--bg);color:var(--text);
     <p class="lbl" id="introLbl">Your options, side by side</p>
     <div class="bundles" id="bundles"></div>
 
+    <div id="svcBlock"></div>
+
     <div class="strip">
       <div class="uplift">
         <div class="big" id="upliftBig"></div>
@@ -194,8 +205,8 @@ body{margin:0;background:var(--bg);color:var(--text);
 
     <div class="fset">
       <h4>Terms</h4>
-      <div class="f"><label for="e_terms">Applies to both bundles</label>
-        <p class="hint">One per line: label | months | discount % | payment terms</p>
+      <div class="f"><label for="e_terms">Terms shown for both bundles</label>
+        <p class="hint">One per line: label | months | payment terms</p>
         <textarea id="e_terms"></textarea></div>
     </div>
 
@@ -203,6 +214,9 @@ body{margin:0;background:var(--bg);color:var(--text);
       <h4>Bundle A</h4>
       <div class="f"><label for="e_a_name">Name</label><input id="e_a_name"></div>
       <div class="f"><label for="e_a_rate">List rate, AED per employee per month</label><input id="e_a_rate" type="number" step="0.5"></div>
+      <div class="f"><label for="e_a_disc">Discount by term, %</label>
+        <p class="hint">Format: 24=10; 36=15. Only list the terms that get a discount. Leave the box empty for list rate on everything.</p>
+        <input id="e_a_disc"></div>
       <div class="f"><label for="e_a_totals">Total overrides</label>
         <p class="hint">Optional. Format: 12=21600; 24=38880; 36=55080. Leave blank to calculate.</p>
         <input id="e_a_totals"></div>
@@ -214,6 +228,9 @@ body{margin:0;background:var(--bg);color:var(--text);
       <h4>Bundle B</h4>
       <div class="f"><label for="e_b_name">Name</label><input id="e_b_name"></div>
       <div class="f"><label for="e_b_rate">List rate, AED per employee per month</label><input id="e_b_rate" type="number" step="0.5"></div>
+      <div class="f"><label for="e_b_disc">Discount by term, %</label>
+        <p class="hint">Format: 24=10; 36=15. Only list the terms that get a discount. Leave the box empty for list rate on everything.</p>
+        <input id="e_b_disc"></div>
       <div class="f"><label for="e_b_totals">Total overrides</label>
         <p class="hint">Optional. Format: 12=00000; 24=00000; 36=00000</p>
         <input id="e_b_totals"></div>
@@ -228,6 +245,18 @@ body{margin:0;background:var(--bg);color:var(--text);
         <input id="e_pick"></div>
       <div class="f"><label for="e_upBig">Green box headline</label><input id="e_upBig"></div>
       <div class="f"><label for="e_upText">Green box line</label><textarea id="e_upText" style="min-height:56px"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>Service package</h4>
+      <div class="f"><label for="e_svc_tier">Package</label>
+        <p class="hint">Bronze, Silver or Gold. Type None to hide this block.</p>
+        <input id="e_svc_tier"></div>
+      <div class="f"><label for="e_svc_price">Price, AED per year</label>
+        <p class="hint">Leave at 0 to show no price.</p>
+        <input id="e_svc_price" type="number" step="1"></div>
+      <div class="f"><label for="e_svc_disc">Discount, %</label>
+        <input id="e_svc_disc" type="number" step="1"></div>
     </div>
 
     <div class="fset">
@@ -252,19 +281,21 @@ body{margin:0;background:var(--bg);color:var(--text);
   "decisionBy": "15 November 2026",
   "headcount": 62,
   "terms": [
-    {"label":"1 year","months":12,"discount":0,"payment":"50% upfront, 50% after 6 months"},
-    {"label":"2 years","months":24,"discount":0.1,"payment":"quarterly"},
-    {"label":"3 years","months":36,"discount":0.15,"payment":"quarterly"}
+    {"label":"1 year","months":12,"payment":"50% upfront, 50% after 6 months"},
+    {"label":"2 years","months":24,"payment":"quarterly"},
+    {"label":"3 years","months":36,"payment":"quarterly"}
   ],
   "bundleA": {
     "name":"Essential",
     "rate":29,
-    "totals":{"12":21600,"24":38880,"36":55080},
+    "discounts":{"24":10,"36":15},
+    "totals":{},
     "includes":["Employee Records","Documents","Announcements","Payroll","Work Expenses","Air Tickets","Letter Requests","Leaves","Attendance","Timesheets","Shift Scheduler","Performance Catch-ups","360 Review"]
   },
   "bundleB": {
     "name":"Premium",
     "rate":39,
+    "discounts":{"24":10,"36":15},
     "totals":{},
     "includes":["Knowledge Hub","Employee Ticketing","Workflows","Task Manager","AI Report Generator"]
   },
@@ -277,6 +308,7 @@ body{margin:0;background:var(--bg);color:var(--text);
     {"t":"Approval and signature","who":"You"},
     {"t":"Kick off the 90 day plan","who":"Joint"}
   ],
+  "service": {"show":true,"tier":"Gold","price":1750,"discount":0},
   "contact": "Haytham Ghali  |  Customer Success, Bayzat  |  haytham@bayzat.com  |  +971 4549 0371"
 }
 </script>
@@ -287,10 +319,41 @@ const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&l
 const money = n => "AED " + Math.round(n).toLocaleString("en-AE");
 let CONFIG = JSON.parse($("cfg").textContent);
 
+const TIERS = {
+  Bronze:{sla:"4 hour support SLA",cs:"Email customer success",se:"10 SE hours a year",rep:"5 custom reports"},
+  Silver:{sla:"2 hour support SLA",cs:"Remote CSM",se:"20 SE hours a year",rep:"15 custom reports"},
+  Gold:{sla:"30 minute support SLA",cs:"In market CSM",se:"30 SE hours a year",rep:"Unlimited reports"}
+};
+function serviceRow(){
+  const el = document.getElementById("svcBlock");
+  const sv = CONFIG.service || {};
+  if (sv.show === false || !TIERS[sv.tier]) { el.innerHTML = ""; return; }
+  const t = TIERS[sv.tier];
+  const price = Number(sv.price)||0, disc = Number(sv.discount)||0;
+  const net = price*(1-disc/100);
+  const amt = price > 0
+    ? `<div class="amt"><div class="n">${disc>0?`<span class="was">${money(price)}</span>`:""}${money(net)}</div>
+       <div class="s">per year${disc>0?", "+disc+"% off":""}</div></div>`
+    : `<div class="amt"><div class="s">Priced on your quote</div></div>`;
+  el.innerHTML = `<p class="lbl" style="margin-top:16px">Service and support</p>
+    <div class="svcrow">
+      <div><div class="lvl">Package</div><div class="tier">${esc(sv.tier)}</div></div>
+      <div class="feat">${esc(t.sla)} &#8226; ${esc(t.cs)} &#8226; ${esc(t.se)} &#8226; ${esc(t.rep)}</div>
+      ${amt}
+    </div>`;
+}
+
+
+// discounts are set per bundle, per term. Missing or blank means list rate.
+const discountFor = (bundle, term) => {
+  const d = bundle.discounts && bundle.discounts[String(term.months)];
+  if (d === undefined || d === null || d === "") return 0;
+  return Number(d)/100;
+};
 const totalFor = (bundle, term, hc) => {
   const ov = bundle.totals && bundle.totals[String(term.months)];
   if (ov && Number(ov) > 0) return Number(ov);
-  return bundle.rate * (1 - (term.discount||0)) * hc * term.months;
+  return bundle.rate * (1 - discountFor(bundle, term)) * hc * term.months;
 };
 
 function bundleCard(bundle, isB){
@@ -298,13 +361,14 @@ function bundleCard(bundle, isB){
   const pick = CONFIG.pick || {};
   const best = pick.bundle && pick.bundle.toLowerCase() === (bundle.name||"").toLowerCase();
   const rows = CONFIG.terms.map(t => {
-    const rate = bundle.rate * (1 - (t.discount||0));
+    const disc = discountFor(bundle, t);
+    const rate = bundle.rate * (1 - disc);
     const total = totalFor(bundle, t, hc);
     const per = t.months === 12 ? "per year" : "total for " + t.months + " months";
     const on = best && Number(pick.months) === t.months;
     return `<div class="row${on?" pick":""}">
       <div><div class="t">${esc(t.label)}</div>
-        <div class="off">${t.discount?Math.round(t.discount*100)+"% below list":"List rate"}</div></div>
+        <div class="off">${disc?Math.round(disc*100)+"% below list":"List rate"}</div></div>
       <div><div class="r">AED ${rate.toFixed(2)}</div><div class="rs">per employee, per month</div></div>
       <div><div class="tot">${money(total)}</div><div class="ts">${per}<br>${esc(t.payment)}</div></div>
     </div>`;
@@ -341,6 +405,7 @@ function render(){
   $("bundles").innerHTML = bundleCard(CONFIG.bundleA, false) + bundleCard(CONFIG.bundleB, true);
   $("upliftBig").textContent = CONFIG.upliftBig && CONFIG.upliftBig.trim() ? CONFIG.upliftBig : computedUplift();
   $("upliftText").textContent = CONFIG.upliftText;
+  serviceRow();
   $("steps").innerHTML = CONFIG.steps.map(s =>
     `<div class="stp"><b>${esc(s.t)}</b><span>${esc(s.who)}</span></div>`).join("");
   $("contact").textContent = CONFIG.contact;
@@ -350,6 +415,16 @@ function render(){
 const lines = s => s.split("\n").map(x=>x.trim()).filter(Boolean);
 const parts = s => s.split("|").map(x=>x.trim());
 const totalsToStr = o => Object.entries(o||{}).map(([k,v]) => k+"="+v).join("; ");
+const pctToStr = o => Object.entries(o||{}).map(([k,v]) => k+"="+v).join("; ");
+const strToPct = s => {
+  const out = {};
+  String(s||"").split(";").forEach(pair => {
+    const [k,v] = pair.split("=").map(x => (x||"").trim());
+    const n = Number(String(v||"").replace(/[^0-9.]/g,""));
+    if (k && v !== "" && !isNaN(n)) out[String(Number(k))] = n;
+  });
+  return out;
+};
 const strToTotals = s => {
   const out = {};
   String(s||"").split(";").forEach(pair => {
@@ -366,19 +441,25 @@ function fillForm(){
   $("e_decision").value = CONFIG.decisionBy;
   $("e_hc").value = CONFIG.headcount;
   $("e_terms").value = CONFIG.terms.map(t =>
-    [t.label,t.months,Math.round((t.discount||0)*100),t.payment].join(" | ")).join("\n");
+    [t.label,t.months,t.payment].join(" | ")).join("\n");
   $("e_a_name").value = CONFIG.bundleA.name;
   $("e_a_rate").value = CONFIG.bundleA.rate;
+  $("e_a_disc").value = pctToStr(CONFIG.bundleA.discounts);
   $("e_a_totals").value = totalsToStr(CONFIG.bundleA.totals);
   $("e_a_inc").value = (CONFIG.bundleA.includes||[]).join("\n");
   $("e_b_name").value = CONFIG.bundleB.name;
   $("e_b_rate").value = CONFIG.bundleB.rate;
+  $("e_b_disc").value = pctToStr(CONFIG.bundleB.discounts);
   $("e_b_totals").value = totalsToStr(CONFIG.bundleB.totals);
   $("e_b_inc").value = (CONFIG.bundleB.includes||[]).join("\n");
   const p = CONFIG.pick || {};
   $("e_pick").value = p.bundle ? [p.bundle, p.months].join(" | ") : "";
   $("e_upBig").value = CONFIG.upliftBig || "";
   $("e_upText").value = CONFIG.upliftText || "";
+  const sv0 = CONFIG.service || {};
+  $("e_svc_tier").value = sv0.show === false ? "None" : (sv0.tier || "Bronze");
+  $("e_svc_price").value = sv0.price || 0;
+  $("e_svc_disc").value = sv0.discount || 0;
   $("e_steps").value = CONFIG.steps.map(s => [s.t,s.who].join(" | ")).join("\n");
   $("e_contact").value = CONFIG.contact;
 }
@@ -390,17 +471,27 @@ function readForm(){
   CONFIG.headcount = Number($("e_hc").value)||1;
   const t = lines($("e_terms").value).map(l => {
     const p = parts(l);
-    return { label:p[0], months:Number(p[1])||12, discount:(Number(p[2])||0)/100, payment:p[3]||"" };
+    return { label:p[0], months:Number(p[1])||12, payment:p[2]||"" };
   });
   if (t.length) CONFIG.terms = t;
   CONFIG.bundleA = { name:$("e_a_name").value || "Bundle A", rate:Number($("e_a_rate").value)||1,
+    discounts:strToPct($("e_a_disc").value),
     totals:strToTotals($("e_a_totals").value), includes:lines($("e_a_inc").value) };
   CONFIG.bundleB = { name:$("e_b_name").value || "Bundle B", rate:Number($("e_b_rate").value)||1,
+    discounts:strToPct($("e_b_disc").value),
     totals:strToTotals($("e_b_totals").value), includes:lines($("e_b_inc").value) };
   const pk = parts($("e_pick").value);
   CONFIG.pick = pk[0] ? { bundle:pk[0], months:Number(pk[1])||36 } : {};
   CONFIG.upliftBig = $("e_upBig").value;
   CONFIG.upliftText = $("e_upText").value;
+  const tierRaw = ($("e_svc_tier").value || "").trim();
+  const tierKey = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1).toLowerCase();
+  CONFIG.service = {
+    show: !/^none$/i.test(tierRaw),
+    tier: ["Bronze","Silver","Gold"].includes(tierKey) ? tierKey : "Bronze",
+    price: Number($("e_svc_price").value) || 0,
+    discount: Number($("e_svc_disc").value) || 0
+  };
   CONFIG.steps = lines($("e_steps").value).slice(0,4).map(l => { const p = parts(l); return {t:p[0],who:p[1]||""}; });
   CONFIG.contact = $("e_contact").value;
 }
