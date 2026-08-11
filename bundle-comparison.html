@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Bayzat Bundle Comparison</title>
+<title>Bayzat Bundle Comparison (bright)</title>
 <style>
 /* =====================================================================
    BAYZAT BUNDLE COMPARISON, one page
@@ -40,11 +40,11 @@ body{margin:0;background:var(--bg);color:var(--text);
 .stage{max-width:1160px;margin:22px auto 60px;padding:0 20px}
 .sheet{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:24px 26px}
 
-.head{background:var(--ink);color:#fff;border-radius:12px;padding:15px 20px;
+.head{background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%);color:#fff;border-radius:12px;padding:15px 20px;
   display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
 .headlogo{height:19px;width:auto;display:none;margin-bottom:7px}
 .head h1{margin:2px 0 0;font-size:23px;font-weight:800;letter-spacing:-.01em}
-.head .meta{margin-left:auto;text-align:right;font-size:11.5px;color:#B9AEDA;line-height:1.6}
+.head .meta{margin-left:auto;text-align:right;font-size:11.5px;color:#3F1178;font-weight:600;line-height:1.6}
 @media(max-width:640px){.head .meta{margin-left:0;text-align:left}}
 
 .lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--purple);
@@ -63,13 +63,13 @@ body{margin:0;background:var(--bg);color:var(--text);
 
 .row{display:grid;grid-template-columns:.8fr .85fr .95fr;gap:8px;align-items:center;
   padding:9px 11px;border-radius:10px;background:var(--tint);margin-bottom:7px}
-.row.pick{background:var(--ink);color:#fff}
+.row.pick{background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%);color:#fff}
 .row .t{font-size:13px;font-weight:750}
 .row .off{font-size:10px;font-weight:700;color:var(--purple)}
-.row.pick .off{color:#C9A9FF}
+.row.pick .off{color:#F3E8FF}
 .row .r{font-size:14.5px;font-weight:800}
 .row .rs{font-size:9.5px;color:var(--dim)}
-.row.pick .rs,.row.pick .ts{color:#A79ACB}
+.row.pick .rs,.row.pick .ts{color:#F3E8FF}
 .row .tot{font-size:14.5px;font-weight:800;color:var(--purple);text-align:right}
 .row.pick .tot{color:#fff}
 .row .ts{font-size:9.5px;color:var(--dim);text-align:right;line-height:1.3}
@@ -174,7 +174,6 @@ body{margin:0;background:var(--bg);color:var(--text);
 
     <div class="foot">
       <span id="contact"></span>
-      <span class="note" id="note"></span>
     </div>
   </div>
 </div>
@@ -236,7 +235,6 @@ body{margin:0;background:var(--bg);color:var(--text);
       <div class="f"><label for="e_steps">Four steps</label>
         <p class="hint">One per line: action | owner</p><textarea id="e_steps"></textarea></div>
       <div class="f"><label for="e_contact">Contact line</label><input id="e_contact"></div>
-      <div class="f"><label for="e_note">Small print</label><input id="e_note"></div>
     </div>
   </div>
   <div class="pfoot">
@@ -250,8 +248,8 @@ body{margin:0;background:var(--bg);color:var(--text);
 <script type="application/json" id="cfg">
 {
   "client": "ABC Trading LLC",
-  "renewalDate": "30 April 2026",
-  "decisionBy": "15 April 2026",
+  "renewalDate": "30 November 2026",
+  "decisionBy": "15 November 2026",
   "headcount": 62,
   "terms": [
     {"label":"1 year","months":12,"discount":0,"payment":"50% upfront, 50% after 6 months"},
@@ -279,8 +277,7 @@ body{margin:0;background:var(--bg);color:var(--text);
     {"t":"Approval and signature","who":"You"},
     {"t":"Kick off the 90 day plan","who":"Joint"}
   ],
-  "contact": "Haytham Ghali  |  Customer Success, Bayzat  |  haytham@bayzat.com  |  +971 4549 0371",
-  "note": "Confirm the Premium list rate and headcount before sharing. Indicative pricing, subject to the final signed quote."
+  "contact": "Haytham Ghali  |  Customer Success, Bayzat  |  haytham@bayzat.com  |  +971 4549 0371"
 }
 </script>
 
@@ -347,7 +344,6 @@ function render(){
   $("steps").innerHTML = CONFIG.steps.map(s =>
     `<div class="stp"><b>${esc(s.t)}</b><span>${esc(s.who)}</span></div>`).join("");
   $("contact").textContent = CONFIG.contact;
-  $("note").textContent = CONFIG.note;
   document.title = CONFIG.client + " | Bayzat bundle comparison";
 }
 
@@ -385,7 +381,6 @@ function fillForm(){
   $("e_upText").value = CONFIG.upliftText || "";
   $("e_steps").value = CONFIG.steps.map(s => [s.t,s.who].join(" | ")).join("\n");
   $("e_contact").value = CONFIG.contact;
-  $("e_note").value = CONFIG.note;
 }
 
 function readForm(){
@@ -408,7 +403,6 @@ function readForm(){
   CONFIG.upliftText = $("e_upText").value;
   CONFIG.steps = lines($("e_steps").value).slice(0,4).map(l => { const p = parts(l); return {t:p[0],who:p[1]||""}; });
   CONFIG.contact = $("e_contact").value;
-  CONFIG.note = $("e_note").value;
 }
 
 function toast(m){ const e=$("toast"); e.textContent=m; e.classList.add("show");
