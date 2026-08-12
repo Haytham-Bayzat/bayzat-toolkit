@@ -257,6 +257,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
 .panel .pbody{overflow:auto;padding:20px 22px 40px;flex:1}
 .panel .pfoot{border-top:1px solid var(--edge);padding:14px 22px;display:flex;gap:10px;flex-wrap:wrap}
 .fset{margin-bottom:24px}
+.secnote{margin:0 0 12px;font-size:12px;color:var(--dimmer);line-height:1.45}
 .fset h4{margin:0 0 4px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
 .f{margin-bottom:12px}
 .f label{display:block;font-size:12.5px;font-weight:650;margin-bottom:5px}
@@ -453,7 +454,8 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
   <div class="pbody">
 
     <div class="fset">
-      <h4>The client</h4>
+      <h4>1. Header</h4>
+      <p class="secnote">The purple band at the top of the page.</p>
       <div class="f"><label for="e_client">Client name</label><input id="e_client"></div>
       <div class="f"><label for="e_package">Current package</label><input id="e_package"></div>
       <div class="f"><label for="e_since">Partner since</label><input id="e_since"></div>
@@ -463,47 +465,70 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
     </div>
 
     <div class="fset">
-      <h4>Commercials</h4>
+      <h4>2. Your account, in numbers</h4>
+      <p class="secnote">The four coloured tiles. Modules live and activation are typed in here, they are not calculated.</p>
+      <div class="f"><label for="e_kpis">The four tiles</label>
+        <p class="hint">One per line: number | label | small note</p><textarea id="e_kpis"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>3. Module activation</h4>
+      <p class="secnote">The progress meter and the module chips. The meter counts these two lists, so keep them in step with the tile above.</p>
+      <div class="f"><label for="e_on">Live now</label><p class="hint">One module per line.</p><textarea id="e_on"></textarea></div>
+      <div class="f"><label for="e_off">Included, not switched on</label><p class="hint">One module per line.</p><textarea id="e_off"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>4. What Bayzat handled this year</h4>
+      <p class="secnote">The value delivered tiles.</p>
+      <div class="f"><label for="e_value">The four tiles</label>
+        <p class="hint">One per line: number | label | small note</p><textarea id="e_value"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>5. Add ons</h4>
+      <p class="secnote">Released since their last subscription. Delete a line to remove that card.</p>
+      <div class="f"><label for="e_releases">Add on cards</label>
+        <p class="hint">One per line: title | description</p><textarea id="e_releases"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>6. The three worth starting with</h4>
+      <p class="secnote">Your recommendation for this account.</p>
+      <div class="f"><label for="e_priorities">Recommendation cards</label>
+        <p class="hint">One per line: title | what it does | why it matters here | impact</p><textarea id="e_priorities"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>7. Coming next</h4>
+      <p class="secnote">Upcoming releases. Update these each quarter from the releases page.</p>
+      <div class="f"><label for="e_coming">Upcoming releases</label>
+        <p class="hint">One per line: title | status | tentative date | description</p><textarea id="e_coming"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>8. 90 day rollout</h4>
+      <p class="secnote">The three phases with owners.</p>
+      <div class="f"><label for="e_phases">Rollout phases</label>
+        <p class="hint">One per line: when | title | owner | item; item; item</p><textarea id="e_phases"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>9. Renewal options</h4>
+      <p class="secnote">Discount and the recommended option can also be changed live on the page itself, above the pricing cards.</p>
       <div class="f"><label for="e_hc">Employees</label><input id="e_hc" type="number"></div>
       <div class="f"><label for="e_rate">List rate, AED per employee per month</label><input id="e_rate" type="number" step="0.5"></div>
       <div class="f"><label for="e_bundle">Bundle name</label>
         <p class="hint">Essential, Premium, Enterprise. Leave blank to hide the label.</p>
         <input id="e_bundle"></div>
       <div class="f"><label for="e_terms">Terms offered</label>
-        <p class="hint">One per line: label | months | discount % | payment terms | perk; perk. You can also change the discount and the recommended option live on the page.</p>
+        <p class="hint">One per line: label | months | discount % | payment terms | perk; perk</p>
         <textarea id="e_terms"></textarea></div>
     </div>
 
     <div class="fset">
-      <h4>Modules</h4>
-      <div class="f"><label for="e_on">Live now</label><p class="hint">One module per line.</p><textarea id="e_on"></textarea></div>
-      <div class="f"><label for="e_off">Included, not switched on</label><p class="hint">One module per line.</p><textarea id="e_off"></textarea></div>
-    </div>
-
-    <div class="fset">
-      <h4>Headline numbers</h4>
-      <div class="f"><label for="e_kpis">Account snapshot tiles</label>
-        <p class="hint">One per line: number | label | small note</p><textarea id="e_kpis"></textarea></div>
-      <div class="f"><label for="e_value">Value delivered tiles</label>
-        <p class="hint">One per line: number | label | small note</p><textarea id="e_value"></textarea></div>
-    </div>
-
-    <div class="fset">
-      <h4>Content</h4>
-      <div class="f"><label for="e_releases">What is new</label>
-        <p class="hint">One per line: title | description</p><textarea id="e_releases"></textarea></div>
-      <div class="f"><label for="e_priorities">Top three recommendations</label>
-        <p class="hint">One per line: title | what it does | why it matters here | impact</p><textarea id="e_priorities"></textarea></div>
-      <div class="f"><label for="e_coming">Coming next</label>
-        <p class="hint">One per line: title | status | tentative date | description</p><textarea id="e_coming"></textarea></div>
-      <div class="f"><label for="e_phases">Rollout plan</label>
-        <p class="hint">One per line: when | title | owner | item; item; item</p><textarea id="e_phases"></textarea></div>
-      <div class="f"><label for="e_steps">Next steps</label>
-        <p class="hint">One per line: action | timing | owner</p><textarea id="e_steps"></textarea></div>
-    </div>
-
-    <div class="fset">
-      <h4>Service package</h4>
+      <h4>10. Service package</h4>
+      <p class="secnote">Bronze, Silver or Gold. The inclusions shown change with the tier.</p>
       <div class="f"><label for="e_svc_tier">Package</label>
         <p class="hint">Bronze, Silver or Gold. Type None to hide this section.</p>
         <input id="e_svc_tier"></div>
@@ -517,7 +542,15 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
     </div>
 
     <div class="fset">
-      <h4>Your details</h4>
+      <h4>11. Next steps</h4>
+      <p class="secnote">The tickable checklist at the bottom of the page.</p>
+      <div class="f"><label for="e_steps">The steps</label>
+        <p class="hint">One per line: action | timing | owner</p><textarea id="e_steps"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>12. Your details</h4>
+      <p class="secnote">The contact block in the footer.</p>
       <div class="f"><label for="e_name">Name</label><input id="e_name"></div>
       <div class="f"><label for="e_role">Role line</label><input id="e_role"></div>
       <div class="f"><label for="e_email">Email</label><input id="e_email"></div>
