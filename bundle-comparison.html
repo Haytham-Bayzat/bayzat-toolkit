@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Bayzat Bundle Comparison (bright)</title>
+<title>Bayzat Bundle Comparison</title>
 <style>
 /* =====================================================================
    BAYZAT BUNDLE COMPARISON, one page
@@ -128,8 +128,11 @@ body{margin:0;background:var(--bg);color:var(--text);
   z-index:100;pointer-events:none;transition:.25s}
 .toast.show{opacity:1;transform:translateX(-50%)}
 
+body.locked #editBtn,body.locked #saveBtn{display:none!important}
+
 @media print{
   @page{size:A4 landscape;margin:7mm}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   html,body{background:#fff}
   .bar,.panel,.scrim,.toast{display:none!important}
   .headlogo{display:block}
@@ -171,6 +174,7 @@ body{margin:0;background:var(--bg);color:var(--text);
     <div class="bundles" id="bundles"></div>
 
     <div id="svcBlock"></div>
+      <div id="stuBlock"></div>
 
     <div class="strip">
       <div class="uplift">
@@ -260,6 +264,18 @@ body{margin:0;background:var(--bg);color:var(--text);
     </div>
 
     <div class="fset">
+      <h4>Bayzat Studio</h4>
+      <div class="f"><label for="e_stu_tier">Package</label>
+        <p class="hint">Standard or Advanced. Type None to hide this block.</p>
+        <input id="e_stu_tier"></div>
+      <div class="f"><label for="e_stu_price">Price, AED per year</label>
+        <p class="hint">Leave at 0 to show no price.</p>
+        <input id="e_stu_price" type="number" step="1"></div>
+      <div class="f"><label for="e_stu_disc">Discount, %</label>
+        <input id="e_stu_disc" type="number" step="1"></div>
+    </div>
+
+    <div class="fset">
       <h4>Next steps and contact</h4>
       <div class="f"><label for="e_steps">Four steps</label>
         <p class="hint">One per line: action | owner</p><textarea id="e_steps"></textarea></div>
@@ -269,6 +285,7 @@ body{margin:0;background:var(--bg);color:var(--text);
   <div class="pfoot">
     <button class="btn solid" id="applyBtn" type="button">Update page</button>
     <button class="btn" id="saveBtn2" type="button">Save as new file</button>
+    <button class="btn" id="clientBtn" type="button">Save client copy</button>
     <button class="btn" id="pdfBtn2" type="button">Download PDF</button>
   </div>
 </aside>
@@ -276,6 +293,7 @@ body{margin:0;background:var(--bg);color:var(--text);
 
 <script type="application/json" id="cfg">
 {
+  "locked": false,
   "client": "ABC Trading LLC",
   "renewalDate": "30 November 2026",
   "decisionBy": "15 November 2026",
@@ -309,6 +327,7 @@ body{margin:0;background:var(--bg);color:var(--text);
     {"t":"Kick off the 90 day plan","who":"Joint"}
   ],
   "service": {"show":true,"tier":"Gold","price":1750,"discount":0},
+  "studio": {"show":true,"tier":"Advanced","price":4000,"discount":0},
   "contact": "Haytham Ghali  |  Customer Success, Bayzat  |  haytham@bayzat.com  |  +971 4549 0371"
 }
 </script>
@@ -324,6 +343,28 @@ const TIERS = {
   Silver:{sla:"2 hour support SLA",cs:"Remote CSM",se:"20 SE hours a year",rep:"15 custom reports"},
   Gold:{sla:"30 minute support SLA",cs:"In market CSM",se:"30 SE hours a year",rep:"Unlimited reports"}
 };
+const STUDIO = {
+  Standard:{tag:"Core Automation",feat:"Task Manager &#8226; Service Desk &#8226; Workflows"},
+  Advanced:{tag:"Full Automation Suite",feat:"Everything in Standard &#8226; Bayzat Applications &#8226; API Integrations"}
+};
+function studioRow(){
+  const el = document.getElementById("stuBlock");
+  const st = CONFIG.studio || {};
+  if (st.show === false || !STUDIO[st.tier]) { el.innerHTML = ""; return; }
+  const t = STUDIO[st.tier];
+  const price = Number(st.price)||0, disc = Number(st.discount)||0;
+  const net = price*(1-disc/100);
+  const amt = price > 0
+    ? `<div class="amt"><div class="n">${disc>0?`<span class="was">${money(price)}</span>`:""}${money(net)}</div>
+       <div class="s">per year${disc>0?", "+disc+"% off":""}</div></div>`
+    : `<div class="amt"><div class="s">Priced on your quote</div></div>`;
+  el.innerHTML = `<p class="lbl" style="margin-top:16px">Bayzat Studio</p>
+    <div class="svcrow">
+      <div><div class="lvl">${esc(t.tag)}</div><div class="tier">${esc(st.tier)}</div></div>
+      <div class="feat">${t.feat}</div>
+      ${amt}
+    </div>`;
+}
 function serviceRow(){
   const el = document.getElementById("svcBlock");
   const sv = CONFIG.service || {};
@@ -398,6 +439,41 @@ function computedUplift(){
   return `${money(diff)} more over ${t.months} months, about AED ${perMonth.toFixed(2)} per employee per month`;
 }
 
+function applyLock(){
+  const on = CONFIG.locked === true;
+  document.body.classList.toggle("locked", on);
+  if (on) ["editBtn","saveBtn"].forEach(id => { const b = $(id); if (b) b.remove(); });
+}
+
+function exportHtml(locked){
+  if($("panel").classList.contains("open")){ readForm(); render(); }
+  const was = CONFIG.locked;
+  CONFIG.locked = !!locked;
+  document.querySelectorAll("input").forEach(i => i.setAttribute("value", i.value));
+  document.querySelectorAll("textarea").forEach(t => { t.textContent = t.value; });
+
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector("#cfg").textContent = "\n" + JSON.stringify(CONFIG, null, 2) + "\n";
+  const p = clone.querySelector("#panel"), sc = clone.querySelector("#scrim");
+  if (p) p.classList.remove("open");
+  if (sc) sc.classList.remove("open");
+  if (locked) {
+    ["#panel","#scrim","#toast","#editBtn","#saveBtn"].forEach(sel => {
+      const el = clone.querySelector(sel); if (el) el.remove(); });
+    const b = clone.querySelector("body");
+    if (b) b.classList.add("locked");
+  }
+  const html = "<!DOCTYPE html>\n" + clone.outerHTML;
+  CONFIG.locked = was;
+  const slug = (CONFIG.client||"client").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([html],{type:"text/html"}));
+  a.download = (locked ? "bundle-comparison-client-" : "bundle-comparison-") + slug + ".html";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast(locked ? "Client copy saved. Edit controls removed." : "Saved to your downloads folder.");
+}
+
 function render(){
   $("client").textContent = CONFIG.client;
   $("meta").innerHTML = `Bundle comparison<br>Contract renews ${esc(CONFIG.renewalDate)}<br>Decision needed by ${esc(CONFIG.decisionBy)}`;
@@ -406,9 +482,11 @@ function render(){
   $("upliftBig").textContent = CONFIG.upliftBig && CONFIG.upliftBig.trim() ? CONFIG.upliftBig : computedUplift();
   $("upliftText").textContent = CONFIG.upliftText;
   serviceRow();
+  studioRow();
   $("steps").innerHTML = CONFIG.steps.map(s =>
     `<div class="stp"><b>${esc(s.t)}</b><span>${esc(s.who)}</span></div>`).join("");
   $("contact").textContent = CONFIG.contact;
+  applyLock();
   document.title = CONFIG.client + " | Bayzat bundle comparison";
 }
 
@@ -460,6 +538,10 @@ function fillForm(){
   $("e_svc_tier").value = sv0.show === false ? "None" : (sv0.tier || "Bronze");
   $("e_svc_price").value = sv0.price || 0;
   $("e_svc_disc").value = sv0.discount || 0;
+  const st0 = CONFIG.studio || {};
+  $("e_stu_tier").value = st0.show === false ? "None" : (st0.tier || "Standard");
+  $("e_stu_price").value = st0.price || 0;
+  $("e_stu_disc").value = st0.discount || 0;
   $("e_steps").value = CONFIG.steps.map(s => [s.t,s.who].join(" | ")).join("\n");
   $("e_contact").value = CONFIG.contact;
 }
@@ -491,6 +573,14 @@ function readForm(){
     tier: ["Bronze","Silver","Gold"].includes(tierKey) ? tierKey : "Bronze",
     price: Number($("e_svc_price").value) || 0,
     discount: Number($("e_svc_disc").value) || 0
+  };
+  const stuRaw = ($("e_stu_tier").value || "").trim();
+  const stuKey = stuRaw.charAt(0).toUpperCase() + stuRaw.slice(1).toLowerCase();
+  CONFIG.studio = {
+    show: !/^none$/i.test(stuRaw),
+    tier: ["Standard","Advanced"].includes(stuKey) ? stuKey : "Standard",
+    price: Number($("e_stu_price").value) || 0,
+    discount: Number($("e_stu_disc").value) || 0
   };
   CONFIG.steps = lines($("e_steps").value).slice(0,4).map(l => { const p = parts(l); return {t:p[0],who:p[1]||""}; });
   CONFIG.contact = $("e_contact").value;
@@ -524,8 +614,9 @@ $("editBtn").onclick = () => openPanel(true);
 $("closeBtn").onclick = () => openPanel(false);
 $("scrim").onclick = () => openPanel(false);
 $("applyBtn").onclick = () => { readForm(); render(); openPanel(false); toast("Page updated."); };
-$("saveBtn").onclick = saveFile;
-$("saveBtn2").onclick = saveFile;
+$("saveBtn").onclick = () => exportHtml(false);
+$("saveBtn2").onclick = () => exportHtml(false);
+$("clientBtn").onclick = () => { exportHtml(true); openPanel(false); };
 $("pdfBtn").onclick = toPdf;
 $("pdfBtn2").onclick = toPdf;
 document.addEventListener("keydown", e => { if(e.key === "Escape") openPanel(false); });

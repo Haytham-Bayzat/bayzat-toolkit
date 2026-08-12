@@ -170,6 +170,9 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
 .discgrp input:focus{outline:2px solid var(--purple);outline-offset:1px}
 .calchint{margin-left:auto;font-size:12.5px;color:var(--dimmer);max-width:330px}
 
+.printbasis{display:none}
+body.locked .printbasis{display:block;font-size:13px;color:var(--dim);margin:0 0 16px}
+@media print{.printbasis{display:block;font-size:12px;color:var(--dim);margin:0 0 12px}}
 .bundlechip{display:inline-block;font-size:12px;font-weight:750;padding:7px 15px;border-radius:99px;
   background:var(--purple-soft);color:var(--purple);margin-bottom:16px}
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -275,12 +278,73 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
   font-weight:600;z-index:100;pointer-events:none;transition:.25s}
 .toast.show{opacity:1;transform:translateX(-50%)}
 
+body.locked .calc,body.locked #editBtn,body.locked #themeBtn{display:none!important}
+#pdfLocked{display:none}
+body.locked #pdfLocked{display:inline-block}
+body.locked .plans{margin-top:4px}
+body.locked .step{cursor:default}
+body.locked .step:hover{border-color:var(--edge)}
+
 @media print{
-  .topbar,.panel,.scrim,.calchint,.toast{display:none!important}
-  body{background:#fff}
-  .hero,.herologo{background:#7C3AED!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .card,.plan,.meter,.mod,.calc,.step{box-shadow:none;border-color:#ddd;break-inside:avoid}
-  section{padding:24px 0}
+  @page{size:A4 portrait;margin:11mm}
+
+  /* always print the light theme, even if the screen is in dark mode */
+  :root[data-theme="dark"]{
+    --bg:#FBFAFF; --bg-2:#F4EFFF; --surface:#FFFFFF; --surface-2:#FAF7FF;
+    --text:#1A1330; --dim:#6B6485; --dimmer:#8F88A8; --edge:#E9E2FA;
+    --purple:#7C3AED; --purple-soft:#F1E8FF;
+    --mint:#0E9E82; --mint-soft:#E2F7F1;
+    --amber:#C97A00; --amber-soft:#FFF2D9;
+    --sky:#2A6FE0; --sky-soft:#E7F0FE;
+    --coral:#DB4A63; --coral-soft:#FDECEF;
+  }
+  :root[data-theme="dark"] .hero{
+    background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%)!important}
+  :root[data-theme="dark"] .hero:after{background:rgba(255,255,255,.13)}
+  :root[data-theme="dark"] .hero:before{background:rgba(255,255,255,.10)}
+  :root[data-theme="dark"] .pill{border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.15);color:#fff}
+  :root[data-theme="dark"] .pill.hot{background:#fff;color:#5B21B6;border-color:#fff}
+  :root[data-theme="dark"] .plan.best{
+    background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%)!important}
+
+  /* keep every colour, not just the hero */
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+
+  /* chrome that should never reach paper */
+  .topbar,.panel,.scrim,.toast,.calc,.calchint{display:none!important}
+
+  html,body{background:#fff}
+  .wrap{max-width:none;padding:0 4mm}
+  section{padding:14px 0;break-inside:auto}
+  .hero{padding:26px 0 24px}
+  .hero h1{font-size:34px}
+  .hero .lede{font-size:14px;margin-bottom:18px}
+  .pill{font-size:11px;padding:6px 12px}
+
+  h2{font-size:21px;break-after:avoid;page-break-after:avoid}
+  .sechead{break-after:avoid;page-break-after:avoid}
+  .sub{font-size:12.5px;margin-bottom:14px;break-after:avoid;page-break-after:avoid}
+
+  /* keep a block with its own heading */
+  .grid,.plans,.actwrap,.svcwrap,.steps{break-inside:avoid;page-break-inside:avoid}
+  .card,.kpi,.plan,.phase,.svccard,.meter,.mod,.step{break-inside:avoid;page-break-inside:avoid;
+    box-shadow:none!important}
+
+  .card,.plan,.svccard,.meter,.mod,.step{border-color:#DCD4F0!important}
+  .bundlechip{margin-bottom:10px}
+
+  /* tighten the type so more fits per page */
+  .kpi .n{font-size:28px}
+  .rate{font-size:26px}
+  .meter .big{font-size:38px}
+  .svcprice{font-size:24px}
+  .card p,.perk,.totals,.svcitem{font-size:11.5px}
+
+  /* unticked checkboxes must stay empty on paper */
+  .box{color:transparent!important}
+  .step.done .box{color:#fff!important}
+
+  a[href]:after{content:none!important}
 }
 </style>
 </head>
@@ -300,6 +364,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
       <a href="#studio">Studio</a>
       <a href="#next">Next steps</a>
       <button class="btn" id="themeBtn" type="button">Dark mode</button>
+      <button class="btn" id="pdfLocked" type="button">Print or PDF</button>
       <button class="btn solid" id="editBtn" type="button">Edit details</button>
     </nav>
   </div>
@@ -414,6 +479,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
       <p class="calchint">Figures update as you type. Confirm the final numbers against the signed quote before anything is committed.</p>
     </div>
     <div class="bundlechip" id="bundleChip"></div>
+    <p class="printbasis" id="printBasis"></p>
     <div class="plans" id="plans"></div>
   </div>
 </section>
@@ -589,6 +655,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
   <div class="pfoot">
     <button class="btn solid" id="applyBtn" type="button">Update page</button>
     <button class="btn" id="saveBtn" type="button">Save as new file</button>
+    <button class="btn" id="clientBtn" type="button">Save client copy</button>
     <button class="btn" id="printBtn" type="button">Print or PDF</button>
   </div>
 </aside>
@@ -596,6 +663,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
 
 <script type="application/json" id="cfg">
 {
+  "locked": false,
   "client": "ABC Trading LLC",
   "package": "Essential",
   "since": "2023",
@@ -868,6 +936,8 @@ function pricing(){
 
   $("bundleChip").textContent = (CONFIG.bundleName || "") + " plan";
   $("bundleChip").style.display = CONFIG.bundleName ? "inline-block" : "none";
+  $("printBasis").textContent = "Based on " + hc + " employees at a list rate of AED "
+    + list.toFixed(2) + " per employee, per month.";
   const baseAnnual = list * hc * 12;
   $("plans").innerHTML = CONFIG.terms.map(t => {
     const rate = list * (1 - (t.discount || 0));
@@ -905,12 +975,21 @@ function footerBlock(){
   $("csmRole").textContent = c.role;
   $("csmContact").innerHTML = `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a> &nbsp;|&nbsp; ${esc(c.phone)}`;
 }
+function applyLock(){
+  const on = CONFIG.locked === true;
+  document.body.classList.toggle("locked", on);
+  if (on) {
+    const nav = document.querySelector(".topnav");
+    ["editBtn","themeBtn"].forEach(id => { const b = $(id); if (b) b.remove(); });
+  }
+}
+
 function renderAll(){
   $("hc").value = CONFIG.headcount;
   $("rate").value = CONFIG.listRate;
   hero(); tiles("kpis", CONFIG.kpis); tiles("valueGrid", CONFIG.value);
   modules(); cards("releases", CONFIG.releases); coming(); priorities(); phases(); service(); studio();
-  buildPricingControls(); pricing(); steps(); footerBlock();
+  buildPricingControls(); pricing(); steps(); footerBlock(); applyLock();
   document.title = CONFIG.client + " | Bayzat renewal review";
 }
 
@@ -1010,6 +1089,43 @@ function openPanel(v){
   $("panel").classList.toggle("open", v);
   $("scrim").classList.toggle("open", v);
 }
+function exportHtml(locked){
+  if($("panel").classList.contains("open")){ readForm(); renderAll(); }
+  const wasLocked = CONFIG.locked;
+  CONFIG.locked = !!locked;
+
+  // a cloned node keeps attributes, not live values, so write the values back first
+  document.querySelectorAll("input").forEach(i => i.setAttribute("value", i.value));
+  document.querySelectorAll("textarea").forEach(t => { t.textContent = t.value; });
+  document.querySelectorAll("select").forEach(sel => {
+    Array.from(sel.options).forEach(o => {
+      if (o.selected) o.setAttribute("selected",""); else o.removeAttribute("selected");
+    });
+  });
+
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector("#cfg").textContent = "\n" + JSON.stringify(CONFIG, null, 2) + "\n";
+  const p = clone.querySelector("#panel"), sc = clone.querySelector("#scrim");
+  if (p) p.classList.remove("open");
+  if (sc) sc.classList.remove("open");
+  if (locked) {
+    // strip the internal controls out of the file rather than just hiding them
+    [".calc","#panel","#scrim","#toast","#editBtn","#themeBtn","#clientBtn","#saveBtn","#printBtn"]
+      .forEach(sel => { const el = clone.querySelector(sel); if (el) el.remove(); });
+    const b = clone.querySelector("body");
+    if (b) b.classList.add("locked");
+  }
+  const html = "<!DOCTYPE html>\n" + clone.outerHTML;
+  CONFIG.locked = wasLocked;
+  const slug = (CONFIG.client||"client").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([html],{type:"text/html"}));
+  a.download = (locked ? "renewal-review-client-" : "renewal-review-") + slug + ".html";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast(locked ? "Client copy saved. Edit controls removed." : "Saved to your downloads folder.");
+}
+
 function saveFile(){
   readForm(); renderAll();
   const clone = document.documentElement.cloneNode(true);
@@ -1030,7 +1146,9 @@ $("editBtn").onclick = () => openPanel(true);
 $("closeBtn").onclick = () => openPanel(false);
 $("scrim").onclick = () => openPanel(false);
 $("applyBtn").onclick = () => { readForm(); buildPricingControls(); renderAll(); openPanel(false); toast("Page updated."); };
-$("saveBtn").onclick = saveFile;
+$("pdfLocked").onclick = () => window.print();
+$("saveBtn").onclick = () => exportHtml(false);
+$("clientBtn").onclick = () => { exportHtml(true); openPanel(false); };
 $("printBtn").onclick = () => { openPanel(false); setTimeout(() => window.print(), 250); };
 $("themeBtn").onclick = () => {
   const dark = document.documentElement.dataset.theme === "dark";
