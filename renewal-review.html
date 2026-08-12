@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Bayzat Renewal Review (bright)</title>
+<title>Bayzat Renewal Review</title>
 <style>
 /* =====================================================================
    BAYZAT RENEWAL REVIEW
@@ -219,6 +219,10 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
 .svcitem b{font-weight:650}
 .svcitem span{color:var(--dim)}
 
+.stuextra{margin-top:16px;padding-top:13px;border-top:1px solid var(--edge);font-size:12.5px;color:var(--dim)}
+.stuextra b{display:block;color:var(--text);font-size:12px;margin-bottom:6px}
+.stuextra div{margin-bottom:4px}
+
 /* ---------- checklist ---------- */
 .steps{display:grid;gap:10px}
 .step{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1px solid var(--edge);
@@ -293,6 +297,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
       <a href="#plan">Plan</a>
       <a href="#pricing">Renewal</a>
       <a href="#service">Support</a>
+      <a href="#studio">Studio</a>
       <a href="#next">Next steps</a>
       <button class="btn" id="themeBtn" type="button">Dark mode</button>
       <button class="btn solid" id="editBtn" type="button">Edit details</button>
@@ -422,6 +427,15 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
   </div>
 </section>
 
+<section id="studio">
+  <div class="wrap">
+    <p class="sechead">Bayzat Studio</p>
+    <h2 id="stuTitle">Customisation and automation</h2>
+    <p class="sub">Automate internal processes and extend the platform to fit the way your business runs.</p>
+    <div class="svcwrap" id="stuWrap"></div>
+  </div>
+</section>
+
 <section id="next" class="tinted">
   <div class="wrap">
     <p class="sechead">Next steps</p>
@@ -542,14 +556,29 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
     </div>
 
     <div class="fset">
-      <h4>11. Next steps</h4>
+      <h4>11. Bayzat Studio</h4>
+      <p class="secnote">Standard or Advanced. The inclusions shown change with the tier.</p>
+      <div class="f"><label for="e_stu_tier">Package</label>
+        <p class="hint">Standard or Advanced. Type None to hide this section.</p>
+        <input id="e_stu_tier"></div>
+      <div class="f"><label for="e_stu_price">Price, AED per year</label>
+        <p class="hint">Leave at 0 to show no price.</p>
+        <input id="e_stu_price" type="number" step="1"></div>
+      <div class="f"><label for="e_stu_disc">Discount, %</label>
+        <p class="hint">Leave at 0 for no discount.</p>
+        <input id="e_stu_disc" type="number" step="1"></div>
+      <div class="f"><label for="e_stu_note">Note under the price</label><input id="e_stu_note"></div>
+    </div>
+
+    <div class="fset">
+      <h4>12. Next steps</h4>
       <p class="secnote">The tickable checklist at the bottom of the page.</p>
       <div class="f"><label for="e_steps">The steps</label>
         <p class="hint">One per line: action | timing | owner</p><textarea id="e_steps"></textarea></div>
     </div>
 
     <div class="fset">
-      <h4>12. Your details</h4>
+      <h4>13. Your details</h4>
       <p class="secnote">The contact block in the footer.</p>
       <div class="f"><label for="e_name">Name</label><input id="e_name"></div>
       <div class="f"><label for="e_role">Role line</label><input id="e_role"></div>
@@ -626,6 +655,7 @@ h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing
     {"t":"Kick off the 90 day plan","m":"Week of the renewal date","who":"Joint"}
   ],
   "service": {"show":true,"tier":"Gold","price":1750,"discount":0,"note":"Renewed annually alongside your subscription."},
+  "studio": {"show":true,"tier":"Advanced","price":4000,"discount":0,"note":"Priced against your headcount, renewed annually."},
   "csm": {"name":"Haytham Ghali","role":"Your dedicated Customer Success Manager","email":"haytham@bayzat.com","phone":"+971 4549 0371"}
 }
 </script>
@@ -743,6 +773,55 @@ function service(){
     </div>`;
 }
 
+const STUDIO = {
+  Standard: { tag:"Core Automation",
+    lead:"The automation toolkit. Put your internal processes on the platform instead of in inboxes and spreadsheets.",
+    items:[
+      ["Task Manager","Assign work with owners and deadlines, tracked from one dashboard"],
+      ["Service Desk","Employee tickets with an owner, a status and a response time"],
+      ["Workflows","Approvals, notifications and handovers trigger automatically"]
+    ], extra:[] },
+  Advanced: { tag:"Full Automation Suite",
+    lead:"Everything in Standard, plus the customisation toolkit. Build on your Bayzat data and connect the platform to the rest of your stack.",
+    items:[
+      ["Everything in Standard","Task Manager, Service Desk and Workflows included"],
+      ["Bayzat Applications","Build apps on your Bayzat data with AI"],
+      ["API Integrations","Connect Bayzat to your other systems, including accounting"]
+    ],
+    extra:["Additional APIs or apps beyond the included count, priced a la carte",
+           "Custom builds priced per project, scoped with a solutions engineer"] }
+};
+
+function studio(){
+  const sec = document.getElementById("studio");
+  const st = CONFIG.studio || {};
+  if (st.show === false || !STUDIO[st.tier]) { sec.style.display = "none"; return; }
+  sec.style.display = "";
+  const t = STUDIO[st.tier];
+  const price = Number(st.price)||0, disc = Number(st.discount)||0;
+  const net = price*(1-disc/100);
+  const priceBlock = price > 0
+    ? `<div class="svcprice">${disc>0?`<span class="svcwas">${money(price)}</span>`:""}${money(net)}</div>
+       <div class="svcper">per year</div>
+       ${disc>0?`<span class="svcoff">${disc}% off, saving ${money(price-net)}</span>`:""}`
+    : `<div class="svcper" style="margin-top:14px">Priced to your headcount, confirmed on your quote.</div>`;
+  $("stuWrap").innerHTML = `
+    <div class="svccard">
+      <span class="svcbadge">${esc(t.tag)}</span>
+      <div class="svctier">${esc(st.tier)}</div>
+      ${priceBlock}
+      ${st.note ? `<p class="svcnote">${esc(st.note)}</p>` : ""}
+    </div>
+    <div class="svccard">
+      <span class="svcbadge">What ${esc(st.tier)} includes</span>
+      <p class="svcnote" style="margin:0 0 14px">${esc(t.lead)}</p>
+      <div class="svclist">
+        ${t.items.map(r => `<div class="svcitem"><i></i><span><b>${esc(r[0])}</b><br>${esc(r[1])}</span></div>`).join("")}
+      </div>
+      ${t.extra.length ? `<div class="stuextra"><b>Add ons available</b>${t.extra.map(x=>`<div>${esc(x)}</div>`).join("")}</div>` : ""}
+    </div>`;
+}
+
 function priorities(){
   $("priorities").innerHTML = CONFIG.priorities.map(p => `
     <div class="card">
@@ -830,7 +909,7 @@ function renderAll(){
   $("hc").value = CONFIG.headcount;
   $("rate").value = CONFIG.listRate;
   hero(); tiles("kpis", CONFIG.kpis); tiles("valueGrid", CONFIG.value);
-  modules(); cards("releases", CONFIG.releases); coming(); priorities(); phases(); service();
+  modules(); cards("releases", CONFIG.releases); coming(); priorities(); phases(); service(); studio();
   buildPricingControls(); pricing(); steps(); footerBlock();
   document.title = CONFIG.client + " | Bayzat renewal review";
 }
@@ -860,6 +939,11 @@ function fillForm(){
   $("e_svc_price").value = sv0.price || 0;
   $("e_svc_disc").value = sv0.discount || 0;
   $("e_svc_note").value = sv0.note || "";
+  const st0 = CONFIG.studio || {};
+  $("e_stu_tier").value = st0.show === false ? "None" : (st0.tier || "Standard");
+  $("e_stu_price").value = st0.price || 0;
+  $("e_stu_disc").value = st0.discount || 0;
+  $("e_stu_note").value = st0.note || "";
   $("e_name").value = CONFIG.csm.name; $("e_role").value = CONFIG.csm.role;
   $("e_email").value = CONFIG.csm.email; $("e_phone").value = CONFIG.csm.phone;
 }
@@ -904,6 +988,15 @@ function readForm(){
     price: Number($("e_svc_price").value) || 0,
     discount: Number($("e_svc_disc").value) || 0,
     note: $("e_svc_note").value
+  };
+  const stuRaw = ($("e_stu_tier").value || "").trim();
+  const stuKey = stuRaw.charAt(0).toUpperCase() + stuRaw.slice(1).toLowerCase();
+  CONFIG.studio = {
+    show: !/^none$/i.test(stuRaw),
+    tier: ["Standard","Advanced"].includes(stuKey) ? stuKey : "Standard",
+    price: Number($("e_stu_price").value) || 0,
+    discount: Number($("e_stu_disc").value) || 0,
+    note: $("e_stu_note").value
   };
   CONFIG.csm = { name:$("e_name").value, role:$("e_role").value, email:$("e_email").value, phone:$("e_phone").value };
 }
