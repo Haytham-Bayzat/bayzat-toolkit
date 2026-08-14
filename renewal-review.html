@@ -222,6 +222,8 @@ body.locked .printbasis{display:block;font-size:13px;color:var(--dim);margin:0 0
 .svcitem b{font-weight:650}
 .svcitem span{color:var(--dim)}
 
+.optchip{display:inline-block;font-size:12px;font-weight:750;padding:7px 15px;border-radius:99px;
+  background:var(--amber-soft);color:var(--amber);margin:0 0 18px}
 .stuextra{margin-top:16px;padding-top:13px;border-top:1px solid var(--edge);font-size:12.5px;color:var(--dim)}
 .stuextra b{display:block;color:var(--text);font-size:12px;margin-bottom:6px}
 .stuextra div{margin-bottom:4px}
@@ -498,6 +500,7 @@ body.locked .step:hover{border-color:var(--edge)}
     <p class="sechead">Bayzat Studio</p>
     <h2 id="stuTitle">Customisation and automation</h2>
     <p class="sub">Automate internal processes and extend the platform to fit the way your business runs.</p>
+    <p class="optchip">Optional add on, not part of your current subscription</p>
     <div class="svcwrap" id="stuWrap"></div>
   </div>
 </section>
@@ -537,7 +540,9 @@ body.locked .step:hover{border-color:var(--edge)}
       <h4>1. Header</h4>
       <p class="secnote">The purple band at the top of the page.</p>
       <div class="f"><label for="e_client">Client name</label><input id="e_client"></div>
-      <div class="f"><label for="e_package">Current package</label><input id="e_package"></div>
+      <div class="f"><label for="e_package">Current package</label>
+        <p class="hint">Essential, Premium or Enterprise. The package tile in section 2 follows this automatically.</p>
+        <input id="e_package"></div>
       <div class="f"><label for="e_since">Partner since</label><input id="e_since"></div>
       <div class="f"><label for="e_renewal">Renewal date</label><input id="e_renewal" type="date"></div>
       <div class="f"><label for="e_decision">Decision needed by</label><input id="e_decision"></div>
@@ -546,14 +551,21 @@ body.locked .step:hover{border-color:var(--edge)}
 
     <div class="fset">
       <h4>2. Your account, in numbers</h4>
-      <p class="secnote">The four coloured tiles. Modules live and activation are typed in here, they are not calculated.</p>
+      <p class="secnote">The four coloured tiles. The Current package tile follows the field in section 1, so leave it as it is. The rest are typed in.</p>
+      <div class="f"><label for="e_contracted">Contracted employees</label>
+        <p class="hint">The headcount on the contract.</p>
+        <input id="e_contracted" type="number" min="0" step="1"></div>
+      <div class="f"><label for="e_active">Active employees on the platform</label>
+        <p class="hint">Activation percentage is worked out from these two.</p>
+        <input id="e_active" type="number" min="0" step="1"></div>
       <div class="f"><label for="e_kpis">The four tiles</label>
-        <p class="hint">One per line: number | label | small note</p><textarea id="e_kpis"></textarea></div>
+        <p class="hint">One per line: number | label | small note. Tiles labelled Active employees, Employee activation, Modules live and Current package fill themselves in, so leave their numbers as they are.</p>
+        <textarea id="e_kpis"></textarea></div>
     </div>
 
     <div class="fset">
       <h4>3. Module activation</h4>
-      <p class="secnote">The progress meter and the module chips. The meter counts these two lists, so keep them in step with the tile above.</p>
+      <p class="secnote">The progress meter, the module chips and the Modules live tile in section 2 all count these two lists.</p>
       <div class="f"><label for="e_on">Live now</label><p class="hint">One module per line.</p><textarea id="e_on"></textarea></div>
       <div class="f"><label for="e_off">Included, not switched on</label><p class="hint">One module per line.</p><textarea id="e_off"></textarea></div>
     </div>
@@ -561,8 +573,20 @@ body.locked .step:hover{border-color:var(--edge)}
     <div class="fset">
       <h4>4. What Bayzat handled this year</h4>
       <p class="secnote">The value delivered tiles.</p>
+      <div class="f"><label for="e_runs">Payroll runs processed</label>
+        <input id="e_runs" type="number" min="0" step="1"></div>
+      <div class="f"><label for="e_requests">Employee requests handled</label>
+        <p class="hint">Leave, documents, letters and expenses handled in the platform.</p>
+        <input id="e_requests" type="number" min="0" step="1"></div>
+      <div class="f"><label for="e_minsreq">Minutes saved per request</label>
+        <p class="hint">Default 15. Lower it if you want a more conservative number.</p>
+        <input id="e_minsreq" type="number" min="0" step="1"></div>
+      <div class="f"><label for="e_hrsrun">Hours saved per payroll run</label>
+        <p class="hint">Default 4.</p>
+        <input id="e_hrsrun" type="number" min="0" step="0.5"></div>
       <div class="f"><label for="e_value">The four tiles</label>
-        <p class="hint">One per line: number | label | small note</p><textarea id="e_value"></textarea></div>
+        <p class="hint">One per line: number | label | small note. Payroll runs, requests handled and admin hours saved fill themselves in from the numbers above.</p>
+        <textarea id="e_value"></textarea></div>
     </div>
 
     <div class="fset">
@@ -671,6 +695,7 @@ body.locked .step:hover{border-color:var(--edge)}
   "decisionBy": "15 November 2026",
   "lede": "A look back at the year, what your team is getting from Bayzat today, and the plan for 2026.",
   "headcount": 62,
+  "derived": {"contracted":62,"active":60,"payrollRuns":12,"requests":1240,"minsPerRequest":15,"hoursPerRun":4},
   "listRate": 29,
   "bundleName": "Essential",
   "terms": [
@@ -682,12 +707,12 @@ body.locked .step:hover{border-color:var(--edge)}
     {"n":"62","l":"Active employees","s":"on the platform today"},
     {"n":"Essential","l":"Current package","s":"core HR and payroll"},
     {"n":"8 / 13","l":"Modules live","s":"five included, not yet on"},
-    {"n":"96%","l":"Employee activation","s":"above the platform average"}
+    {"n":"97%","l":"Employee activation","s":"above the platform average"}
   ],
   "value": [
     {"n":"12","l":"Payroll runs processed","s":"WPS compliant, zero missed cycles"},
     {"n":"1,240","l":"Employee requests handled","s":"leave, documents, letters, expenses"},
-    {"n":"310","l":"Admin hours saved","s":"roughly 1.5 days of HR time a week"},
+    {"n":"358","l":"Admin hours saved","s":"roughly 1.5 days of HR time a week"},
     {"n":"2h 10m","l":"Median support response","s":"inside the support SLA"}
   ],
   "modulesOn": ["Employee Records","Company Documents","Employee Documents","Announcements","Payroll","Work Expenses","Air Tickets","Letter Requests"],
@@ -750,11 +775,63 @@ function hero(){
     `<span class="pill hot">${esc(when)}, decision by ${esc(CONFIG.decisionBy)}</span>`
   ].join("");
 }
+// numbers that are worked out rather than typed
+function derived(){
+  const d = CONFIG.derived || {};
+  const contracted = Number(d.contracted) || 0;
+  const active     = Number(d.active) || 0;
+  const runs       = Number(d.payrollRuns) || 0;
+  const requests   = Number(d.requests) || 0;
+  const minsReq    = (d.minsPerRequest === undefined || d.minsPerRequest === "") ? 15 : Number(d.minsPerRequest);
+  const hrsRun     = (d.hoursPerRun === undefined || d.hoursPerRun === "") ? 4 : Number(d.hoursPerRun);
+
+  const activation = (contracted > 0 && active > 0)
+    ? Math.round(active / contracted * 100) : null;
+  const hours = Math.round((requests * minsReq) / 60 + runs * hrsRun);
+
+  return { contracted, active, runs, requests, minsReq, hrsRun, activation, hours };
+}
+
+const PKG_BLURB = {
+  "Essential":  "core HR and payroll",
+  "Premium":    "the full HR operation",
+  "Enterprise": "everything Bayzat does"
+};
+
 function tiles(el, arr){
-  $(el).innerHTML = arr.map((k,i) => `
-    <div class="card kpi ${TINTS[i % TINTS.length]}">
-      <div class="n">${esc(k.n)}</div><div class="l">${esc(k.l)}</div><div class="s">${esc(k.s)}</div>
-    </div>`).join("");
+  $(el).innerHTML = arr.map((k,i) => {
+    let n = k.n, note = k.s;
+    const L = (k.l || "").toLowerCase();
+    const D = derived();
+
+    // the package tile follows the Current package field so you only type it once
+    if (L === "current package") {
+      n = CONFIG.package || n;
+      if (!note || PKG_BLURB[n]) note = PKG_BLURB[n] || note;
+    }
+    // these three are worked out from the numbers in the panel
+    if (L === "active employees" && D.active) {
+      n = D.active.toLocaleString("en-AE");
+      if (D.contracted) note = "of " + D.contracted.toLocaleString("en-AE") + " contracted";
+    }
+    if (L === "employee activation" && D.activation !== null) {
+      n = D.activation + "%";
+      note = D.active.toLocaleString("en-AE") + " of " + D.contracted.toLocaleString("en-AE") + " employees active";
+    }
+    if (L === "modules live") {
+      const on = (CONFIG.modulesOn||[]).length, off = (CONFIG.modulesOff||[]).length;
+      if (on + off > 0) { n = on + " / " + (on + off); note = off + " included, not yet on"; }
+    }
+    if (L === "payroll runs processed" && D.runs) n = D.runs.toLocaleString("en-AE");
+    if (L === "employee requests handled" && D.requests) n = D.requests.toLocaleString("en-AE");
+    if (L === "admin hours saved" && D.hours) {
+      n = D.hours.toLocaleString("en-AE");
+      note = "based on " + D.minsReq + " min per request and " + D.hrsRun + " hours per payroll run";
+    }
+    return `<div class="card kpi ${TINTS[i % TINTS.length]}">
+      <div class="n">${esc(n)}</div><div class="l">${esc(k.l)}</div><div class="s">${esc(note)}</div>
+    </div>`;
+  }).join("");
 }
 function modules(){
   const on = CONFIG.modulesOn, off = CONFIG.modulesOff, total = on.length + off.length;
@@ -878,6 +955,7 @@ function studio(){
       <span class="svcbadge">${esc(t.tag)}</span>
       <div class="svctier">${esc(st.tier)}</div>
       ${priceBlock}
+      <p class="svcnote" style="margin-top:12px"><b>Priced separately from your renewal.</b> Nothing here is included in the subscription figures above.</p>
       ${st.note ? `<p class="svcnote">${esc(st.note)}</p>` : ""}
     </div>
     <div class="svccard">
@@ -1006,6 +1084,13 @@ function fillForm(){
     [t.label, t.months, Math.round((t.discount||0)*100), t.payment, (t.perks||[]).join("; ")].join(" | ")).join("\n");
   $("e_on").value = CONFIG.modulesOn.join("\n");
   $("e_off").value = CONFIG.modulesOff.join("\n");
+  const d0 = CONFIG.derived || {};
+  $("e_contracted").value = d0.contracted || "";
+  $("e_active").value = d0.active || "";
+  $("e_runs").value = d0.payrollRuns || "";
+  $("e_requests").value = d0.requests || "";
+  $("e_minsreq").value = (d0.minsPerRequest === undefined ? 15 : d0.minsPerRequest);
+  $("e_hrsrun").value = (d0.hoursPerRun === undefined ? 4 : d0.hoursPerRun);
   $("e_kpis").value = CONFIG.kpis.map(k => [k.n,k.l,k.s].join(" | ")).join("\n");
   $("e_value").value = CONFIG.value.map(k => [k.n,k.l,k.s].join(" | ")).join("\n");
   $("e_releases").value = CONFIG.releases.map(r => [r.h,r.p].join(" | ")).join("\n");
@@ -1049,8 +1134,37 @@ function readForm(){
   }
   CONFIG.modulesOn  = lines($("e_on").value);
   CONFIG.modulesOff = lines($("e_off").value);
+  CONFIG.derived = {
+    contracted: Number($("e_contracted").value) || 0,
+    active: Number($("e_active").value) || 0,
+    payrollRuns: Number($("e_runs").value) || 0,
+    requests: Number($("e_requests").value) || 0,
+    minsPerRequest: $("e_minsreq").value === "" ? 15 : Number($("e_minsreq").value),
+    hoursPerRun: $("e_hrsrun").value === "" ? 4 : Number($("e_hrsrun").value)
+  };
   CONFIG.kpis  = lines($("e_kpis").value).map(l => { const p = parts(l); return {n:p[0],l:p[1]||"",s:p[2]||""}; });
+  // rewrite the derived tile text so the panel matches what the page shows
+  CONFIG.kpis.forEach(k => {
+    const L = (k.l || "").toLowerCase();
+    if (L === "current package") { k.n = CONFIG.package; k.s = PKG_BLURB[CONFIG.package] || k.s; }
+    if (L === "active employees" && CONFIG.derived.active) k.n = String(CONFIG.derived.active);
+    if (L === "employee activation" && CONFIG.derived.contracted && CONFIG.derived.active)
+      k.n = Math.round(CONFIG.derived.active / CONFIG.derived.contracted * 100) + "%";
+    if (L === "modules live") {
+      const on = CONFIG.modulesOn.length, off = CONFIG.modulesOff.length;
+      if (on + off > 0) { k.n = on + " / " + (on + off); k.s = off + " included, not yet on"; }
+    }
+  });
+
   CONFIG.value = lines($("e_value").value).map(l => { const p = parts(l); return {n:p[0],l:p[1]||"",s:p[2]||""}; });
+  const Dv = derived();
+  CONFIG.value.forEach(k => {
+    const L = (k.l || "").toLowerCase();
+    if (L === "payroll runs processed" && Dv.runs) k.n = String(Dv.runs);
+    if (L === "employee requests handled" && Dv.requests) k.n = Dv.requests.toLocaleString("en-AE");
+    if (L === "admin hours saved" && Dv.hours) k.n = Dv.hours.toLocaleString("en-AE");
+  });
+
   CONFIG.releases = lines($("e_releases").value).map(l => { const p = parts(l); return {h:p[0],p:p[1]||""}; });
   CONFIG.coming = lines($("e_coming").value).map(l => { const p = parts(l);
     return {h:p[0],status:p[1]||"",when:p[2]||"",p:p[3]||""}; });

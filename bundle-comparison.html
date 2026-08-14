@@ -80,6 +80,8 @@ body{margin:0;background:var(--bg);color:var(--text);
 .chip{background:var(--purple-soft);color:#5B21B6;border-radius:99px;padding:4px 10px;font-size:10.5px;font-weight:650}
 .chip.plus{background:var(--mint-soft);color:#0A7A63}
 
+.optmini{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--amber-soft);color:var(--amber);padding:3px 8px;border-radius:99px;margin-left:6px}
 .svcrow{border:1px solid var(--edge);border-radius:12px;padding:12px 15px;margin-top:9px;
   display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .svcrow .tier{font-size:15px;font-weight:800}
@@ -358,7 +360,7 @@ function studioRow(){
     ? `<div class="amt"><div class="n">${disc>0?`<span class="was">${money(price)}</span>`:""}${money(net)}</div>
        <div class="s">per year${disc>0?", "+disc+"% off":""}</div></div>`
     : `<div class="amt"><div class="s">Priced on your quote</div></div>`;
-  el.innerHTML = `<p class="lbl" style="margin-top:16px">Bayzat Studio</p>
+  el.innerHTML = `<p class="lbl" style="margin-top:16px">Bayzat Studio <span class="optmini">optional add on</span></p>
     <div class="svcrow">
       <div><div class="lvl">${esc(t.tag)}</div><div class="tier">${esc(st.tier)}</div></div>
       <div class="feat">${t.feat}</div>
