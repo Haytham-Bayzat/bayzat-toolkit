@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Rhong Tiam Restaurant LLC | Bayzat renewal review</title>
+<style>
+/* =====================================================================
+   BAYZAT RENEWAL REVIEW
+   You do not need to edit this file by hand.
+   Open it, click "Edit details" top right, fill the form, then click
+   "Save as new file" to get a copy for that client.
+   ===================================================================== */
+
+:root[data-theme="light"]{
+  --bg:#FBFAFF; --bg-2:#F4EFFF; --surface:#FFFFFF; --surface-2:#FAF7FF;
+  --text:#1A1330; --dim:#6B6485; --dimmer:#8F88A8; --edge:#E9E2FA;
+  --purple:#7C3AED; --purple-soft:#F1E8FF;
+  --mint:#0E9E82; --mint-soft:#E2F7F1;
+  --amber:#C97A00; --amber-soft:#FFF2D9;
+  --sky:#2A6FE0; --sky-soft:#E7F0FE;
+  --coral:#DB4A63; --coral-soft:#FDECEF;
+  --shadow:0 1px 2px rgba(26,19,48,.05), 0 10px 30px -18px rgba(124,58,237,.35);
+}
+:root[data-theme="dark"]{
+  --bg:#150A33; --bg-2:#1E0F44; --surface:#241355; --surface-2:#2C1867;
+  --text:#F3EFFF; --dim:#A79ACB; --dimmer:#7E71A6; --edge:#3A2378;
+  --purple:#C9A9FF; --purple-soft:#311C6E;
+  --mint:#3BE0B4; --mint-soft:#123F39;
+  --amber:#FFC24D; --amber-soft:#4A3410;
+  --sky:#7FB2FF; --sky-soft:#152C55;
+  --coral:#FF8095; --coral-soft:#4A1C29;
+  --shadow:0 18px 44px -26px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:"Inter","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);
+  background:var(--bg);border-bottom:1px solid var(--edge)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.22em;font-size:12px;color:var(--purple)}
+.logomark{height:17px;width:auto;display:block}
+:root[data-theme="light"] .dark-only{display:none}
+:root[data-theme="dark"] .light-only{display:none}
+.herologo{display:none}
+@media print{.herologo{display:block;height:22px;width:auto;margin:0 0 18px}}
+.logo span{color:var(--dimmer);font-weight:600}
+.topnav{margin-left:auto;display:flex;gap:20px;align-items:center}
+.topnav a{color:var(--dim);text-decoration:none;font-size:13px;font-weight:500}
+.topnav a:hover{color:var(--purple)}
+.btn{border:1px solid var(--edge);background:var(--surface);color:var(--text);border-radius:9px;
+  padding:8px 13px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.btn:hover{border-color:var(--purple);color:var(--purple)}
+.btn:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.btn.solid{background:#7C3AED;border-color:#7C3AED;color:#fff}
+.btn.solid:hover{filter:brightness(1.1);color:#fff}
+@media(max-width:960px){.topnav a{display:none}}
+
+/* ---------- hero ---------- */
+.hero{background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%);}
+:root[data-theme="dark"] .hero{background:linear-gradient(120deg,#1E0F44 0%,#3B1E7A 52%,#6D28D9 100%)}
+:root[data-theme="dark"] .hero:after{background:rgba(255,255,255,.07)}
+:root[data-theme="dark"] .hero:before{background:rgba(255,255,255,.05)}
+:root[data-theme="dark"] .pill{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.08)}
+:root[data-theme="dark"] .pill.hot{background:#C9A9FF;color:#1E0F44;border-color:#C9A9FF}
+.hero{
+  color:#fff;padding:56px 0 62px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-120px;top:-150px;width:470px;height:470px;
+  border-radius:50%;background:rgba(255,255,255,.13)}
+.hero:before{content:"";position:absolute;right:70px;bottom:-210px;width:330px;height:330px;
+  border-radius:50%;background:rgba(255,255,255,.10)}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.9;margin:0 0 16px}
+.hero h1{font-size:clamp(36px,6vw,62px);line-height:1.03;margin:0 0 14px;font-weight:800;letter-spacing:-.02em}
+.hero .lede{font-size:17.5px;opacity:.93;max-width:620px;margin:0 0 30px}
+.heroband{display:flex;flex-wrap:wrap;gap:10px}
+.pill{border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.15);border-radius:999px;
+  padding:8px 16px;font-size:13px}
+.pill b{font-weight:700}
+.pill.hot{background:#fff;color:#5B21B6;border-color:#fff;font-weight:600}
+
+/* ---------- sections ---------- */
+section{padding:52px 0;scroll-margin-top:74px}
+section.tinted{background:var(--bg-2)}
+.sechead{margin:0 0 6px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);font-weight:700}
+h2{font-size:clamp(23px,3vw,31px);margin:0 0 10px;font-weight:750;letter-spacing:-.01em}
+.sub{color:var(--dim);margin:0 0 26px;max-width:760px}
+
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}}
+@media(max-width:560px){.g4{grid-template-columns:1fr}}
+
+.card{background:var(--surface);border:1px solid var(--edge);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 6px;font-size:16px;font-weight:650}
+.card p{margin:0;color:var(--dim);font-size:13.5px}
+
+.kpi{border:none;padding:22px;box-shadow:none}
+.kpi .n{font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.kpi .l{font-size:13.5px;font-weight:700;margin-top:6px}
+.kpi .s{font-size:12.5px;margin-top:4px;color:var(--text);opacity:.72}
+.t-purple{background:var(--purple-soft)} .t-purple .n,.t-purple .l{color:var(--purple)}
+.t-mint{background:var(--mint-soft)}     .t-mint .n,.t-mint .l{color:var(--mint)}
+.t-amber{background:var(--amber-soft)}   .t-amber .n,.t-amber .l{color:var(--amber)}
+.t-sky{background:var(--sky-soft)}       .t-sky .n,.t-sky .l{color:var(--sky)}
+.t-coral{background:var(--coral-soft)}   .t-coral .n,.t-coral .l{color:var(--coral)}
+
+/* ---------- activation ---------- */
+.actwrap{display:grid;grid-template-columns:300px 1fr;gap:26px;align-items:start}
+@media(max-width:900px){.actwrap{grid-template-columns:1fr}}
+.meter{background:var(--surface);border:1px solid var(--edge);border-radius:16px;padding:24px;text-align:center;box-shadow:var(--shadow)}
+.meter .big{font-size:50px;font-weight:800;line-height:1;color:var(--purple)}
+.meter .of{color:var(--dim);font-size:14px;margin-top:6px}
+.bar{height:10px;border-radius:99px;background:var(--bg-2);overflow:hidden;margin:18px 0 10px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#7C3AED,#C084FC);border-radius:99px;
+  transition:width .9s cubic-bezier(.2,.7,.2,1)}
+.meter .note{font-size:12.5px;color:var(--dimmer)}
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:700px){.mods{grid-template-columns:repeat(2,1fr)}}
+.mod{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:11px;
+  border:1px solid var(--edge);background:var(--surface);font-size:13.5px}
+.mod.on{background:var(--mint-soft);border-color:transparent}
+.dot{width:8px;height:8px;border-radius:99px;flex:0 0 8px;background:var(--dimmer)}
+.mod.on .dot{background:var(--mint)}
+.mod.off{border-style:dashed;color:var(--dim)}
+.legend{display:flex;gap:20px;margin-top:14px;font-size:12.5px;color:var(--dim);flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:8px}
+
+/* ---------- phases ---------- */
+.phase .when{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);
+  margin-bottom:6px;font-weight:700}
+.phase h3{margin:0 0 8px}
+.phase ul{margin:0;padding-left:18px;color:var(--dim);font-size:13.5px}
+.phase li{margin-bottom:5px}
+.tagline{display:inline-block;margin-top:12px;font-size:12px;font-weight:650;padding:5px 12px;
+  border-radius:99px;background:var(--purple-soft);color:var(--purple)}
+.tagline.win{background:var(--mint-soft);color:var(--mint)}
+.tagline.dev{background:var(--sky-soft);color:var(--sky)}
+.tagline.disc{background:var(--amber-soft);color:var(--amber)}
+.when-line{font-size:12.5px;font-weight:650;color:var(--purple);margin:10px 0 6px}
+
+/* ---------- commercials ---------- */
+.calc{background:var(--surface);border:1px solid var(--edge);border-radius:16px;padding:20px;margin-bottom:20px;
+  display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end;box-shadow:var(--shadow)}
+.field label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+  margin-bottom:7px;font-weight:700}
+.field input{width:160px;background:var(--surface-2);border:1px solid var(--edge);color:var(--text);
+  border-radius:10px;padding:11px 13px;font-size:16px;font-family:inherit}
+.field input:focus{outline:2px solid var(--purple);outline-offset:1px}
+.field select{background:var(--surface-2);border:1px solid var(--edge);color:var(--text);
+  border-radius:10px;padding:11px 13px;font-size:15px;font-family:inherit;min-width:150px}
+.field select:focus{outline:2px solid var(--purple);outline-offset:1px}
+.discgrp{display:flex;gap:8px;flex-wrap:wrap}
+.discgrp .one{display:flex;flex-direction:column;gap:5px}
+.discgrp .one span{font-size:10.5px;color:var(--dim);font-weight:650}
+.discgrp input{width:78px;background:var(--surface-2);border:1px solid var(--edge);color:var(--text);
+  border-radius:10px;padding:10px 11px;font-size:15px;font-family:inherit}
+.discgrp input:focus{outline:2px solid var(--purple);outline-offset:1px}
+.calchint{margin-left:auto;font-size:12.5px;color:var(--dimmer);max-width:330px}
+
+.printbasis{display:none}
+body.locked .printbasis{display:block;font-size:13px;color:var(--dim);margin:0 0 16px}
+@media print{.printbasis{display:block;font-size:12px;color:var(--dim);margin:0 0 12px}}
+.bundlechip{display:inline-block;font-size:12px;font-weight:750;padding:7px 15px;border-radius:99px;
+  background:var(--purple-soft);color:var(--purple);margin-bottom:16px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--surface);border:1px solid var(--edge);border-radius:16px;padding:24px;
+  position:relative;box-shadow:var(--shadow)}
+.plan.best{background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%);border-color:transparent;
+  box-shadow:0 22px 50px -22px rgba(124,58,237,.55)}
+.plan.best .term,.plan.best .rate{color:#FFFFFF}
+.plan.best .off{color:#F3E8FF}
+.plan.best .rate small{color:#F3E8FF}
+.plan.best .totals{border-top-color:rgba(255,255,255,.35)}
+.plan.best .totals .row{color:#F3E8FF}
+.plan.best .totals .row b{color:#FFFFFF}
+.plan.best .perk{color:#FFFFFF}
+.plan.best .saveline{background:rgba(255,255,255,.2);color:#FFFFFF}
+.tag{position:absolute;top:-11px;right:18px;background:#7C3AED;color:#fff;font-size:10.5px;
+  font-weight:700;letter-spacing:.1em;padding:5px 11px;border-radius:99px}
+.plan .term{font-size:19px;font-weight:750}
+.plan .off{font-size:12.5px;color:var(--purple);font-weight:650;margin-top:2px}
+.rate{font-size:33px;font-weight:800;margin:16px 0 2px}
+.rate small{font-size:13px;color:var(--dim);font-weight:500;display:block;margin-top:4px}
+.totals{border-top:1px solid var(--edge);margin-top:16px;padding-top:14px;font-size:13.5px}
+.totals .row{display:flex;justify-content:space-between;padding:4px 0;color:var(--dim);gap:12px}
+.totals .row b{color:var(--text);font-weight:650;text-align:right}
+.perk{color:var(--dim);padding:3px 0;font-size:13px}
+.saveline{margin-top:14px;font-size:13px;padding:10px 12px;border-radius:11px;
+  background:var(--mint-soft);color:var(--mint);font-weight:650}
+
+/* ---------- service package ---------- */
+.svcwrap{display:grid;grid-template-columns:1fr 1.6fr;gap:16px}
+@media(max-width:860px){.svcwrap{grid-template-columns:1fr}}
+.svccard{background:var(--surface);border:1px solid var(--edge);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+.svctier{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.svcbadge{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 11px;border-radius:99px;background:var(--purple-soft);color:var(--purple);margin-bottom:12px}
+.svcprice{font-size:30px;font-weight:800;margin-top:14px;letter-spacing:-.02em}
+.svcwas{font-size:15px;color:var(--dimmer);text-decoration:line-through;margin-right:9px;font-weight:600}
+.svcper{font-size:12.5px;color:var(--dim);margin-top:2px}
+.svcoff{display:inline-block;margin-top:12px;font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;
+  background:var(--mint-soft);color:var(--mint)}
+.svcnote{margin-top:14px;font-size:12.5px;color:var(--dim)}
+.svclist{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px}
+@media(max-width:640px){.svclist{grid-template-columns:1fr}}
+.svcitem{display:flex;gap:9px;align-items:flex-start;font-size:13.5px}
+.svcitem i{width:7px;height:7px;border-radius:99px;background:var(--purple);flex:0 0 7px;margin-top:7px}
+.svcitem b{font-weight:650}
+.svcitem span{color:var(--dim)}
+
+.stuextra{margin-top:16px;padding-top:13px;border-top:1px solid var(--edge);font-size:12.5px;color:var(--dim)}
+.stuextra b{display:block;color:var(--text);font-size:12px;margin-bottom:6px}
+.stuextra div{margin-bottom:4px}
+
+/* ---------- checklist ---------- */
+.steps{display:grid;gap:10px}
+.step{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border:1px solid var(--edge);
+  border-radius:13px;background:var(--surface);cursor:pointer;text-align:left;width:100%;
+  font:inherit;color:inherit;transition:border-color .2s,background .2s}
+.step:hover{border-color:var(--purple)}
+.step:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.box{width:21px;height:21px;border-radius:7px;border:1.5px solid var(--dimmer);flex:0 0 21px;margin-top:2px;
+  display:grid;place-items:center;font-size:12px;color:transparent}
+.step.done{background:var(--mint-soft);border-color:transparent}
+.step.done .box{background:var(--mint);border-color:var(--mint);color:#fff}
+.step.done .t{text-decoration:line-through;color:var(--dim)}
+.step .t{font-weight:650}
+.step .m{font-size:12.5px;color:var(--dimmer);display:block;margin-top:2px}
+.step .who{margin-left:auto;font-size:11px;color:var(--purple);letter-spacing:.1em;font-weight:700;
+  text-transform:uppercase;white-space:nowrap;padding-top:3px}
+@media(max-width:620px){.step .who{display:none}}
+
+/* ---------- footer ---------- */
+.pagefoot{border-top:1px solid var(--edge);padding:38px 0 64px;background:var(--bg-2)}
+.csm{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.av{width:58px;height:58px;border-radius:99px;background:#7C3AED;display:grid;place-items:center;
+  font-weight:800;font-size:19px;color:#fff}
+.csm a{color:var(--purple)}
+.disclaimer{margin-top:26px;font-size:12px;color:var(--dimmer)}
+
+/* ---------- edit panel ---------- */
+.scrim{position:fixed;inset:0;background:rgba(26,19,48,.45);z-index:80;display:none}
+.scrim.open{display:block}
+.panel{position:fixed;top:0;right:0;height:100%;width:min(560px,100%);z-index:90;background:var(--bg);
+  border-left:1px solid var(--edge);transform:translateX(101%);transition:transform .28s ease;
+  display:flex;flex-direction:column}
+.panel.open{transform:none}
+.panel .phead{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--edge)}
+.panel .phead h3{margin:0;font-size:17px}
+.panel .pbody{overflow:auto;padding:20px 22px 40px;flex:1}
+.panel .pfoot{border-top:1px solid var(--edge);padding:14px 22px;display:flex;gap:10px;flex-wrap:wrap}
+.fset{margin-bottom:24px}
+.secnote{margin:0 0 12px;font-size:12px;color:var(--dimmer);line-height:1.45}
+.fset h4{margin:0 0 4px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
+.f{margin-bottom:12px}
+.f label{display:block;font-size:12.5px;font-weight:650;margin-bottom:5px}
+.f .hint{margin:0 0 6px;font-size:12px;color:var(--dimmer)}
+.f input,.f textarea{width:100%;background:var(--surface);border:1px solid var(--edge);border-radius:10px;
+  padding:10px 12px;font:inherit;font-size:14px;color:var(--text)}
+.f textarea{min-height:96px;resize:vertical;line-height:1.5}
+.f input:focus,.f textarea:focus{outline:2px solid var(--purple);outline-offset:1px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;
+  background:var(--text);color:var(--bg);padding:11px 18px;border-radius:99px;font-size:13.5px;
+  font-weight:600;z-index:100;pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+body.locked .calc,body.locked #editBtn,body.locked #themeBtn{display:none!important}
+#pdfLocked{display:none}
+body.locked #pdfLocked{display:inline-block}
+body.locked .plans{margin-top:4px}
+body.locked .step{cursor:default}
+body.locked .step:hover{border-color:var(--edge)}
+
+@media print{
+  @page{size:A4 portrait;margin:11mm}
+
+  /* always print the light theme, even if the screen is in dark mode */
+  :root[data-theme="dark"]{
+    --bg:#FBFAFF; --bg-2:#F4EFFF; --surface:#FFFFFF; --surface-2:#FAF7FF;
+    --text:#1A1330; --dim:#6B6485; --dimmer:#8F88A8; --edge:#E9E2FA;
+    --purple:#7C3AED; --purple-soft:#F1E8FF;
+    --mint:#0E9E82; --mint-soft:#E2F7F1;
+    --amber:#C97A00; --amber-soft:#FFF2D9;
+    --sky:#2A6FE0; --sky-soft:#E7F0FE;
+    --coral:#DB4A63; --coral-soft:#FDECEF;
+  }
+  :root[data-theme="dark"] .hero{
+    background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%)!important}
+  :root[data-theme="dark"] .hero:after{background:rgba(255,255,255,.13)}
+  :root[data-theme="dark"] .hero:before{background:rgba(255,255,255,.10)}
+  :root[data-theme="dark"] .pill{border-color:rgba(255,255,255,.38);background:rgba(255,255,255,.15);color:#fff}
+  :root[data-theme="dark"] .pill.hot{background:#fff;color:#5B21B6;border-color:#fff}
+  :root[data-theme="dark"] .plan.best{
+    background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%)!important}
+
+  /* keep every colour, not just the hero */
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+
+  /* chrome that should never reach paper */
+  .topbar,.panel,.scrim,.toast,.calc,.calchint{display:none!important}
+
+  html,body{background:#fff}
+  .wrap{max-width:none;padding:0 4mm}
+  section{padding:14px 0;break-inside:auto}
+  .hero{padding:26px 0 24px}
+  .hero h1{font-size:34px}
+  .hero .lede{font-size:14px;margin-bottom:18px}
+  .pill{font-size:11px;padding:6px 12px}
+
+  h2{font-size:21px;break-after:avoid;page-break-after:avoid}
+  .sechead{break-after:avoid;page-break-after:avoid}
+  .sub{font-size:12.5px;margin-bottom:14px;break-after:avoid;page-break-after:avoid}
+
+  /* keep a block with its own heading */
+  .grid,.plans,.actwrap,.svcwrap,.steps{break-inside:avoid;page-break-inside:avoid}
+  .card,.kpi,.plan,.phase,.svccard,.meter,.mod,.step{break-inside:avoid;page-break-inside:avoid;
+    box-shadow:none!important}
+
+  .card,.plan,.svccard,.meter,.mod,.step{border-color:#DCD4F0!important}
+  .bundlechip{margin-bottom:10px}
+
+  /* tighten the type so more fits per page */
+  .kpi .n{font-size:28px}
+  .rate{font-size:26px}
+  .meter .big{font-size:38px}
+  .svcprice{font-size:24px}
+  .card p,.perk,.totals,.svcitem{font-size:11.5px}
+
+  /* unticked checkboxes must stay empty on paper */
+  .box{color:transparent!important}
+  .step.done .box{color:#fff!important}
+
+  a[href]:after{content:none!important}
+}
+</style>
+</head>
+<body class="locked">
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="logo"><img class="logomark light-only" src="data:image/png;base64,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" alt="Bayzat"><img class="logomark dark-only" src="data:image/png;base64,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" alt="Bayzat"><span>RENEWAL REVIEW</span></div>
+    <nav class="topnav">
+      <a href="#usage">Usage</a>
+      <a href="#value">Value</a>
+      <a href="#new">Add ons</a>
+      <a href="#coming">Coming next</a>
+      <a href="#plan">Plan</a>
+      <a href="#pricing">Renewal</a>
+      <a href="#service">Support</a>
+      <a href="#studio">Studio</a>
+      <a href="#next">Next steps</a>
+      
+      <button class="btn" id="pdfLocked" type="button">Print or PDF</button>
+      
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="herologo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjgAAAB9CAYAAACvfxkAAAAOdUlEQVR42u3d4XHbuBqF4ZOd/F/eCpa3gnArMF1B6AosVxC7gsgV2KnAcgVWKjBdQbgVRFvBsgPfH4KutU4cWxK/jwD4PjMeZyYzpgQSwAFAEu8eHx8F7Kh+5f87ST3FBIC2CGN5TxHgF6rQgHyQVL6hMXluFX4eJLU0NgAOCDLVAW1RF9qiv0Jb1FKk+Xv3+Ph4v8fF4mm7U3wI/+7oLE0UkhpJR+F3YXQ+byUtQ4MTM6u6cSlpPlIncR9pWR/v0enE3nbFaKxrb9+26GM4xxZtUSvpa2Rt0VzSZy7TYa71FGZwqmcN9PPOsgsXaUvgOajjOzUMNc/PZyXpKpy7L6GB4dwBaLbaIo92rw5tURsGXgtOQT5+S/zzV5Jmku4k/RN+zxw66VzMJH0LI+Exyq2SdCPpexi5lJwSYLJt0ffQhjcjHL8ObdE/oS2iDyHgRJn+Nx3mDR3mL8tpU0ZVBJ+n0Hpa9juNCzDJYBNLe01bRMCJXrFVcVinf1KF8riLOPxtGpdzTheQrVrr2eNYB6KboPNN48wogYDz5ooUe6fuYR4qawphr9B6XfxeccwwAZhm3S5D33EnZnMIOBFr9DTtOCVlCDYp3pm/CafnVFUgeVVoi1Ksz5v+o+E0EnBitpl2nMLMQJPBd92M+G4YQQHJmoW2qEy8LboL7REIOIwkRnSuvKZVZ1rP5hBygLTchB/aVhBwHF1leqHeZDrK2ATTiqoLRK8IbdEsw+/WMOAi4HChjhNuZhmfr1LcfHxI2QFe4eY+87aoIuQQcFK6UFPvNHMPN88bT0IOAQdxmkr9JOQQcJK6UFPtBK4mEm62Qw7r4ECcA60pDT4IOQQcOk1DM03zUeqShgVgoBVJyLnh9BNwSONUrKG/P49tvs0fFAEYaJlpNL33rBFw6DTNFFrPONGwTnPUuKuSIoDhtcVAY/2etZpiIOAwGjkcG4o+uaIsgNFwP9y/22XKgoCTRBqvIv1sjXht+LZCrIG/hpElLMzFE43bSjGbRcBJpNO84nMl1YHPKIYXrxnAojP/RDH8YMaAgoBDp7mfc7Ec85IrOvOfYoQN6pt/2YCAQyXeccQUy87g7bOfVQSfqRC7j7903QBD1tFa8SyTP2+L+kgGFTMuufG8N/zbC0l/H/g3jrYa5zEb6E2nOY/gnI0VbnpJS0kPbwgztaSPofEb47x9knQdSSMXiw8Zfqcuo/DpUU/a0C7n0hZ9fSXMFKEtOhqxLfq8Y5m3GfYtl2OF3nePj4/3slkrPB74ZBVbHedspEr135E7zVLS9xFGfJehQdnnu9ca59HJywECqVXdGOKzxfJdYm0vUlGEOl04tF9/argZnDpcU2O0RfuGtCYMfrzrwdnAwdLKo9HffTfWF0ppiWqT2s8k/Sdc6J5ho9D4040z5/K+DKFucUBZt6HzOnYecXPj448dEuLj9Xj1hYZdnjp1bovOttqifS232qKV4+enLSLg7HzBz8OIpJ3Qhep1/C40AkPOMrThfHlNV8YQSGNRUQRROncKnsuBZxA861Y7QLB5qS1aONY/BhgEnJ2tQkfs1WmWI16ojdNIbzPK6Yz+/jyMxjycUsUlGtcolfK5h6U3qG9e4WYR2qLesFwuaIsIOLGbQqf50alBOZH90t8ijKA8OvaSav7/m/URD6+lqTOD+uzRBi6c2vRrp+M0XPIEnEMrxEXGF6r1cTvHkOh5PBoWZnBiHJBVTp33cuC/WTp8dq9w49l3FLRFBJwYK/TPLtTK+Xs1xqO9Xuup4DFC6bXxMaY+e2F97WA3lXyWplayWbr3GGhdjHBePPoOZlIJOAezmJIde0RsXTE8lqVeciHbp6umPmoaemlzRbN50ODIa780q3bwKNHPHcOxG6oAAedQvexvOvZO4paBaqnx3z9ykXD5xa4ZuG4RcPbntXnvpWGdro0/dzfi+emN26JSzKYScAZwbZzEK+fvY3m8iwjOV2scsqYacJqBG9ROOOQaPHc4Tie7l0hWhh10L/vl6rdYGIf4mqpAwBnqQrVM4p4No5VlRCNyy1m3PyZav4d+2uWBJnMvhXyXplJs9xaKZ2sVy7aoojoQcIbw1fjve12olo3KbUTnqzUMW+UE63ap4df8W5rMvdw4XYPWSzyWbV5MbdHS8G9/oDoQcFJojIsMAs4ysnNm9XnqCdbtWYJ1KkeNfG4ubWW/v5nVTOhKcS1/9oZtUUGVIOAMpcvgO/yeaADcB0sgwzWiQ2/rsaRY9zoPHktTvXzeG2M12JpSW1RRLQg4Q1Z8JX6hVolV4Fgbuik1LOcGI0XC5+5unEbsl0r76bYYry2rwXFBtSDgpDI6I/yl85mKCV2XFpuyLqnyO4fMxuE4S/k9fVQb/d0Yw1nHJUzAQbo6PleWrgzCXCfef7OLUulupIl4B4Ag4LhpKQIalsjUsrm5+Jai3YnX0tRZJvWFthQEnD1UnGJMRKH17I2FJcX7ZnP5PLW34LwA0w04pbihC9NhtQ1AK5andhlQeW2keUFxA9MNONajqJbLB5FoZLcNAMtTb5f6RpoAAScRp4Z/m8YFsagMO9Zetlue5ORKPkvi1wyugGkHnEq2Mzgdlw4iUEi6l91S7BeK+E1q+W2kydIUMPGAY70OzkvPkHu46RXH7s4pnIccNtIECDiJjKYa42MsuXQwoiqEm8rwGF/086XYkuL/lyvlsZEmkJ33GY6m7oyP0dPQIIJwUxhf49cv/B8B50kjm/cOPdfKfiNNIDu5zeBYN/wSszcYz7mkbw7X+EuzN5ZWCQ6mctpIE8hOLjM4hfyeYuDGS3grQ2daO3Wo1yN8x9QCDhtpAgQcl3BjfT/CRiuWp+B7bZ9rvXlm4XTMC/EahNfM5LORZitu9AYmG3Aax5GUxEvPkG+w2XSoi1/8f8mpUSm7LTG29ZJOKG5gegGn1vpR8Dqixh8YIrB/lM+Nqz/rUF+714OAw0aaAAHHQBUCzanG2UTzkssFA4f0IlzLR85h/WcuNN69Hm0i5+zc6TwtxcMMQNQB52qgEUih8XcFX4WG7dDGbR7RuT+NoFOd6izBZ/lsyvhWC71tdrLWdFXyWZpaaXpPTc0FJBZwqozKqRyoQ4qpIs+4/KE4Xv/fJ1BObKRpG/iBwf1GEQCT1e/YoR4ZfY6/Ii+nudhIEyDgAEgm3Bxrt9celBMsp1o+MwyduM8PIOAAONiFdn+nk1XAaSMto0IsTQEEHADJONPurzyoJ1hOn8VGmgABB0D0+j3DjWR7D0obYVk1Wj8Wbq0TTxEBJt5TBMBkws2u99xs+2D0uVYRllUhv400eVsxYIQZHCB/3YHhRrJbooox4LCRJkDAARC55QDhppTdvSgPkZVXIzbSBAg4AKLVa/2k1IkOfzqnNvycq4jKrBRLU0A2uAcHyE+r9c3EQ4WHj4aftYuo3NhIE8gIMzhAPvrQeR4PGG4K2S3Z9BEFnHOxkSaQFWZwgDyCzRet7+kYemagMfzcsYSbSj5vK94EUAAEHAAjBZsNy+WpWG4w9lqaOhFLUwABB8CLVpJujYONZLs8JcXxgr+52EgTIOAAGNUyBJul0/Fmxn9/7A6/ks/S1EpspAkQcAD8EGq+ht+987E/ZRxuCkl3TsdiaQog4ACT14XO/yH8HqtjnMl2o8mvI5czG2kCBBwARlbh52Er2MQy0v9k/PeXI363WmykCRBwAByk3Qozf2+Fmjbiz1zL9sbbTRmMoZDP0lQvHgkHsg04F0p3avZ+Auc+1vNzJZ+nWt5aRsUeo/Y+8WvDeruC5cjfrXA4DktTb3dMP4DUAk4nHouMWaznp4+sjKZmJvt7U25H+m6N2EgzRvQTMMFWDQA2Cq1n0KxDYzfSd/PaSJOlKYCAAyAiHss3Y83e3MlvI80VlxJAwAEQh0Y+yzeLEb7budhIEyDgAJicQj7LNwv532NVio00AQIOgEnyWr65zfi78bZigIADICJX8lm+aeX/tMxcbKQJEHAATM5MPm/0lfxnbyqxkSZAwAEwyXBz43SslXxvLi4cv9uZWJoCCDgAolA5BgDJf4bjs3yWpi7F0hRAwAEQhZl8X0HfyXf2phYbaQIQm20CUws3N87HvHA8ViHfpSkAEWMGB5iG+QjhppXvEs6N7PfR2oS2jksKiBszOEDeitDxNyMc23OWoxEbaQIg4ACTUGn9ortyhGNfym9Ppk2Is9aLpSkgGSxRAXmaS/o2Urjp5HsDrscmodJ6aWrFpQWkgRkcIC+11m8nrkb8DJ6zHOfyWZpaapyNQgHsiRkcIA+l1jMZ9yOHm0v53YBbio00AbyAGRwgbYXWsxif5LNM8yut8lya4m3FAAEHgJMyhJpZBMFGIQCcOB5vLp9NQq+1Xp4CQMABYKiWdBqCTUxO5DfLUYmNNAEQcIDklSHQnGqcp6Jecyb/F/p5fa+eyw8g4AAYTqWn2Zoq4s+5kO/TRV5PiLGRJkDAATCAMgSao/C7TOAzL+T7dFEtNtIEQMABolWFAFOFQFMpjhuFYw43hdhIE0AkAedKrF9jeko9zb5s/v37VoipMviOnXx3Cd+0J6XDcfpwrNwdU1VBwDlslAqk7F4+jyKnZCH/GY5Kfk+NFZxzIA+8yRhAzOFmEzoAgIADYHDX4t4UAAnhJmMArzkTG00CIOAAyMRK6zcUdxQFgNSwRAXgZ1pJfxJuABBwAOSg1/oR8GPxmgcACWOJCsBGG8JNR1EASB0zOAB6Pc3aEG4AZIEZHGDaFiHc9BQFgJwwgwNMU6v1jM0Z4QZAjpjBAaYXbC7DbwAg4AAg2AAAAQdADBaSvoibhwEQcAAkbhVCzULcXwOAgAMg8VCzlHQrZmsAgIADEGoAgIADYDy91jcJP4Rgs6JIAICAA6SmCz8PW/8GABBwgGSCTB+CzCr8tBQLABBwgJhsQsq2h61/t8+CDQBgYP8DssUCPUk7IXUAAAAASUVORK5CYII=" alt="Bayzat">
+    <p class="eyebrow" id="eyebrow">Partnership review and renewal 2026</p>
+    <h1 id="clientName">Rhong Tiam Restaurant LLC</h1>
+    <p class="lede" id="lede">A look back at the year, what your team is getting from Bayzat today, and the plan for 2026.</p>
+    <div class="heroband" id="heroband"><span class="pill">Package <b>Premium</b></span><span class="pill">Partner since <b>2023</b></span><span class="pill">Employees <b>201</b></span><span class="pill hot">renewal date passed, decision by 20 August 2026</span></div>
+  </div>
+</header>
+
+<section id="usage">
+  <div class="wrap">
+    <p class="sechead">Where we are today</p>
+    <h2>Your account, in numbers</h2>
+    <p class="sub">A snapshot of what is live, who is using it, and what is included but still switched off.</p>
+    <div class="grid g4" id="kpis"><div class="card kpi t-purple">
+      <div class="n">128</div><div class="l">Active employees</div><div class="s">of 201 contracted</div>
+    </div><div class="card kpi t-mint">
+      <div class="n">Premium</div><div class="l">Current package</div><div class="s">the full HR operation</div>
+    </div><div class="card kpi t-amber">
+      <div class="n">22 / 24</div><div class="l">Modules live</div><div class="s">2 included, not yet on</div>
+    </div><div class="card kpi t-sky">
+      <div class="n">64%</div><div class="l">Employee activation</div><div class="s">128 of 201 employees active</div>
+    </div></div>
+  </div>
+</section>
+
+<section class="tinted">
+  <div class="wrap">
+    <p class="sechead">Adoption</p>
+    <h2 id="adoptionTitle">You are live on 20 of the 22 modules in your package</h2>
+    <p class="sub">Everything marked as included is already covered by your subscription. Switching it on costs nothing extra.</p>
+    <div class="actwrap">
+      <div class="meter">
+        <div class="big" id="meterBig">20/22</div>
+        <div class="of">modules live</div>
+        <div class="bar"><i id="meterBar" style="width: 0%;"></i></div>
+        <div class="note" id="meterNote">2 more included at no extra cost</div>
+      </div>
+      <div>
+        <div class="mods" id="mods"><div class="mod on"><i class="dot"></i>Employee Records</div><div class="mod on"><i class="dot"></i>Company Documents</div><div class="mod on"><i class="dot"></i>Employee Documents</div><div class="mod on"><i class="dot"></i>Announcements</div><div class="mod on"><i class="dot"></i>Payroll</div><div class="mod on"><i class="dot"></i>Work Expenses</div><div class="mod on"><i class="dot"></i>Air Tickets</div><div class="mod on"><i class="dot"></i>Letter Requests</div><div class="mod on"><i class="dot"></i>Asset</div><div class="mod on"><i class="dot"></i>Custom Fields</div><div class="mod on"><i class="dot"></i>Timesheet</div><div class="mod on"><i class="dot"></i>Knowledge Hub Free</div><div class="mod on"><i class="dot"></i>Employee Ticket</div><div class="mod on"><i class="dot"></i>Employee Custom Ticket</div><div class="mod on"><i class="dot"></i>Employee Ticket Advanced Approval Flow</div><div class="mod on"><i class="dot"></i>Payroll Leave Salary Advanced Approval FlowPerks</div><div class="mod on"><i class="dot"></i>Perks Redemption</div><div class="mod on"><i class="dot"></i>Perks Cashback</div><div class="mod on"><i class="dot"></i>Bayzat Coin</div><div class="mod on"><i class="dot"></i>NewsFeed</div><div class="mod off"><i class="dot"></i>Performance Catch-ups</div><div class="mod off"><i class="dot"></i>360 Review</div></div>
+        <div class="legend">
+          <span><i class="dot" style="background:var(--mint)"></i> Live now</span>
+          <span><i class="dot"></i> Included, not switched on</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="value">
+  <div class="wrap">
+    <p class="sechead">Value delivered</p>
+    <h2>What Bayzat handled this year</h2>
+    <p class="sub">Work the platform absorbed so your team did not have to.</p>
+    <div class="grid g4" id="valueGrid"><div class="card kpi t-purple">
+      <div class="n">2,115</div><div class="l">Employee requests handled</div><div class="s">leave, documents, letters, expenses</div>
+    </div><div class="card kpi t-mint">
+      <div class="n">353</div><div class="l">Admin hours saved</div><div class="s">based on 10 min per request and 4 hours per payroll run</div>
+    </div><div class="card kpi t-amber">
+      <div class="n">2h 10m</div><div class="l">Median support response</div><div class="s">inside the support SLA</div>
+    </div></div>
+  </div>
+</section>
+
+<section id="new" class="tinted">
+  <div class="wrap">
+    <p class="sechead">Add ons</p>
+    <h2>Add ons released since your last subscription</h2>
+    <p class="sub">These sit outside your current package and are priced separately.</p>
+    <div class="grid g3" id="releases"><div class="card"><h3>Knowledge Hub</h3><p>One searchable home for SOPs, policies and process guides, so answers do not live in one person's head.</p></div><div class="card"><h3>Employee Ticketing</h3><p>Structured requests with owners and response times, replacing scattered messages.</p></div><div class="card"><h3>Workflows</h3><p>Approvals, notifications and task handoffs trigger automatically on employee actions.</p></div><div class="card"><h3>Task Manager</h3><p>One dashboard to assign and track internal work across teams.</p></div><div class="card"><h3>AI Report Generator</h3><p>Plain language questions turned into instant reports on workload and activity.</p></div><div class="card"><h3>Priced separately</h3><p>Some clients have already added these. Ask me for pricing and I will scope it to your headcount.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="sechead">Recommendation</p>
+    <h2>The three worth starting with</h2>
+    <p class="sub">Chosen against what your team told us is slowing them down.</p>
+    <div class="grid g3" id="priorities">
+    <div class="card">
+      <h3>Knowledge Hub</h3>
+      <p style="margin-bottom:12px">One searchable home for SOPs, policies and process guides, kept current in one place.</p>
+      <p style="font-size:13px">New joiners and cover staff ask the same handful of questions again and again.</p>
+      <span class="tagline win">Less repeat asking</span>
+    </div>
+    <div class="card">
+      <h3>Employee Ticketing</h3>
+      <p style="margin-bottom:12px">Staff raise requests in one place with an owner, a status and a response time.</p>
+      <p style="font-size:13px">Requests arrive by WhatsApp today and get lost when someone is off.</p>
+      <span class="tagline win">Nothing gets missed</span>
+    </div>
+    <div class="card">
+      <h3>AI Report Generator</h3>
+      <p style="margin-bottom:12px">Ask a question in plain language and get the HR report back immediately.</p>
+      <p style="font-size:13px">Management reporting today means exporting and rebuilding sheets by hand.</p>
+      <span class="tagline win">Hours back each month</span>
+    </div></div>
+  </div>
+</section>
+
+<section id="coming">
+  <div class="wrap">
+    <p class="sechead">Coming next</p>
+    <h2>Upcoming releases you can get early access to</h2>
+    <p class="sub">Depending on the release stage you can join product discovery calls, design walkthroughs or the waitlist.</p>
+    <div class="grid g4" id="comingGrid"><div class="card">
+      <h3>Hourly Leaves</h3>
+      <span class="tagline dev">Under Development</span>
+      <div class="when-line">Tentative release: Q3 2026</div>
+      <p>Employees request time off in hourly blocks rather than full days, which makes partial day absence easy to manage.</p>
+    </div><div class="card">
+      <h3>Service Desk v2</h3>
+      <span class="tagline disc">Discovery</span>
+      <div class="when-line">Tentative release: Q3 2026</div>
+      <p>The next release brings further functionality and user experience improvements to Service Desk.</p>
+    </div><div class="card">
+      <h3>Accounting Integration</h3>
+      <span class="tagline disc">Discovery</span>
+      <div class="when-line">Tentative release: 2026</div>
+      <p>Turns payroll data into accounting ready journal entries. Upload your chart of accounts, map across subsidiaries, export or sync natively with NetSuite.</p>
+    </div><div class="card">
+      <h3>End of Service Policy Configuration</h3>
+      <span class="tagline disc">Discovery</span>
+      <div class="when-line">Tentative release: 2026</div>
+      <p>Configure custom EOS policies in Bayzat, with ready made templates for all six GCC countries aligned to local labour law.</p>
+    </div></div>
+  </div>
+</section>
+
+<section id="plan" class="tinted">
+  <div class="wrap">
+    <p class="sechead">Your rollout plan</p>
+    <h2>90 days, jointly owned</h2>
+    <p class="sub">Each milestone has a named owner on both sides and a date in the calendar.</p>
+    <div class="grid g3" id="phases">
+    <div class="card phase">
+      <div class="when">First 30 days</div>
+      <h3>Update Time Off Balances</h3>
+      <ul><li>Review and update employee leave balances together</li><li>Daily sessions covering 10 to 15 employees</li><li>Complete all balances by the end of the week</li></ul>
+      <span class="tagline">Bayzat leads</span>
+    </div>
+    <div class="card phase">
+      <div class="when">Days 31 to 60</div>
+      <h3>Run Payroll</h3>
+      <ul><li>Process monthly payroll through Bayzat</li><li>Generate SIF or bank files directly from the platform</li><li>Save time by reducing manual payroll tasks</li></ul>
+      <span class="tagline">Client leads</span>
+    </div>
+    <div class="card phase">
+      <div class="when">Days 61 to 90</div>
+      <h3>Maximize Platform Usage</h3>
+      <ul><li>Explore all included modules</li><li>Apply best practices and automation</li><li>Review adoption and optimize platform usage together</li></ul>
+      <span class="tagline">Joint</span>
+    </div></div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <p class="sechead">Commercials</p>
+    <h2 id="pricingTitle">Renewal options</h2>
+    <p class="sub">Change the headcount to see how each option moves. Discounts apply to multi year terms only.</p>
+    
+    <div class="bundlechip" id="bundleChip" style="display: inline-block;">Premium plan</div>
+    <p class="printbasis" id="printBasis">Based on 201 employees at a list rate of AED 12.00 per employee, per month.</p>
+    <div class="plans" id="plans">
+      <div class="plan">
+        
+        <div class="term">1 year</div>
+        <div class="off">List rate, no discount</div>
+        <div class="rate">AED 12.00<small>per employee, per month</small></div>
+        <div class="totals">
+          <div class="row"><span>Total for the term</span><b>AED 28,944</b></div>
+          <div class="row"><span>Equivalent per year</span><b>AED 28,944</b></div>
+          <div class="row"><span>Payment terms</span><b>Uprfont</b></div>
+        </div>
+        
+        <div style="margin-top:14px"><div class="perk">• All modules in your package</div><div class="perk">• Rate reviewed again in 2027</div></div>
+      </div>
+      <div class="plan">
+        
+        <div class="term">2 years</div>
+        <div class="off">10% below list</div>
+        <div class="rate">AED 10.80<small>per employee, per month</small></div>
+        <div class="totals">
+          <div class="row"><span>Total for the term</span><b>AED 52,099</b></div>
+          <div class="row"><span>Equivalent per year</span><b>AED 26,050</b></div>
+          <div class="row"><span>Payment terms</span><b>Quarterly payments</b></div>
+        </div>
+        <div class="saveline">Saves AED 5,789 against renewing yearly</div>
+        <div style="margin-top:14px"><div class="perk">• All modules in your package</div><div class="perk">• Rate locked for 24 months</div></div>
+      </div>
+      <div class="plan best">
+        <span class="tag">RECOMMENDED</span>
+        <div class="term">3 years</div>
+        <div class="off">20% below list</div>
+        <div class="rate">AED 9.60<small>per employee, per month</small></div>
+        <div class="totals">
+          <div class="row"><span>Total for the term</span><b>AED 69,466</b></div>
+          <div class="row"><span>Equivalent per year</span><b>AED 23,155</b></div>
+          <div class="row"><span>Payment terms</span><b>Quarterly payments</b></div>
+        </div>
+        <div class="saveline">Saves AED 17,366 against renewing yearly</div>
+        <div style="margin-top:14px"><div class="perk">• All modules in your package</div><div class="perk">• Rate locked for 36 months</div><div class="perk">• Priority onboarding for new modules</div></div>
+      </div></div>
+  </div>
+</section>
+
+<section id="service">
+  <div class="wrap">
+    <p class="sechead">Service and support</p>
+    <h2 id="svcTitle">Your service package</h2>
+    <p class="sub">Support levels, response times and training that sit alongside your subscription.</p>
+    <div class="svcwrap" id="svcWrap">
+    <div class="svccard">
+      <span class="svcbadge">Service package</span>
+      <div class="svctier">Bronze</div>
+      <div class="svcprice">AED 5,750</div>
+       <div class="svcper">per year</div>
+       
+      <p class="svcnote">One-time payment for the full contract term, securing your multi-year discount.</p>
+    </div>
+    <div class="svccard">
+      <span class="svcbadge">What Bronze includes</span>
+      <div class="svclist">
+        <div class="svcitem"><i></i><span><b>Customer support</b><br>Multi channel, 4 hour SLA</span></div><div class="svcitem"><i></i><span><b>Customer success</b><br>Email support</span></div><div class="svcitem"><i></i><span><b>Solutions engineer</b><br>Up to 10 hours a year</span></div><div class="svcitem"><i></i><span><b>Technical support</b><br>Email, 24 to 48 hour response</span></div><div class="svcitem"><i></i><span><b>Platform configurations</b><br>1 additional a year</span></div><div class="svcitem"><i></i><span><b>Training</b><br>Recorded webinars</span></div><div class="svcitem"><i></i><span><b>Custom reports</b><br>5 a year</span></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section id="studio" style="display: none;">
+  <div class="wrap">
+    <p class="sechead">Bayzat Studio</p>
+    <h2 id="stuTitle">Customisation and automation</h2>
+    <p class="sub">Automate internal processes and extend the platform to fit the way your business runs.</p>
+    <div class="svcwrap" id="stuWrap">
+    <div class="svccard">
+      <span class="svcbadge">Full Automation Suite</span>
+      <div class="svctier">Advanced</div>
+      <div class="svcprice">AED 4,000</div>
+       <div class="svcper">per year</div>
+       
+      <p class="svcnote">Priced against your headcount, renewed annually.</p>
+    </div>
+    <div class="svccard">
+      <span class="svcbadge">What Advanced includes</span>
+      <p class="svcnote" style="margin:0 0 14px">Everything in Standard, plus the customisation toolkit. Build on your Bayzat data and connect the platform to the rest of your stack.</p>
+      <div class="svclist">
+        <div class="svcitem"><i></i><span><b>Everything in Standard</b><br>Task Manager, Service Desk and Workflows included</span></div><div class="svcitem"><i></i><span><b>Bayzat Applications</b><br>Build apps on your Bayzat data with AI</span></div><div class="svcitem"><i></i><span><b>API Integrations</b><br>Connect Bayzat to your other systems, including accounting</span></div>
+      </div>
+      <div class="stuextra"><b>Add ons available</b><div>Additional APIs or apps beyond the included count, priced a la carte</div><div>Custom builds priced per project, scoped with a solutions engineer</div></div>
+    </div></div>
+  </div>
+</section>
+
+<section id="next" class="tinted">
+  <div class="wrap">
+    <p class="sechead">Next steps</p>
+    <h2>What happens after this meeting</h2>
+    <p class="sub">Tick these off as we go.</p>
+    <div class="steps" id="steps">
+    <button class="step" type="button" aria-pressed="false">
+      <span class="box">✓</span>
+      <span><span class="t">Confirm preferred term</span><span class="m">Within three working days</span></span>
+      <span class="who">Client</span>
+    </button>
+    <button class="step" type="button" aria-pressed="false">
+      <span class="box">✓</span>
+      <span><span class="t">Updated quote and contract sent</span><span class="m">Same day as your confirmation</span></span>
+      <span class="who">Haytham</span>
+    </button>
+    <button class="step" type="button" aria-pressed="false">
+      <span class="box">✓</span>
+      <span><span class="t">Internal approval and signature</span><span class="m">Before the renewal date</span></span>
+      <span class="who">Client</span>
+    </button>
+    <button class="step" type="button" aria-pressed="false">
+      <span class="box">✓</span>
+      <span><span class="t">Kick off the 90 day plan</span><span class="m">Week of the renewal date</span></span>
+      <span class="who">Joint</span>
+    </button></div>
+  </div>
+</section>
+
+<div class="pagefoot">
+  <div class="wrap">
+    <div class="csm">
+      <div class="av" id="avatar">HG</div>
+      <div>
+        <div style="font-weight:750;font-size:18px" id="csmName">Haytham Ghali</div>
+        <div style="color:var(--dim);font-size:13.5px" id="csmRole">Your dedicated Customer Success Manager</div>
+        <div style="font-size:13.5px;margin-top:6px" id="csmContact"><a href="mailto:haytham@bayzat.com">haytham@bayzat.com</a> &nbsp;|&nbsp; +971 4549 0371</div>
+      </div>
+    </div>
+    <p class="disclaimer">Prepared for review between Bayzat and the named client. Pricing shown is indicative and subject to the final signed quote.</p>
+  </div>
+</div>
+
+
+
+
+
+<script type="application/json" id="cfg">
+{
+  "locked": true,
+  "client": "Rhong Tiam Restaurant LLC",
+  "package": "Premium",
+  "since": "2023",
+  "renewalDate": "2026-07-17",
+  "decisionBy": "20 August 2026",
+  "lede": "A look back at the year, what your team is getting from Bayzat today, and the plan for 2026.",
+  "headcount": 201,
+  "derived": {
+    "contracted": 201,
+    "active": 128,
+    "payrollRuns": 0,
+    "requests": 2115,
+    "minsPerRequest": 10,
+    "hoursPerRun": 4
+  },
+  "listRate": 12,
+  "bundleName": "Premium",
+  "terms": [
+    {
+      "label": "1 year",
+      "months": 12,
+      "discount": 0,
+      "payment": "Uprfont",
+      "perks": [
+        "All modules in your package",
+        "Rate reviewed again in 2027"
+      ],
+      "best": false
+    },
+    {
+      "label": "2 years",
+      "months": 24,
+      "discount": 0.1,
+      "payment": "Quarterly payments",
+      "perks": [
+        "All modules in your package",
+        "Rate locked for 24 months"
+      ],
+      "best": false
+    },
+    {
+      "label": "3 years",
+      "months": 36,
+      "discount": 0.2,
+      "payment": "Quarterly payments",
+      "perks": [
+        "All modules in your package",
+        "Rate locked for 36 months",
+        "Priority onboarding for new modules"
+      ],
+      "best": true
+    }
+  ],
+  "kpis": [
+    {
+      "n": "128",
+      "l": "Active employees",
+      "s": "on the platform today"
+    },
+    {
+      "n": "Premium",
+      "l": "Current package",
+      "s": "the full HR operation"
+    },
+    {
+      "n": "22 / 24",
+      "l": "Modules live",
+      "s": "2 included, not yet on"
+    },
+    {
+      "n": "64%",
+      "l": "Employee activation",
+      "s": "above the platform average"
+    }
+  ],
+  "value": [
+    {
+      "n": "2,115",
+      "l": "Employee requests handled",
+      "s": "leave, documents, letters, expenses"
+    },
+    {
+      "n": "353",
+      "l": "Admin hours saved",
+      "s": "roughly 1.5 days of HR time a week"
+    },
+    {
+      "n": "2h 10m",
+      "l": "Median support response",
+      "s": "inside the support SLA"
+    }
+  ],
+  "modulesOn": [
+    "Employee Records",
+    "Company Documents",
+    "Employee Documents",
+    "Announcements",
+    "Payroll",
+    "Work Expenses",
+    "Air Tickets",
+    "Letter Requests",
+    "Asset",
+    "Custom Fields",
+    "Timesheet",
+    "Knowledge Hub Free",
+    "Employee Ticket",
+    "Employee Custom Ticket",
+    "Employee Ticket Advanced Approval Flow",
+    "Payroll Leave Salary Advanced Approval FlowPerks",
+    "Perks Redemption",
+    "Perks Cashback",
+    "Bayzat Coin",
+    "NewsFeed"
+  ],
+  "modulesOff": [
+    "Performance Catch-ups",
+    "360 Review"
+  ],
+  "releases": [
+    {
+      "h": "Knowledge Hub",
+      "p": "One searchable home for SOPs, policies and process guides, so answers do not live in one person's head."
+    },
+    {
+      "h": "Employee Ticketing",
+      "p": "Structured requests with owners and response times, replacing scattered messages."
+    },
+    {
+      "h": "Workflows",
+      "p": "Approvals, notifications and task handoffs trigger automatically on employee actions."
+    },
+    {
+      "h": "Task Manager",
+      "p": "One dashboard to assign and track internal work across teams."
+    },
+    {
+      "h": "AI Report Generator",
+      "p": "Plain language questions turned into instant reports on workload and activity."
+    },
+    {
+      "h": "Priced separately",
+      "p": "Some clients have already added these. Ask me for pricing and I will scope it to your headcount."
+    }
+  ],
+  "coming": [
+    {
+      "h": "Hourly Leaves",
+      "status": "Under Development",
+      "when": "Q3 2026",
+      "p": "Employees request time off in hourly blocks rather than full days, which makes partial day absence easy to manage."
+    },
+    {
+      "h": "Service Desk v2",
+      "status": "Discovery",
+      "when": "Q3 2026",
+      "p": "The next release brings further functionality and user experience improvements to Service Desk."
+    },
+    {
+      "h": "Accounting Integration",
+      "status": "Discovery",
+      "when": "2026",
+      "p": "Turns payroll data into accounting ready journal entries. Upload your chart of accounts, map across subsidiaries, export or sync natively with NetSuite."
+    },
+    {
+      "h": "End of Service Policy Configuration",
+      "status": "Discovery",
+      "when": "2026",
+      "p": "Configure custom EOS policies in Bayzat, with ready made templates for all six GCC countries aligned to local labour law."
+    }
+  ],
+  "priorities": [
+    {
+      "h": "Knowledge Hub",
+      "p": "One searchable home for SOPs, policies and process guides, kept current in one place.",
+      "why": "New joiners and cover staff ask the same handful of questions again and again.",
+      "impact": "Less repeat asking"
+    },
+    {
+      "h": "Employee Ticketing",
+      "p": "Staff raise requests in one place with an owner, a status and a response time.",
+      "why": "Requests arrive by WhatsApp today and get lost when someone is off.",
+      "impact": "Nothing gets missed"
+    },
+    {
+      "h": "AI Report Generator",
+      "p": "Ask a question in plain language and get the HR report back immediately.",
+      "why": "Management reporting today means exporting and rebuilding sheets by hand.",
+      "impact": "Hours back each month"
+    }
+  ],
+  "phases": [
+    {
+      "when": "First 30 days",
+      "h": "Update Time Off Balances",
+      "owner": "Bayzat leads",
+      "items": [
+        "Review and update employee leave balances together",
+        "Daily sessions covering 10 to 15 employees",
+        "Complete all balances by the end of the week"
+      ]
+    },
+    {
+      "when": "Days 31 to 60",
+      "h": "Run Payroll",
+      "owner": "Client leads",
+      "items": [
+        "Process monthly payroll through Bayzat",
+        "Generate SIF or bank files directly from the platform",
+        "Save time by reducing manual payroll tasks"
+      ]
+    },
+    {
+      "when": "Days 61 to 90",
+      "h": "Maximize Platform Usage",
+      "owner": "Joint",
+      "items": [
+        "Explore all included modules",
+        "Apply best practices and automation",
+        "Review adoption and optimize platform usage together"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "t": "Confirm preferred term",
+      "m": "Within three working days",
+      "who": "Client"
+    },
+    {
+      "t": "Updated quote and contract sent",
+      "m": "Same day as your confirmation",
+      "who": "Haytham"
+    },
+    {
+      "t": "Internal approval and signature",
+      "m": "Before the renewal date",
+      "who": "Client"
+    },
+    {
+      "t": "Kick off the 90 day plan",
+      "m": "Week of the renewal date",
+      "who": "Joint"
+    }
+  ],
+  "service": {
+    "show": true,
+    "tier": "Bronze",
+    "price": 5750,
+    "discount": 0,
+    "note": "One-time payment for the full contract term, securing your multi-year discount."
+  },
+  "studio": {
+    "show": false,
+    "tier": "Standard",
+    "price": 4000,
+    "discount": 0,
+    "note": "Priced against your headcount, renewed annually."
+  },
+  "csm": {
+    "name": "Haytham Ghali",
+    "role": "Your dedicated Customer Success Manager",
+    "email": "haytham@bayzat.com",
+    "phone": "+971 4549 0371"
+  }
+}
+</script>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money = n => "AED " + Math.round(n).toLocaleString("en-AE");
+const TINTS = ["t-purple","t-mint","t-amber","t-sky","t-coral"];
+
+let CONFIG = JSON.parse($("cfg").textContent);
+
+function hero(){
+  $("clientName").textContent = CONFIG.client;
+  $("lede").textContent = CONFIG.lede;
+  const yr = new Date(CONFIG.renewalDate + "T00:00:00").getFullYear();
+  $("eyebrow").textContent = "Partnership review and renewal " + (isNaN(yr) ? "" : yr);
+  const d = Math.ceil((new Date(CONFIG.renewalDate + "T00:00:00") - new Date()) / 86400000);
+  const when = isNaN(d) ? "renewal upcoming" : d > 0 ? d + " days to renewal" : "renewal date passed";
+  $("heroband").innerHTML = [
+    `<span class="pill">Package <b>${esc(CONFIG.package)}</b></span>`,
+    `<span class="pill">Partner since <b>${esc(CONFIG.since)}</b></span>`,
+    `<span class="pill">Employees <b>${esc(CONFIG.headcount)}</b></span>`,
+    `<span class="pill hot">${esc(when)}, decision by ${esc(CONFIG.decisionBy)}</span>`
+  ].join("");
+}
+// numbers that are worked out rather than typed
+function derived(){
+  const d = CONFIG.derived || {};
+  const contracted = Number(d.contracted) || 0;
+  const active     = Number(d.active) || 0;
+  const runs       = Number(d.payrollRuns) || 0;
+  const requests   = Number(d.requests) || 0;
+  const minsReq    = (d.minsPerRequest === undefined || d.minsPerRequest === "") ? 15 : Number(d.minsPerRequest);
+  const hrsRun     = (d.hoursPerRun === undefined || d.hoursPerRun === "") ? 4 : Number(d.hoursPerRun);
+
+  const activation = (contracted > 0 && active > 0)
+    ? Math.round(active / contracted * 100) : null;
+  const hours = Math.round((requests * minsReq) / 60 + runs * hrsRun);
+
+  return { contracted, active, runs, requests, minsReq, hrsRun, activation, hours };
+}
+
+const PKG_BLURB = {
+  "Essential":  "core HR and payroll",
+  "Premium":    "the full HR operation",
+  "Enterprise": "everything Bayzat does"
+};
+
+function tiles(el, arr){
+  $(el).innerHTML = arr.map((k,i) => {
+    let n = k.n, note = k.s;
+    const L = (k.l || "").toLowerCase();
+    const D = derived();
+
+    // the package tile follows the Current package field so you only type it once
+    if (L === "current package") {
+      n = CONFIG.package || n;
+      if (!note || PKG_BLURB[n]) note = PKG_BLURB[n] || note;
+    }
+    // these three are worked out from the numbers in the panel
+    if (L === "active employees" && D.active) {
+      n = D.active.toLocaleString("en-AE");
+      if (D.contracted) note = "of " + D.contracted.toLocaleString("en-AE") + " contracted";
+    }
+    if (L === "employee activation" && D.activation !== null) {
+      n = D.activation + "%";
+      note = D.active.toLocaleString("en-AE") + " of " + D.contracted.toLocaleString("en-AE") + " employees active";
+    }
+    if (L === "payroll runs processed" && D.runs) n = D.runs.toLocaleString("en-AE");
+    if (L === "employee requests handled" && D.requests) n = D.requests.toLocaleString("en-AE");
+    if (L === "admin hours saved" && D.hours) {
+      n = D.hours.toLocaleString("en-AE");
+      note = "based on " + D.minsReq + " min per request and " + D.hrsRun + " hours per payroll run";
+    }
+    return `<div class="card kpi ${TINTS[i % TINTS.length]}">
+      <div class="n">${esc(n)}</div><div class="l">${esc(k.l)}</div><div class="s">${esc(note)}</div>
+    </div>`;
+  }).join("");
+}
+function modules(){
+  const on = CONFIG.modulesOn, off = CONFIG.modulesOff, total = on.length + off.length;
+  $("adoptionTitle").textContent = `You are live on ${on.length} of the ${total} modules in your package`;
+  $("meterBig").textContent = `${on.length}/${total}`;
+  $("meterNote").textContent = `${off.length} more included at no extra cost`;
+  $("mods").innerHTML = on.map(m => `<div class="mod on"><i class="dot"></i>${esc(m)}</div>`).join("")
+                      + off.map(m => `<div class="mod off"><i class="dot"></i>${esc(m)}</div>`).join("");
+  $("meterBar").style.width = "0%";
+  requestAnimationFrame(() => { $("meterBar").style.width = (total ? on.length/total*100 : 0).toFixed(1) + "%"; });
+}
+function cards(el, arr){
+  $(el).innerHTML = arr.map(r => `<div class="card"><h3>${esc(r.h)}</h3><p>${esc(r.p)}</p></div>`).join("");
+}
+function coming(){
+  const el = document.getElementById("comingGrid");
+  el.innerHTML = (CONFIG.coming || []).map(c => {
+    const cls = /discover/i.test(c.status) ? "disc" : "dev";
+    return `<div class="card">
+      <h3>${esc(c.h)}</h3>
+      <span class="tagline ${cls}">${esc(c.status)}</span>
+      <div class="when-line">Tentative release: ${esc(c.when)}</div>
+      <p>${esc(c.p)}</p>
+    </div>`;
+  }).join("");
+}
+const TIERS = {
+  Bronze: [
+    ["Customer support","Multi channel, 4 hour SLA"],
+    ["Customer success","Email support"],
+    ["Solutions engineer","Up to 10 hours a year"],
+    ["Technical support","Email, 24 to 48 hour response"],
+    ["Platform configurations","1 additional a year"],
+    ["Training","Recorded webinars"],
+    ["Custom reports","5 a year"]
+  ],
+  Silver: [
+    ["Customer support","Multi channel, 2 hour SLA"],
+    ["Customer success","Remote CSM, 24 hour SLA"],
+    ["Solutions engineer","Up to 20 hours a year"],
+    ["Technical support","Multi channel with a dedicated specialist"],
+    ["Platform configurations","3 additional a year"],
+    ["Training","Live and recorded webinars"],
+    ["Custom reports","15 a year"]
+  ],
+  Gold: [
+    ["Customer support","Multi channel, 30 minute SLA"],
+    ["Customer success","In market CSM, 24 hour SLA"],
+    ["Solutions engineer","Up to 30 hours a year"],
+    ["Technical support","Dedicated specialist plus one to one"],
+    ["Platform configurations","Unlimited"],
+    ["Training","Unlimited QA, one to one and live sessions"],
+    ["Custom reports","Unlimited"]
+  ]
+};
+
+function service(){
+  const sec = document.getElementById("service");
+  const sv = CONFIG.service || {};
+  if (sv.show === false) { sec.style.display = "none"; return; }
+  sec.style.display = "";
+  const tier = TIERS[sv.tier] ? sv.tier : "Bronze";
+  const price = Number(sv.price) || 0;
+  const disc = Number(sv.discount) || 0;
+  const net = price * (1 - disc/100);
+  $("svcTitle").textContent = "Your service package";
+  const priceBlock = price > 0
+    ? `<div class="svcprice">${disc > 0 ? `<span class="svcwas">${money(price)}</span>` : ""}${money(net)}</div>
+       <div class="svcper">per year</div>
+       ${disc > 0 ? `<span class="svcoff">${disc}% off, saving ${money(price - net)}</span>` : ""}`
+    : `<div class="svcper" style="margin-top:14px">Pricing confirmed on your quote.</div>`;
+  $("svcWrap").innerHTML = `
+    <div class="svccard">
+      <span class="svcbadge">Service package</span>
+      <div class="svctier">${esc(tier)}</div>
+      ${priceBlock}
+      ${sv.note ? `<p class="svcnote">${esc(sv.note)}</p>` : ""}
+    </div>
+    <div class="svccard">
+      <span class="svcbadge">What ${esc(tier)} includes</span>
+      <div class="svclist">
+        ${TIERS[tier].map(r => `<div class="svcitem"><i></i><span><b>${esc(r[0])}</b><br>${esc(r[1])}</span></div>`).join("")}
+      </div>
+    </div>`;
+}
+
+const STUDIO = {
+  Standard: { tag:"Core Automation",
+    lead:"The automation toolkit. Put your internal processes on the platform instead of in inboxes and spreadsheets.",
+    items:[
+      ["Task Manager","Assign work with owners and deadlines, tracked from one dashboard"],
+      ["Service Desk","Employee tickets with an owner, a status and a response time"],
+      ["Workflows","Approvals, notifications and handovers trigger automatically"]
+    ], extra:[] },
+  Advanced: { tag:"Full Automation Suite",
+    lead:"Everything in Standard, plus the customisation toolkit. Build on your Bayzat data and connect the platform to the rest of your stack.",
+    items:[
+      ["Everything in Standard","Task Manager, Service Desk and Workflows included"],
+      ["Bayzat Applications","Build apps on your Bayzat data with AI"],
+      ["API Integrations","Connect Bayzat to your other systems, including accounting"]
+    ],
+    extra:["Additional APIs or apps beyond the included count, priced a la carte",
+           "Custom builds priced per project, scoped with a solutions engineer"] }
+};
+
+function studio(){
+  const sec = document.getElementById("studio");
+  const st = CONFIG.studio || {};
+  if (st.show === false || !STUDIO[st.tier]) { sec.style.display = "none"; return; }
+  sec.style.display = "";
+  const t = STUDIO[st.tier];
+  const price = Number(st.price)||0, disc = Number(st.discount)||0;
+  const net = price*(1-disc/100);
+  const priceBlock = price > 0
+    ? `<div class="svcprice">${disc>0?`<span class="svcwas">${money(price)}</span>`:""}${money(net)}</div>
+       <div class="svcper">per year</div>
+       ${disc>0?`<span class="svcoff">${disc}% off, saving ${money(price-net)}</span>`:""}`
+    : `<div class="svcper" style="margin-top:14px">Priced to your headcount, confirmed on your quote.</div>`;
+  $("stuWrap").innerHTML = `
+    <div class="svccard">
+      <span class="svcbadge">${esc(t.tag)}</span>
+      <div class="svctier">${esc(st.tier)}</div>
+      ${priceBlock}
+      ${st.note ? `<p class="svcnote">${esc(st.note)}</p>` : ""}
+    </div>
+    <div class="svccard">
+      <span class="svcbadge">What ${esc(st.tier)} includes</span>
+      <p class="svcnote" style="margin:0 0 14px">${esc(t.lead)}</p>
+      <div class="svclist">
+        ${t.items.map(r => `<div class="svcitem"><i></i><span><b>${esc(r[0])}</b><br>${esc(r[1])}</span></div>`).join("")}
+      </div>
+      ${t.extra.length ? `<div class="stuextra"><b>Add ons available</b>${t.extra.map(x=>`<div>${esc(x)}</div>`).join("")}</div>` : ""}
+    </div>`;
+}
+
+function priorities(){
+  $("priorities").innerHTML = CONFIG.priorities.map(p => `
+    <div class="card">
+      <h3>${esc(p.h)}</h3>
+      <p style="margin-bottom:12px">${esc(p.p)}</p>
+      <p style="font-size:13px">${esc(p.why)}</p>
+      <span class="tagline win">${esc(p.impact)}</span>
+    </div>`).join("");
+}
+function phases(){
+  $("phases").innerHTML = CONFIG.phases.map(p => `
+    <div class="card phase">
+      <div class="when">${esc(p.when)}</div>
+      <h3>${esc(p.h)}</h3>
+      <ul>${p.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+      <span class="tagline">${esc(p.owner)}</span>
+    </div>`).join("");
+}
+function buildPricingControls(){
+  $("discFields").innerHTML = `<label>Discount by term, %</label>
+    <div class="discgrp">${CONFIG.terms.map((t,i) =>
+      `<span class="one"><span>${esc(t.label)}</span>
+        <input type="number" min="0" max="100" step="1" id="disc${i}" value="${Math.round((t.discount||0)*100)}">
+      </span>`).join("")}</div>`;
+  $("bestSel").innerHTML = CONFIG.terms.map((t,i) =>
+    `<option value="${i}"${t.best?" selected":""}>${esc(t.label)}</option>`).join("")
+    + `<option value="-1"${CONFIG.terms.some(t=>t.best)?"":" selected"}>None</option>`;
+  CONFIG.terms.forEach((t,i) => $("disc"+i).addEventListener("input", pricing));
+  $("bestSel").addEventListener("change", pricing);
+}
+
+function pricing(){
+  const hc = Math.max(1, Number($("hc").value) || 1);
+  const list = Math.max(0.5, Number($("rate").value) || 0.5);
+  CONFIG.headcount = hc; CONFIG.listRate = list;
+
+  // live discount and recommended controls feed straight back into CONFIG
+  CONFIG.terms.forEach((t,i) => {
+    const el = $("disc"+i);
+    if (el) t.discount = Math.min(100, Math.max(0, Number(el.value)||0)) / 100;
+  });
+  const bi = $("bestSel") ? Number($("bestSel").value) : -1;
+  if ($("bestSel")) CONFIG.terms.forEach((t,i) => { t.best = (i === bi); });
+
+  $("bundleChip").textContent = (CONFIG.bundleName || "") + " plan";
+  $("bundleChip").style.display = CONFIG.bundleName ? "inline-block" : "none";
+  $("printBasis").textContent = "Based on " + hc + " employees at a list rate of AED "
+    + list.toFixed(2) + " per employee, per month.";
+  const baseAnnual = list * hc * 12;
+  $("plans").innerHTML = CONFIG.terms.map(t => {
+    const rate = list * (1 - (t.discount || 0));
+    const total = rate * hc * t.months;
+    const annual = total / (t.months / 12);
+    const saving = baseAnnual * (t.months / 12) - total;
+    return `
+      <div class="plan${t.best ? " best" : ""}">
+        ${t.best ? '<span class="tag">RECOMMENDED</span>' : ""}
+        <div class="term">${esc(t.label)}</div>
+        <div class="off">${t.discount ? Math.round(t.discount*100) + "% below list" : "List rate, no discount"}</div>
+        <div class="rate">AED ${rate.toFixed(2)}<small>per employee, per month</small></div>
+        <div class="totals">
+          <div class="row"><span>Total for the term</span><b>${money(total)}</b></div>
+          <div class="row"><span>Equivalent per year</span><b>${money(annual)}</b></div>
+          <div class="row"><span>Payment terms</span><b>${esc(t.payment)}</b></div>
+        </div>
+        ${saving > 1 ? `<div class="saveline">Saves ${money(saving)} against renewing yearly</div>` : ""}
+        <div style="margin-top:14px">${(t.perks||[]).map(p => `<div class="perk">&#8226; ${esc(p)}</div>`).join("")}</div>
+      </div>`;
+  }).join("");
+}
+function steps(){
+  $("steps").innerHTML = CONFIG.steps.map(s => `
+    <button class="step" type="button" aria-pressed="false">
+      <span class="box">&#10003;</span>
+      <span><span class="t">${esc(s.t)}</span><span class="m">${esc(s.m)}</span></span>
+      <span class="who">${esc(s.who)}</span>
+    </button>`).join("");
+}
+function footerBlock(){
+  const c = CONFIG.csm;
+  $("avatar").textContent = (c.name || "").split(" ").map(w => w[0]).slice(0,2).join("").toUpperCase();
+  $("csmName").textContent = c.name;
+  $("csmRole").textContent = c.role;
+  $("csmContact").innerHTML = `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a> &nbsp;|&nbsp; ${esc(c.phone)}`;
+}
+function applyLock(){
+  const on = CONFIG.locked === true;
+  document.body.classList.toggle("locked", on);
+  if (on) {
+    const nav = document.querySelector(".topnav");
+    ["editBtn","themeBtn"].forEach(id => { const b = $(id); if (b) b.remove(); });
+  }
+}
+
+function renderAll(){
+  $("hc").value = CONFIG.headcount;
+  $("rate").value = CONFIG.listRate;
+  hero(); tiles("kpis", CONFIG.kpis); tiles("valueGrid", CONFIG.value);
+  modules(); cards("releases", CONFIG.releases); coming(); priorities(); phases(); service(); studio();
+  buildPricingControls(); pricing(); steps(); footerBlock(); applyLock();
+  document.title = CONFIG.client + " | Bayzat renewal review";
+}
+
+const lines = s => s.split("\n").map(x => x.trim()).filter(Boolean);
+const parts = s => s.split("|").map(x => x.trim());
+
+function fillForm(){
+  $("e_client").value = CONFIG.client; $("e_package").value = CONFIG.package;
+  $("e_since").value = CONFIG.since; $("e_renewal").value = CONFIG.renewalDate;
+  $("e_decision").value = CONFIG.decisionBy; $("e_lede").value = CONFIG.lede;
+  $("e_hc").value = CONFIG.headcount; $("e_rate").value = CONFIG.listRate;
+  $("e_bundle").value = CONFIG.bundleName || "";
+  $("e_terms").value = CONFIG.terms.map(t =>
+    [t.label, t.months, Math.round((t.discount||0)*100), t.payment, (t.perks||[]).join("; ")].join(" | ")).join("\n");
+  $("e_on").value = CONFIG.modulesOn.join("\n");
+  $("e_off").value = CONFIG.modulesOff.join("\n");
+  const d0 = CONFIG.derived || {};
+  $("e_contracted").value = d0.contracted || "";
+  $("e_active").value = d0.active || "";
+  $("e_runs").value = d0.payrollRuns || "";
+  $("e_requests").value = d0.requests || "";
+  $("e_minsreq").value = (d0.minsPerRequest === undefined ? 15 : d0.minsPerRequest);
+  $("e_hrsrun").value = (d0.hoursPerRun === undefined ? 4 : d0.hoursPerRun);
+  $("e_kpis").value = CONFIG.kpis.map(k => [k.n,k.l,k.s].join(" | ")).join("\n");
+  $("e_value").value = CONFIG.value.map(k => [k.n,k.l,k.s].join(" | ")).join("\n");
+  $("e_releases").value = CONFIG.releases.map(r => [r.h,r.p].join(" | ")).join("\n");
+  $("e_coming").value = (CONFIG.coming||[]).map(c => [c.h,c.status,c.when,c.p].join(" | ")).join("\n");
+  $("e_priorities").value = CONFIG.priorities.map(p => [p.h,p.p,p.why,p.impact].join(" | ")).join("\n");
+  $("e_phases").value = CONFIG.phases.map(p => [p.when,p.h,p.owner,(p.items||[]).join("; ")].join(" | ")).join("\n");
+  $("e_steps").value = CONFIG.steps.map(s => [s.t,s.m,s.who].join(" | ")).join("\n");
+  const sv0 = CONFIG.service || {};
+  $("e_svc_tier").value = sv0.show === false ? "None" : (sv0.tier || "Bronze");
+  $("e_svc_price").value = sv0.price || 0;
+  $("e_svc_disc").value = sv0.discount || 0;
+  $("e_svc_note").value = sv0.note || "";
+  const st0 = CONFIG.studio || {};
+  $("e_stu_tier").value = st0.show === false ? "None" : (st0.tier || "Standard");
+  $("e_stu_price").value = st0.price || 0;
+  $("e_stu_disc").value = st0.discount || 0;
+  $("e_stu_note").value = st0.note || "";
+  $("e_name").value = CONFIG.csm.name; $("e_role").value = CONFIG.csm.role;
+  $("e_email").value = CONFIG.csm.email; $("e_phone").value = CONFIG.csm.phone;
+}
+
+function readForm(){
+  CONFIG.client = $("e_client").value; CONFIG.package = $("e_package").value;
+  CONFIG.since = $("e_since").value; CONFIG.renewalDate = $("e_renewal").value;
+  CONFIG.decisionBy = $("e_decision").value; CONFIG.lede = $("e_lede").value;
+  CONFIG.headcount = Number($("e_hc").value) || 1;
+  CONFIG.listRate = Number($("e_rate").value) || 1;
+  CONFIG.bundleName = $("e_bundle").value;
+
+  const t = lines($("e_terms").value).map(l => {
+    const p = parts(l);
+    return { label:p[0], months:Number(p[1])||12, discount:(Number(p[2])||0)/100,
+             payment:p[3]||"", perks:(p[4]||"").split(";").map(x=>x.trim()).filter(Boolean) };
+  });
+  if(t.length){
+    const prev = (CONFIG.terms || []).findIndex(x => x.best);
+    let bi = prev;
+    if (bi < 0 || bi >= t.length) { bi = 0; t.forEach((x,i) => { if(x.months > t[bi].months) bi = i; }); }
+    t.forEach((x,i) => { x.best = (i === bi && t.length > 1); });
+    CONFIG.terms = t;
+  }
+  CONFIG.modulesOn  = lines($("e_on").value);
+  CONFIG.modulesOff = lines($("e_off").value);
+  CONFIG.derived = {
+    contracted: Number($("e_contracted").value) || 0,
+    active: Number($("e_active").value) || 0,
+    payrollRuns: Number($("e_runs").value) || 0,
+    requests: Number($("e_requests").value) || 0,
+    minsPerRequest: $("e_minsreq").value === "" ? 15 : Number($("e_minsreq").value),
+    hoursPerRun: $("e_hrsrun").value === "" ? 4 : Number($("e_hrsrun").value)
+  };
+  CONFIG.kpis  = lines($("e_kpis").value).map(l => { const p = parts(l); return {n:p[0],l:p[1]||"",s:p[2]||""}; });
+  // rewrite the derived tile text so the panel matches what the page shows
+  CONFIG.kpis.forEach(k => {
+    const L = (k.l || "").toLowerCase();
+    if (L === "current package") { k.n = CONFIG.package; k.s = PKG_BLURB[CONFIG.package] || k.s; }
+    if (L === "active employees" && CONFIG.derived.active) k.n = String(CONFIG.derived.active);
+    if (L === "employee activation" && CONFIG.derived.contracted && CONFIG.derived.active)
+      k.n = Math.round(CONFIG.derived.active / CONFIG.derived.contracted * 100) + "%";
+  });
+
+  CONFIG.value = lines($("e_value").value).map(l => { const p = parts(l); return {n:p[0],l:p[1]||"",s:p[2]||""}; });
+  const Dv = derived();
+  CONFIG.value.forEach(k => {
+    const L = (k.l || "").toLowerCase();
+    if (L === "payroll runs processed" && Dv.runs) k.n = String(Dv.runs);
+    if (L === "employee requests handled" && Dv.requests) k.n = Dv.requests.toLocaleString("en-AE");
+    if (L === "admin hours saved" && Dv.hours) k.n = Dv.hours.toLocaleString("en-AE");
+  });
+
+  CONFIG.releases = lines($("e_releases").value).map(l => { const p = parts(l); return {h:p[0],p:p[1]||""}; });
+  CONFIG.coming = lines($("e_coming").value).map(l => { const p = parts(l);
+    return {h:p[0],status:p[1]||"",when:p[2]||"",p:p[3]||""}; });
+  CONFIG.priorities = lines($("e_priorities").value).map(l => { const p = parts(l);
+    return {h:p[0],p:p[1]||"",why:p[2]||"",impact:p[3]||""}; });
+  CONFIG.phases = lines($("e_phases").value).map(l => { const p = parts(l);
+    return {when:p[0],h:p[1]||"",owner:p[2]||"",items:(p[3]||"").split(";").map(x=>x.trim()).filter(Boolean)}; });
+  CONFIG.steps = lines($("e_steps").value).map(l => { const p = parts(l); return {t:p[0],m:p[1]||"",who:p[2]||""}; });
+  const tierRaw = ($("e_svc_tier").value || "").trim();
+  const tierKey = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1).toLowerCase();
+  CONFIG.service = {
+    show: !/^none$/i.test(tierRaw),
+    tier: ["Bronze","Silver","Gold"].includes(tierKey) ? tierKey : "Bronze",
+    price: Number($("e_svc_price").value) || 0,
+    discount: Number($("e_svc_disc").value) || 0,
+    note: $("e_svc_note").value
+  };
+  const stuRaw = ($("e_stu_tier").value || "").trim();
+  const stuKey = stuRaw.charAt(0).toUpperCase() + stuRaw.slice(1).toLowerCase();
+  CONFIG.studio = {
+    show: !/^none$/i.test(stuRaw),
+    tier: ["Standard","Advanced"].includes(stuKey) ? stuKey : "Standard",
+    price: Number($("e_stu_price").value) || 0,
+    discount: Number($("e_stu_disc").value) || 0,
+    note: $("e_stu_note").value
+  };
+  CONFIG.csm = { name:$("e_name").value, role:$("e_role").value, email:$("e_email").value, phone:$("e_phone").value };
+}
+
+function toast(msg){
+  const el = $("toast"); el.textContent = msg; el.classList.add("show");
+  clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("show"), 2200);
+}
+function openPanel(v){
+  if(v) fillForm();
+  $("panel").classList.toggle("open", v);
+  $("scrim").classList.toggle("open", v);
+}
+function exportHtml(locked){
+  if($("panel").classList.contains("open")){ readForm(); renderAll(); }
+  const wasLocked = CONFIG.locked;
+  CONFIG.locked = !!locked;
+
+  // a cloned node keeps attributes, not live values, so write the values back first
+  document.querySelectorAll("input").forEach(i => i.setAttribute("value", i.value));
+  document.querySelectorAll("textarea").forEach(t => { t.textContent = t.value; });
+  document.querySelectorAll("select").forEach(sel => {
+    Array.from(sel.options).forEach(o => {
+      if (o.selected) o.setAttribute("selected",""); else o.removeAttribute("selected");
+    });
+  });
+
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector("#cfg").textContent = "\n" + JSON.stringify(CONFIG, null, 2) + "\n";
+  const p = clone.querySelector("#panel"), sc = clone.querySelector("#scrim");
+  if (p) p.classList.remove("open");
+  if (sc) sc.classList.remove("open");
+  if (locked) {
+    // strip the internal controls out of the file rather than just hiding them
+    [".calc","#panel","#scrim","#toast","#editBtn","#themeBtn","#clientBtn","#saveBtn","#printBtn"]
+      .forEach(sel => { const el = clone.querySelector(sel); if (el) el.remove(); });
+    const b = clone.querySelector("body");
+    if (b) b.classList.add("locked");
+  }
+  const html = "<!DOCTYPE html>\n" + clone.outerHTML;
+  CONFIG.locked = wasLocked;
+  const slug = (CONFIG.client||"client").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([html],{type:"text/html"}));
+  a.download = (locked ? "renewal-review-client-" : "renewal-review-") + slug + ".html";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast(locked ? "Client copy saved. Edit controls removed." : "Saved to your downloads folder.");
+}
+
+function saveFile(){
+  readForm(); renderAll();
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector("#cfg").textContent = "\n" + JSON.stringify(CONFIG, null, 2) + "\n";
+  clone.querySelector("#panel").classList.remove("open");
+  clone.querySelector("#scrim").classList.remove("open");
+  const html = "<!DOCTYPE html>\n" + clone.outerHTML;
+  const slug = (CONFIG.client || "client").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([html], {type:"text/html"}));
+  a.download = "renewal-review-" + slug + ".html";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  toast("Saved to your downloads folder.");
+}
+
+$("editBtn").onclick = () => openPanel(true);
+$("closeBtn").onclick = () => openPanel(false);
+$("scrim").onclick = () => openPanel(false);
+$("applyBtn").onclick = () => { readForm(); buildPricingControls(); renderAll(); openPanel(false); toast("Page updated."); };
+$("pdfLocked").onclick = () => window.print();
+$("saveBtn").onclick = () => exportHtml(false);
+$("clientBtn").onclick = () => { exportHtml(true); openPanel(false); };
+$("printBtn").onclick = () => { openPanel(false); setTimeout(() => window.print(), 250); };
+$("themeBtn").onclick = () => {
+  const dark = document.documentElement.dataset.theme === "dark";
+  document.documentElement.dataset.theme = dark ? "light" : "dark";
+  $("themeBtn").textContent = dark ? "Dark mode" : "Light mode";
+};
+["hc","rate"].forEach(id => $(id).addEventListener("input", pricing));
+$("steps").addEventListener("click", e => {
+  const b = e.target.closest(".step"); if(!b) return;
+  const on = b.classList.toggle("done");
+  b.setAttribute("aria-pressed", on ? "true" : "false");
+});
+document.addEventListener("keydown", e => { if(e.key === "Escape") openPanel(false); });
+
+renderAll();
+</script>
+
+
+</body></html>
