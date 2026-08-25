@@ -1,1 +1,1 @@
-# bayzat-renewal-toolkit
+# bayzat-toolkit
