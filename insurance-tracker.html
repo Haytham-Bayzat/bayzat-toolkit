@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Insurance Renewal Tracker</title>
+<style>
+:root{
+  --bg:#FBFAFF; --surface:#FFFFFF; --surface-2:#FAF7FF;
+  --text:#1A1330; --dim:#6B6485; --dimmer:#8F88A8; --edge:#E9E2FA;
+  --purple:#7C3AED; --purple-soft:#F1E8FF;
+  --mint:#0E9E82; --mint-soft:#E2F7F1;
+  --amber:#C97A00; --amber-soft:#FFF3DC;
+  --coral:#C2334D; --coral-soft:#FDECEF;
+  --grey-soft:#EFEDF5;
+  --shadow:0 1px 2px rgba(26,19,48,.05), 0 12px 30px -20px rgba(124,58,237,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:"Inter","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+
+.bar{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--edge)}
+.bar .in{max-width:1280px;margin:0 auto;padding:0 20px;height:56px;display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2em;font-size:11.5px;color:var(--purple)}
+.logomark{height:17px;width:auto;display:block}
+.logo span{color:var(--dimmer);font-weight:600}
+.btn{border:1px solid var(--edge);background:#fff;color:var(--text);border-radius:9px;padding:8px 13px;
+  font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.btn:hover{border-color:var(--purple);color:var(--purple)}
+.btn:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.btn.solid{background:var(--purple);border-color:var(--purple);color:#fff}
+.btn.solid:hover{filter:brightness(1.1);color:#fff}
+.bar .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.dirty{font-size:12px;font-weight:700;color:var(--coral);display:none}
+.dirty.on{display:inline}
+
+.hero{background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%);color:#fff;
+  padding:34px 0 38px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-110px;top:-140px;width:400px;height:400px;
+  border-radius:50%;background:rgba(255,255,255,.13)}
+.hero .wrap{position:relative;z-index:1}
+h1{font-size:clamp(25px,4vw,34px);margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+.lede{font-size:15px;opacity:.93;max-width:660px;margin:0}
+
+section{padding:26px 0}
+.lbl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--purple);font-weight:800;margin:0 0 12px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{border-radius:14px;padding:15px 17px;cursor:pointer;border:2px solid transparent}
+.stat.active{border-color:currentColor}
+.stat b{display:block;font-size:25px;font-weight:800;letter-spacing:-.02em}
+.stat span{font-size:12px;font-weight:650}
+.s-ask{background:var(--purple-soft);color:var(--purple)}
+.s-now{background:var(--coral-soft);color:var(--coral)}
+.s-soon{background:var(--amber-soft);color:var(--amber)}
+.s-later{background:var(--mint-soft);color:var(--mint)}
+
+table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--edge);
+  border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+th{text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
+  font-weight:800;padding:11px 10px;background:var(--surface-2);border-bottom:1px solid var(--edge);white-space:nowrap}
+td{padding:6px 10px;border-bottom:1px solid var(--edge);font-size:13.5px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#FDFCFF}
+
+td input,td select{width:100%;border:1px solid transparent;background:transparent;border-radius:7px;
+  padding:7px 8px;font:inherit;font-size:13.5px;color:var(--text)}
+td input:hover,td select:hover{border-color:var(--edge);background:#fff}
+td input:focus,td select:focus{outline:none;border-color:var(--purple);background:#fff;
+  box-shadow:0 0 0 3px var(--purple-soft)}
+td.name input{font-weight:700}
+td.num input{text-align:right}
+.days{font-weight:750;white-space:nowrap;text-align:center;font-size:13px}
+.flag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:4px 9px;border-radius:99px;white-space:nowrap}
+.f-ask{background:var(--purple-soft);color:var(--purple)}
+.f-now{background:var(--coral-soft);color:var(--coral)}
+.f-soon{background:var(--amber-soft);color:var(--amber)}
+.f-later{background:var(--mint-soft);color:var(--mint)}
+.f-none{background:var(--grey-soft);color:var(--dimmer)}
+.del{border:none;background:transparent;color:var(--dimmer);cursor:pointer;font-size:17px;
+  padding:2px 7px;border-radius:6px;line-height:1}
+.del:hover{background:var(--coral-soft);color:var(--coral)}
+.next{font-size:12px;color:var(--dim)}
+
+.tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.empty{padding:36px;text-align:center;color:var(--dim);background:#fff;border:1px dashed var(--edge);border-radius:14px}
+
+.playbook{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:860px){.playbook{grid-template-columns:1fr}}
+.pb{background:#fff;border:1px solid var(--edge);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.pb h3{margin:0 0 6px;font-size:15px}
+.pb p{margin:0 0 10px;color:var(--dim);font-size:13px}
+.pb .say{background:var(--purple-soft);color:#4C1D95;border-radius:10px;padding:11px 13px;font-size:12.5px;font-weight:600}
+
+.note{background:var(--amber-soft);color:#8A5300;border-radius:12px;padding:13px 16px;font-size:13px;
+  font-weight:600;margin-top:18px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);opacity:0;
+  background:var(--text);color:#fff;padding:10px 17px;border-radius:99px;font-size:13px;font-weight:600;
+  z-index:100;pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="in">
+    <div class="logo"><img class="logomark" src="data:image/png;base64,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" alt="Bayzat"><span>INSURANCE TRACKER</span></div>
+    <div class="right">
+      <span class="dirty" id="dirty">Unsaved changes</span>
+      <button class="btn solid" id="saveBtn" type="button">Save file</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Group insurance renewal tracker</h1>
+    <p class="lede">Type straight into the table. Accounts with no expiry date sort to the top, because those are the ones you still need to ask.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="stats" id="stats"></div>
+    <div id="tableWrap"></div>
+    <div class="tools">
+      <button class="btn solid" id="addBtn" type="button">Add account</button>
+      <span class="next" id="countLine"></span>
+    </div>
+    <div class="note">Changes live in this browser tab only. Click <strong>Save file</strong> before you close it, then open that saved file next time and keep working from it.</div>
+  </div>
+</section>
+
+<section style="background:var(--surface-2)">
+  <div class="wrap">
+    <p class="lbl">How to work it</p>
+    <div class="playbook">
+      <div class="pb">
+        <h3>1. Get the date</h3>
+        <p>One line, dropped into a conversation you are already having. Framed as record keeping, not a pitch.</p>
+        <div class="say">"While I update your account record, when does your medical cover renew and who handles it at the moment?"</div>
+      </div>
+      <div class="pb">
+        <h3>2. Qualify before you work it</h3>
+        <p>At around 90 days out, ask for the table of benefits and the member list, then send it to the insurance team. They decide whether the premium is worth pursuing. Do not build anything before that comes back.</p>
+        <div class="say">"Send me your current table of benefits and member list and I will have our insurance team put a comparison together."</div>
+      </div>
+      <div class="pb">
+        <h3>3. Lead with the admin</h3>
+        <p>Every broker promises a better rate. Only you can say their census already sits in Bayzat, so there is no spreadsheet to build and additions and deletions happen where their team already works.</p>
+        <div class="say">"Your census is already in Bayzat, so I can get this quoted without you building anything."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script type="application/json" id="cfg">
+{
+  "accounts": [
+    {"client":"ABC Trading LLC","expiry":"2026-11-30","employees":"62","provider":"Daman via broker","stage":"Date captured","note":"asked about dependants in June"},
+    {"client":"Sample Group FZ LLC","expiry":"2026-09-15","employees":"140","provider":"Oman Insurance","stage":"Sent to insurance team","note":"complained about claim turnaround"},
+    {"client":"Sample Clinic","expiry":"2027-04-01","employees":"28","provider":"unknown","stage":"Date captured","note":""},
+    {"client":"Sample Restaurant LLC","expiry":"","employees":"24","provider":"","stage":"Not asked yet","note":"ask at the renewal call"}
+  ]
+}
+</script>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let CONFIG = JSON.parse($("cfg").textContent);
+let filter = null, dirty = false;
+
+const STAGES = ["Not asked yet","Date captured","ToB requested","Sent to insurance team",
+                "Worth pursuing","Too small, parked","Quoting","Won","Lost"];
+const NEXT = {
+  "Not asked yet":"Ask when cover renews",
+  "Date captured":"Ask for ToB and member list at 90 days",
+  "ToB requested":"Chase the documents",
+  "Sent to insurance team":"Waiting on the team to qualify it",
+  "Worth pursuing":"Book the comparison conversation",
+  "Too small, parked":"Revisit if headcount grows",
+  "Quoting":"Follow the quote through",
+  "Won":"Done",
+  "Lost":"Note why, diarise next year"
+};
+
+const DAY = 86400000;
+function daysTo(iso){
+  if(!iso) return null;
+  const d = new Date(iso + "T00:00:00");
+  if (isNaN(d)) return null;
+  const t = new Date(); t.setHours(0,0,0,0);
+  return Math.round((d - t) / DAY);
+}
+function band(a){
+  const days = daysTo(a.expiry);
+  if (a.stage === "Won" || a.stage === "Lost" || a.stage === "Too small, parked")
+    return {k:"done", label:a.stage, cls:"f-none", days};
+  if (days === null) return {k:"ask",  label:"Ask for date", cls:"f-ask",  days};
+  if (days < 0)      return {k:"done", label:"Expired",      cls:"f-none", days};
+  if (days <= 90)    return {k:"now",  label:"Act now",      cls:"f-now",  days};
+  if (days <= 150)   return {k:"soon", label:"Prep soon",    cls:"f-soon", days};
+  return               {k:"later",label:"Later",        cls:"f-later",days};
+}
+
+function markDirty(){ dirty = true; $("dirty").classList.add("on"); }
+
+function render(){
+  const rows = (CONFIG.accounts||[]).map((a,i) => ({ a, i, b: band(a) }));
+  const order = { ask:0, now:1, soon:2, later:3, done:4 };
+  rows.sort((x,y) => {
+    if (order[x.b.k] !== order[y.b.k]) return order[x.b.k] - order[y.b.k];
+    if (x.b.days === null || y.b.days === null) return (x.a.client||"").localeCompare(y.a.client||"");
+    return x.b.days - y.b.days;
+  });
+
+  const count = k => rows.filter(r => r.b.k === k).length;
+  const S = [["ask","Ask for date","s-ask"],["now","Act now, inside 90 days","s-now"],
+             ["soon","Prep soon, 90 to 150 days","s-soon"],["later","Later in the year","s-later"]];
+  $("stats").innerHTML = S.map(([k,label,cls]) =>
+    `<div class="stat ${cls}${filter===k?" active":""}" data-f="${k}"><b>${count(k)}</b><span>${label}</span></div>`).join("");
+
+  const shown = filter ? rows.filter(r => r.b.k === filter) : rows;
+  $("countLine").textContent = filter
+    ? shown.length + " of " + rows.length + " accounts shown. Click the highlighted tile again to clear the filter."
+    : rows.length + " accounts";
+
+  if (!shown.length) {
+    $("tableWrap").innerHTML = `<div class="empty">Nothing here. Click <strong>Add account</strong> to start.</div>`;
+    return;
+  }
+
+  $("tableWrap").innerHTML = `<table><thead><tr>
+      <th style="width:19%">Account</th><th style="width:12%">Cover expires</th><th style="width:6%">Days</th>
+      <th style="width:7%">Staff</th><th style="width:14%">Current provider</th>
+      <th style="width:15%">Stage</th><th style="width:10%">Status</th>
+      <th style="width:15%">Next step</th><th style="width:2%"></th>
+    </tr></thead><tbody>${shown.map(r => `
+      <tr data-i="${r.i}">
+        <td class="name"><input data-k="client" value="${esc(r.a.client)}" placeholder="Client name"></td>
+        <td><input data-k="expiry" type="date" value="${esc(r.a.expiry)}"></td>
+        <td class="days">${r.b.days === null ? "—" : (r.b.days < 0 ? Math.abs(r.b.days)+"a" : r.b.days)}</td>
+        <td class="num"><input data-k="employees" value="${esc(r.a.employees)}"></td>
+        <td><input data-k="provider" value="${esc(r.a.provider)}" placeholder="unknown"></td>
+        <td><select data-k="stage">${STAGES.map(s =>
+          `<option${s===r.a.stage?" selected":""}>${esc(s)}</option>`).join("")}</select></td>
+        <td><span class="flag ${r.b.cls}">${esc(r.b.label)}</span></td>
+        <td class="next">${esc(NEXT[r.a.stage] || "")}</td>
+        <td><button class="del" title="Remove">&times;</button></td>
+      </tr>`).join("")}</tbody></table>`;
+}
+
+// one listener for the whole table
+$("tableWrap").addEventListener("input", e => {
+  const cell = e.target.closest("[data-k]"); if(!cell) return;
+  const row = e.target.closest("tr"); if(!row) return;
+  CONFIG.accounts[Number(row.dataset.i)][cell.dataset.k] = e.target.value;
+  markDirty();
+  if (cell.dataset.k === "expiry") render();
+});
+$("tableWrap").addEventListener("change", e => {
+  const cell = e.target.closest("select[data-k]"); if(!cell) return;
+  const row = e.target.closest("tr");
+  CONFIG.accounts[Number(row.dataset.i)].stage = e.target.value;
+  markDirty(); render();
+});
+$("tableWrap").addEventListener("click", e => {
+  const b = e.target.closest(".del"); if(!b) return;
+  const row = e.target.closest("tr");
+  const i = Number(row.dataset.i);
+  const name = CONFIG.accounts[i].client || "this row";
+  if (confirm("Remove " + name + "?")) { CONFIG.accounts.splice(i,1); markDirty(); render(); }
+});
+$("stats").addEventListener("click", e => {
+  const t = e.target.closest(".stat"); if(!t) return;
+  filter = (filter === t.dataset.f) ? null : t.dataset.f;
+  render();
+});
+$("addBtn").onclick = () => {
+  CONFIG.accounts.unshift({client:"",expiry:"",employees:"",provider:"",stage:"Not asked yet",note:""});
+  filter = null; markDirty(); render();
+  const first = document.querySelector("td.name input"); if (first) first.focus();
+};
+
+function toast(m){ const e=$("toast"); e.textContent=m; e.classList.add("show");
+  clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove("show"),2400); }
+
+$("saveBtn").onclick = () => {
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector("#cfg").textContent = "\n" + JSON.stringify(CONFIG, null, 2) + "\n";
+  const d = clone.querySelector("#dirty"); if (d) d.classList.remove("on");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["<!DOCTYPE html>\n"+clone.outerHTML],{type:"text/html"}));
+  a.download = "insurance-tracker.html";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  dirty = false; $("dirty").classList.remove("on");
+  toast("Saved. Open that file next time and carry on from there.");
+};
+
+window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+render();
+</script>
+</body>
+</html>
