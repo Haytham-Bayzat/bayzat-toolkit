@@ -224,6 +224,8 @@ body.locked .printbasis{display:block;font-size:13px;color:var(--dim);margin:0 0
 
 .optchip{display:inline-block;font-size:12px;font-weight:750;padding:7px 15px;border-radius:99px;
   background:var(--amber-soft);color:var(--amber);margin:0 0 18px}
+.svcfee{margin-top:14px;background:var(--amber-soft);color:#8A5300;border-radius:11px;padding:11px 13px;
+  font-size:12.5px;font-weight:700}
 .stuextra{margin-top:16px;padding-top:13px;border-top:1px solid var(--edge);font-size:12.5px;color:var(--dim)}
 .stuextra b{display:block;color:var(--text);font-size:12px;margin-bottom:6px}
 .stuextra div{margin-bottom:4px}
@@ -553,7 +555,7 @@ body.locked .step:hover{border-color:var(--edge)}
       <h4>2. Your account, in numbers</h4>
       <p class="secnote">The four coloured tiles. The Current package tile follows the field in section 1, so leave it as it is. The rest are typed in.</p>
       <div class="f"><label for="e_contracted">Contracted employees</label>
-        <p class="hint">The headcount on the contract.</p>
+        <p class="hint">The headcount on the contract. This also fills the Employees pill in the header and the pricing quantity in section 9.</p>
         <input id="e_contracted" type="number" min="0" step="1"></div>
       <div class="f"><label for="e_active">Active employees on the platform</label>
         <p class="hint">Activation percentage is worked out from these two.</p>
@@ -632,7 +634,7 @@ body.locked .step:hover{border-color:var(--edge)}
 
     <div class="fset">
       <h4>10. Service package</h4>
-      <p class="secnote">Bronze, Silver or Gold. The inclusions shown change with the tier.</p>
+      <p class="secnote">Part of the subscription rather than an extra. Bronze, Silver or Gold, and the inclusions change with the tier. Type None to remove the section.</p>
       <div class="f"><label for="e_svc_tier">Package</label>
         <p class="hint">Bronze, Silver or Gold. Type None to hide this section.</p>
         <input id="e_svc_tier"></div>
@@ -642,6 +644,9 @@ body.locked .step:hover{border-color:var(--edge)}
       <div class="f"><label for="e_svc_disc">Discount, %</label>
         <p class="hint">Leave at 0 for no discount.</p>
         <input id="e_svc_disc" type="number" step="1"></div>
+      <div class="f"><label for="e_svc_fee">Implementation fee, AED one time</label>
+        <p class="hint">Usually applies on smaller headcounts. Leave at 0 to hide the line.</p>
+        <input id="e_svc_fee" type="number" step="1"></div>
       <div class="f"><label for="e_svc_note">Note under the price</label><input id="e_svc_note"></div>
     </div>
 
@@ -695,61 +700,258 @@ body.locked .step:hover{border-color:var(--edge)}
   "decisionBy": "15 November 2026",
   "lede": "A look back at the year, what your team is getting from Bayzat today, and the plan for 2026.",
   "headcount": 62,
-  "derived": {"contracted":62,"active":60,"payrollRuns":12,"requests":1240,"minsPerRequest":15,"hoursPerRun":4},
+  "derived": {
+    "contracted": 62,
+    "active": 60,
+    "payrollRuns": 12,
+    "requests": 1240,
+    "minsPerRequest": 15,
+    "hoursPerRun": 4
+  },
   "listRate": 29,
   "bundleName": "Essential",
   "terms": [
-    {"label":"1 year","months":12,"discount":0,"payment":"50% upfront, 50% after 6 months","perks":["All modules in your package","Rate reviewed again in 2027"]},
-    {"label":"2 years","months":24,"discount":0.1,"payment":"Quarterly payments","perks":["All modules in your package","Rate locked for 24 months"]},
-    {"label":"3 years","months":36,"discount":0.15,"payment":"Quarterly payments","best":true,"perks":["All modules in your package","Rate locked for 36 months","Priority onboarding for new modules"]}
+    {
+      "label": "1 year",
+      "months": 12,
+      "discount": 0,
+      "payment": "50% upfront, 50% after 6 months",
+      "perks": [
+        "All modules in your package",
+        "Rate reviewed again in 2027"
+      ]
+    },
+    {
+      "label": "2 years",
+      "months": 24,
+      "discount": 0.1,
+      "payment": "Quarterly payments",
+      "perks": [
+        "All modules in your package",
+        "Rate locked for 24 months"
+      ]
+    },
+    {
+      "label": "3 years",
+      "months": 36,
+      "discount": 0.15,
+      "payment": "Quarterly payments",
+      "best": true,
+      "perks": [
+        "All modules in your package",
+        "Rate locked for 36 months",
+        "Priority onboarding for new modules"
+      ]
+    }
   ],
   "kpis": [
-    {"n":"62","l":"Active employees","s":"on the platform today"},
-    {"n":"Essential","l":"Current package","s":"core HR and payroll"},
-    {"n":"8 / 13","l":"Modules live","s":"five included, not yet on"},
-    {"n":"97%","l":"Employee activation","s":"above the platform average"}
+    {
+      "n": "62",
+      "l": "Active employees",
+      "s": "on the platform today"
+    },
+    {
+      "n": "Essential",
+      "l": "Current package",
+      "s": "core HR and payroll"
+    },
+    {
+      "n": "8 / 13",
+      "l": "Modules live",
+      "s": "five included, not yet on"
+    },
+    {
+      "n": "97%",
+      "l": "Employee activation",
+      "s": "above the platform average"
+    }
   ],
   "value": [
-    {"n":"12","l":"Payroll runs processed","s":"WPS compliant, zero missed cycles"},
-    {"n":"1,240","l":"Employee requests handled","s":"leave, documents, letters, expenses"},
-    {"n":"358","l":"Admin hours saved","s":"roughly 1.5 days of HR time a week"},
-    {"n":"2h 10m","l":"Median support response","s":"inside the support SLA"}
+    {
+      "n": "12",
+      "l": "Payroll runs processed",
+      "s": "WPS compliant, zero missed cycles"
+    },
+    {
+      "n": "1,240",
+      "l": "Employee requests handled",
+      "s": "leave, documents, letters, expenses"
+    },
+    {
+      "n": "358",
+      "l": "Admin hours saved",
+      "s": "roughly 1.5 days of HR time a week"
+    },
+    {
+      "n": "2h 10m",
+      "l": "Median support response",
+      "s": "inside the support SLA"
+    }
   ],
-  "modulesOn": ["Employee Records","Company Documents","Employee Documents","Announcements","Payroll","Work Expenses","Air Tickets","Letter Requests"],
-  "modulesOff": ["Timesheets","Attendance","Shift Scheduler","Performance Catch-ups","360 Review"],
+  "modulesOn": [
+    "Employee Records",
+    "Company Documents",
+    "Employee Documents",
+    "Announcements",
+    "Payroll",
+    "Work Expenses",
+    "Air Tickets",
+    "Letter Requests"
+  ],
+  "modulesOff": [
+    "Timesheets",
+    "Attendance",
+    "Shift Scheduler",
+    "Performance Catch-ups",
+    "360 Review"
+  ],
   "releases": [
-    {"h":"Knowledge Hub","p":"One searchable home for SOPs, policies and process guides, so answers do not live in one person's head."},
-    {"h":"Employee Ticketing","p":"Structured requests with owners and response times, replacing scattered messages."},
-    {"h":"Workflows","p":"Approvals, notifications and task handoffs trigger automatically on employee actions."},
-    {"h":"Task Manager","p":"One dashboard to assign and track internal work across teams."},
-    {"h":"AI Report Generator","p":"Plain language questions turned into instant reports on workload and activity."},
-    {"h":"Priced separately","p":"Some clients have already added these. Ask me for pricing and I will scope it to your headcount."}
+    {
+      "h": "Knowledge Hub",
+      "p": "One searchable home for SOPs, policies and process guides, so answers do not live in one person's head."
+    },
+    {
+      "h": "Employee Ticketing",
+      "p": "Structured requests with owners and response times, replacing scattered messages."
+    },
+    {
+      "h": "Workflows",
+      "p": "Approvals, notifications and task handoffs trigger automatically on employee actions."
+    },
+    {
+      "h": "Task Manager",
+      "p": "One dashboard to assign and track internal work across teams."
+    },
+    {
+      "h": "AI Report Generator",
+      "p": "Plain language questions turned into instant reports on workload and activity."
+    },
+    {
+      "h": "Priced separately",
+      "p": "Some clients have already added these. Ask me for pricing and I will scope it to your headcount."
+    }
   ],
   "coming": [
-    {"h":"Hourly Leaves","status":"Under Development","when":"Q3 2026","p":"Employees request time off in hourly blocks rather than full days, which makes partial day absence easy to manage."},
-    {"h":"Service Desk v2","status":"Discovery","when":"Q3 2026","p":"The next release brings further functionality and user experience improvements to Service Desk."},
-    {"h":"Accounting Integration","status":"Discovery","when":"2026","p":"Turns payroll data into accounting ready journal entries. Upload your chart of accounts, map across subsidiaries, export or sync natively with NetSuite."},
-    {"h":"End of Service Policy Configuration","status":"Discovery","when":"2026","p":"Configure custom EOS policies in Bayzat, with ready made templates for all six GCC countries aligned to local labour law."}
+    {
+      "h": "Hourly Leaves",
+      "status": "Under Development",
+      "when": "Q3 2026",
+      "p": "Employees request time off in hourly blocks rather than full days, which makes partial day absence easy to manage."
+    },
+    {
+      "h": "Service Desk v2",
+      "status": "Discovery",
+      "when": "Q3 2026",
+      "p": "The next release brings further functionality and user experience improvements to Service Desk."
+    },
+    {
+      "h": "Accounting Integration",
+      "status": "Discovery",
+      "when": "2026",
+      "p": "Turns payroll data into accounting ready journal entries. Upload your chart of accounts, map across subsidiaries, export or sync natively with NetSuite."
+    },
+    {
+      "h": "End of Service Policy Configuration",
+      "status": "Discovery",
+      "when": "2026",
+      "p": "Configure custom EOS policies in Bayzat, with ready made templates for all six GCC countries aligned to local labour law."
+    }
   ],
   "priorities": [
-    {"h":"Knowledge Hub","p":"One searchable home for SOPs, policies and process guides, kept current in one place.","why":"New joiners and cover staff ask the same handful of questions again and again.","impact":"Less repeat asking"},
-    {"h":"Employee Ticketing","p":"Staff raise requests in one place with an owner, a status and a response time.","why":"Requests arrive by WhatsApp today and get lost when someone is off.","impact":"Nothing gets missed"},
-    {"h":"AI Report Generator","p":"Ask a question in plain language and get the HR report back immediately.","why":"Management reporting today means exporting and rebuilding sheets by hand.","impact":"Hours back each month"}
+    {
+      "h": "Knowledge Hub",
+      "p": "One searchable home for SOPs, policies and process guides, kept current in one place.",
+      "why": "New joiners and cover staff ask the same handful of questions again and again.",
+      "impact": "Less repeat asking"
+    },
+    {
+      "h": "Employee Ticketing",
+      "p": "Staff raise requests in one place with an owner, a status and a response time.",
+      "why": "Requests arrive by WhatsApp today and get lost when someone is off.",
+      "impact": "Nothing gets missed"
+    },
+    {
+      "h": "AI Report Generator",
+      "p": "Ask a question in plain language and get the HR report back immediately.",
+      "why": "Management reporting today means exporting and rebuilding sheets by hand.",
+      "impact": "Hours back each month"
+    }
   ],
   "phases": [
-    {"when":"First 30 days","h":"Foundations","owner":"Bayzat leads","items":["Set up the Knowledge Hub structure","Load the first set of SOPs","Train the coordinators"]},
-    {"when":"Days 31 to 60","h":"Requests in one place","owner":"Joint","items":["Switch on Employee Ticketing","Set request categories and owners","Announce to all staff"]},
-    {"when":"Days 61 to 90","h":"Automate and measure","owner":"Client leads","items":["First AI report walkthrough","Enable Timesheets for billable teams","Adoption review with your team"]}
+    {
+      "when": "First 30 days",
+      "h": "Foundations",
+      "owner": "Bayzat leads",
+      "items": [
+        "Set up the Knowledge Hub structure",
+        "Load the first set of SOPs",
+        "Train the coordinators"
+      ]
+    },
+    {
+      "when": "Days 31 to 60",
+      "h": "Requests in one place",
+      "owner": "Joint",
+      "items": [
+        "Switch on Employee Ticketing",
+        "Set request categories and owners",
+        "Announce to all staff"
+      ]
+    },
+    {
+      "when": "Days 61 to 90",
+      "h": "Automate and measure",
+      "owner": "Client leads",
+      "items": [
+        "First AI report walkthrough",
+        "Enable Timesheets for billable teams",
+        "Adoption review with your team"
+      ]
+    }
   ],
   "steps": [
-    {"t":"Confirm preferred term","m":"Within three working days","who":"Client"},
-    {"t":"Updated quote and contract sent","m":"Same day as your confirmation","who":"Haytham"},
-    {"t":"Internal approval and signature","m":"Before the renewal date","who":"Client"},
-    {"t":"Kick off the 90 day plan","m":"Week of the renewal date","who":"Joint"}
+    {
+      "t": "Confirm preferred term",
+      "m": "Within three working days",
+      "who": "Client"
+    },
+    {
+      "t": "Updated quote and contract sent",
+      "m": "Same day as your confirmation",
+      "who": "Haytham"
+    },
+    {
+      "t": "Internal approval and signature",
+      "m": "Before the renewal date",
+      "who": "Client"
+    },
+    {
+      "t": "Kick off the 90 day plan",
+      "m": "Week of the renewal date",
+      "who": "Joint"
+    }
   ],
-  "service": {"show":true,"tier":"Gold","price":1750,"discount":0,"note":"Renewed annually alongside your subscription."},
-  "studio": {"show":true,"tier":"Advanced","price":4000,"discount":0,"note":"Priced against your headcount, renewed annually."},
-  "csm": {"name":"Haytham Ghali","role":"Your dedicated Customer Success Manager","email":"haytham@bayzat.com","phone":"+971 4549 0371"}
+  "service": {
+    "show": true,
+    "tier": "Gold",
+    "price": 1750,
+    "discount": 0,
+    "note": "Renewed annually alongside your subscription.",
+    "fee": 0
+  },
+  "studio": {
+    "show": true,
+    "tier": "Advanced",
+    "price": 4000,
+    "discount": 0,
+    "note": "Priced against your headcount, renewed annually."
+  },
+  "csm": {
+    "name": "Haytham Ghali",
+    "role": "Your dedicated Customer Success Manager",
+    "email": "haytham@bayzat.com",
+    "phone": "+971 4549 0371"
+  }
 }
 </script>
 
@@ -771,7 +973,7 @@ function hero(){
   $("heroband").innerHTML = [
     `<span class="pill">Package <b>${esc(CONFIG.package)}</b></span>`,
     `<span class="pill">Partner since <b>${esc(CONFIG.since)}</b></span>`,
-    `<span class="pill">Employees <b>${esc(CONFIG.headcount)}</b></span>`,
+    `<span class="pill">Employees <b>${esc((CONFIG.derived && Number(CONFIG.derived.contracted)) || CONFIG.headcount)}</b></span>`,
     `<span class="pill hot">${esc(when)}, decision by ${esc(CONFIG.decisionBy)}</span>`
   ].join("");
 }
@@ -908,6 +1110,7 @@ function service(){
       <span class="svcbadge">Service package</span>
       <div class="svctier">${esc(tier)}</div>
       ${priceBlock}
+      ${Number(sv.fee)>0 ? `<div class="svcfee">Plus ${money(Number(sv.fee))} implementation fee, charged once</div>` : ""}
       ${sv.note ? `<p class="svcnote">${esc(sv.note)}</p>` : ""}
     </div>
     <div class="svccard">
@@ -1102,6 +1305,7 @@ function fillForm(){
   $("e_svc_tier").value = sv0.show === false ? "None" : (sv0.tier || "Bronze");
   $("e_svc_price").value = sv0.price || 0;
   $("e_svc_disc").value = sv0.discount || 0;
+  $("e_svc_fee").value = sv0.price !== undefined ? (sv0.fee || 0) : 0;
   $("e_svc_note").value = sv0.note || "";
   const st0 = CONFIG.studio || {};
   $("e_stu_tier").value = st0.show === false ? "None" : (st0.tier || "Standard");
@@ -1134,6 +1338,7 @@ function readForm(){
   }
   CONFIG.modulesOn  = lines($("e_on").value);
   CONFIG.modulesOff = lines($("e_off").value);
+  const prevContracted = (CONFIG.derived && Number(CONFIG.derived.contracted)) || 0;
   CONFIG.derived = {
     contracted: Number($("e_contracted").value) || 0,
     active: Number($("e_active").value) || 0,
@@ -1142,6 +1347,12 @@ function readForm(){
     minsPerRequest: $("e_minsreq").value === "" ? 15 : Number($("e_minsreq").value),
     hoursPerRun: $("e_hrsrun").value === "" ? 4 : Number($("e_hrsrun").value)
   };
+  // if the contracted headcount moved and pricing was still on the old number, follow it
+  if (CONFIG.derived.contracted && CONFIG.derived.contracted !== prevContracted
+      && Number(CONFIG.headcount) === prevContracted) {
+    CONFIG.headcount = CONFIG.derived.contracted;
+  }
+
   CONFIG.kpis  = lines($("e_kpis").value).map(l => { const p = parts(l); return {n:p[0],l:p[1]||"",s:p[2]||""}; });
   // rewrite the derived tile text so the panel matches what the page shows
   CONFIG.kpis.forEach(k => {
@@ -1180,6 +1391,7 @@ function readForm(){
     tier: ["Bronze","Silver","Gold"].includes(tierKey) ? tierKey : "Bronze",
     price: Number($("e_svc_price").value) || 0,
     discount: Number($("e_svc_disc").value) || 0,
+    fee: Number($("e_svc_fee").value) || 0,
     note: $("e_svc_note").value
   };
   const stuRaw = ($("e_stu_tier").value || "").trim();
