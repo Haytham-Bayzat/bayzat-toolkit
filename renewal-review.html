@@ -547,7 +547,9 @@ body.locked .step:hover{border-color:var(--edge)}
         <input id="e_package"></div>
       <div class="f"><label for="e_since">Partner since</label><input id="e_since"></div>
       <div class="f"><label for="e_renewal">Renewal date</label><input id="e_renewal" type="date"></div>
-      <div class="f"><label for="e_decision">Decision needed by</label><input id="e_decision"></div>
+      <div class="f"><label for="e_decision">Decision needed by</label>
+        <p class="hint">Usually a couple of weeks before the renewal date.</p>
+        <input id="e_decision" type="date"></div>
       <div class="f"><label for="e_lede">Opening line</label><textarea id="e_lede" style="min-height:70px"></textarea></div>
     </div>
 
@@ -697,7 +699,7 @@ body.locked .step:hover{border-color:var(--edge)}
   "package": "Essential",
   "since": "2023",
   "renewalDate": "2026-11-30",
-  "decisionBy": "15 November 2026",
+  "decisionBy": "2026-11-15",
   "lede": "A look back at the year, what your team is getting from Bayzat today, and the plan for 2026.",
   "headcount": 62,
   "derived": {
@@ -963,6 +965,15 @@ const TINTS = ["t-purple","t-mint","t-amber","t-sky","t-coral"];
 
 let CONFIG = JSON.parse($("cfg").textContent);
 
+const MONTHS = ["January","February","March","April","May","June",
+                "July","August","September","October","November","December"];
+function niceDate(v){
+  if(!v) return "";
+  const d = new Date(v + "T00:00:00");
+  if (isNaN(d)) return v;                       // already free text, leave it alone
+  return d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
+}
+
 function hero(){
   $("clientName").textContent = CONFIG.client;
   $("lede").textContent = CONFIG.lede;
@@ -974,7 +985,7 @@ function hero(){
     `<span class="pill">Package <b>${esc(CONFIG.package)}</b></span>`,
     `<span class="pill">Partner since <b>${esc(CONFIG.since)}</b></span>`,
     `<span class="pill">Employees <b>${esc((CONFIG.derived && Number(CONFIG.derived.contracted)) || CONFIG.headcount)}</b></span>`,
-    `<span class="pill hot">${esc(when)}, decision by ${esc(CONFIG.decisionBy)}</span>`
+    `<span class="pill hot">${esc(when)}, decision by ${esc(niceDate(CONFIG.decisionBy))}</span>`
   ].join("");
 }
 // numbers that are worked out rather than typed

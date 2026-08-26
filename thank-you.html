@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Thank you</title>
+<style>
+:root{
+  --bg:#FBFAFF; --surface:#FFFFFF; --surface-2:#FAF7FF;
+  --text:#1A1330; --dim:#605978; --dimmer:#8F88A8; --edge:#E9E2FA;
+  --purple:#7C3AED; --purple-soft:#F1E8FF; --ink:#1B0B3B;
+  --mint:#0E9E82; --mint-soft:#E2F7F1;
+  --amber:#C97A00; --amber-soft:#FFF3DC;
+  --sky:#2A6FE0; --sky-soft:#E7F0FE;
+  --coral:#DB4A63; --coral-soft:#FDECEF;
+  --shadow:0 1px 2px rgba(26,19,48,.05), 0 12px 32px -22px rgba(124,58,237,.45);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:"Inter","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+.bar{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--edge)}
+.bar .in{max-width:1080px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:12px}
+.logomark{height:17px;width:auto;display:block}
+.btn{border:1px solid var(--edge);background:#fff;color:var(--text);border-radius:9px;padding:8px 13px;
+  font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.btn:hover{border-color:var(--purple);color:var(--purple)}
+.btn:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.btn.solid{background:var(--purple);border-color:var(--purple);color:#fff}
+.btn.solid:hover{filter:brightness(1.1);color:#fff}
+.bar .right{margin-left:auto;display:flex;gap:8px}
+#pdfLocked{display:none}
+body.locked #pdfLocked{display:inline-block}
+body.locked #editBtn{display:none!important}
+
+.hero{background:linear-gradient(120deg,#6D28D9 0%,#9747FF 48%,#C084FC 100%);color:#fff;
+  padding:58px 0 62px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-120px;top:-150px;width:460px;height:460px;
+  border-radius:50%;background:rgba(255,255,255,.13)}
+.hero:before{content:"";position:absolute;right:60px;bottom:-200px;width:320px;height:320px;
+  border-radius:50%;background:rgba(255,255,255,.09)}
+.hero .wrap{position:relative;z-index:1}
+.herologo{display:none}
+@media print{.herologo{display:block;height:20px;width:auto;margin:0 0 18px}}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.9;margin:0 0 14px}
+h1{font-size:clamp(34px,5.5vw,54px);line-height:1.04;margin:0 0 16px;font-weight:800;letter-spacing:-.02em}
+.hero .lede{font-size:17.5px;opacity:.95;max-width:640px;margin:0 0 26px}
+.band{display:flex;flex-wrap:wrap;gap:10px}
+.pill{border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.15);border-radius:999px;
+  padding:8px 16px;font-size:13px}
+.pill b{font-weight:700}
+
+section{padding:50px 0;scroll-margin-top:70px}
+section.tint{background:var(--surface-2)}
+.lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--purple);font-weight:800;margin:0 0 8px}
+h2{font-size:clamp(23px,3vw,30px);margin:0 0 10px;font-weight:750;letter-spacing:-.01em}
+.sub{color:var(--dim);margin:0 0 26px;max-width:720px}
+
+/* confirmed */
+.conf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.conf{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.conf{grid-template-columns:1fr}}
+.cf{border-radius:14px;padding:17px}
+.cf b{display:block;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.cf span{font-size:12.5px;font-weight:650;display:block;margin-top:3px}
+.k1{background:var(--purple-soft)} .k1 b,.k1 span{color:var(--purple)}
+.k2{background:var(--mint-soft)}   .k2 b,.k2 span{color:var(--mint)}
+.k3{background:var(--amber-soft)}  .k3 b,.k3 span{color:var(--amber)}
+.k4{background:var(--sky-soft)}    .k4 b,.k4 span{color:var(--sky)}
+
+/* plan */
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.phases{grid-template-columns:1fr}}
+.ph{background:#fff;border:1px solid var(--edge);border-radius:16px;padding:22px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column}
+.ph .when{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);
+  font-weight:800;margin-bottom:6px}
+.ph h3{margin:0 0 12px;font-size:18px;font-weight:750}
+.ph ul{margin:0 0 16px;padding-left:19px;color:var(--dim);font-size:13.5px}
+.ph li{margin-bottom:7px}
+.owner{margin-top:auto;align-self:flex-start;font-size:12px;font-weight:750;padding:6px 13px;
+  border-radius:99px;background:var(--purple-soft);color:var(--purple)}
+
+/* diary */
+.diary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.diary{grid-template-columns:1fr}}
+.di{background:#fff;border:1px solid var(--edge);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.di b{display:block;font-size:14.5px;margin-bottom:4px}
+.di span{color:var(--dim);font-size:13px}
+.di .w{display:inline-block;margin-top:10px;font-size:11px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;background:var(--mint-soft);color:#0A7A63;padding:4px 10px;border-radius:99px}
+
+/* help */
+.help{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.help{grid-template-columns:1fr}}
+.hp{background:#fff;border:1px solid var(--edge);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.hp b{display:block;font-size:14.5px;margin-bottom:4px}
+.hp span{color:var(--dim);font-size:13px}
+
+/* referral */
+.ref{background:var(--ink);color:#fff;border-radius:18px;padding:32px 34px;display:flex;gap:28px;
+  align-items:center;flex-wrap:wrap}
+.ref h2{color:#fff;margin:0 0 8px}
+.ref p{margin:0;color:#C4BBDF;font-size:15px;max-width:540px}
+.ref .big{margin-left:auto;text-align:right}
+.ref .big b{display:block;font-size:44px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.ref .big span{color:#C4BBDF;font-size:13px}
+@media(max-width:760px){.ref .big{margin-left:0;text-align:left}}
+
+/* contact */
+.cta{display:flex;gap:26px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--edge);
+  border-radius:18px;padding:28px 30px;box-shadow:var(--shadow)}
+.av{width:56px;height:56px;border-radius:99px;background:var(--purple);display:grid;place-items:center;
+  font-weight:800;font-size:19px;color:#fff}
+.cta .who b{display:block;font-size:18px;font-weight:750}
+.cta .who span{color:var(--dim);font-size:13.5px}
+.cta a.mail{margin-left:auto;display:inline-block;background:var(--purple);color:#fff;font-weight:750;
+  text-decoration:none;padding:13px 22px;border-radius:11px;font-size:15px}
+@media(max-width:700px){.cta a.mail{margin-left:0}}
+.foot{padding:24px 0 60px;color:var(--dimmer);font-size:12.5px}
+
+/* panel */
+.scrim{position:fixed;inset:0;background:rgba(26,19,48,.45);z-index:80;display:none}
+.scrim.open{display:block}
+.panel{position:fixed;top:0;right:0;height:100%;width:min(560px,100%);z-index:90;background:var(--bg);
+  border-left:1px solid var(--edge);transform:translateX(101%);transition:transform .28s ease;
+  display:flex;flex-direction:column}
+.panel.open{transform:none}
+.phead{display:flex;align-items:center;padding:16px 20px;border-bottom:1px solid var(--edge);background:#fff}
+.phead h3{margin:0;font-size:16px}
+.pbody{overflow:auto;padding:18px 20px 40px;flex:1}
+.pfoot{border-top:1px solid var(--edge);padding:13px 20px;display:flex;gap:9px;flex-wrap:wrap;background:#fff}
+.fset{margin-bottom:24px}
+.fset h4{margin:0 0 4px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
+.secnote{margin:0 0 12px;font-size:12px;color:var(--dimmer);line-height:1.45}
+.f{margin-bottom:12px}
+.f label{display:block;font-size:12.5px;font-weight:700;margin-bottom:4px}
+.f .hint{margin:0 0 6px;font-size:11.5px;color:var(--dimmer)}
+.f input,.f textarea{width:100%;background:#fff;border:1px solid var(--edge);border-radius:10px;
+  padding:10px 12px;font:inherit;font-size:13.5px;color:var(--text)}
+.f textarea{min-height:88px;resize:vertical;line-height:1.55}
+.f input:focus,.f textarea:focus{outline:2px solid var(--purple);outline-offset:1px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);opacity:0;
+  background:var(--text);color:#fff;padding:10px 17px;border-radius:99px;font-size:13px;font-weight:600;
+  z-index:100;pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translateX(-50%)}
+
+@media print{
+  @page{size:A4 portrait;margin:11mm}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .bar,.panel,.scrim,.toast{display:none!important}
+  section{padding:16px 0}
+  .hero{padding:26px 0}
+  h1{font-size:32px}
+  h2{font-size:21px;break-after:avoid}
+  .lbl,.sub{break-after:avoid}
+  .phases,.conf,.diary,.help{break-inside:avoid}
+  .ph,.cf,.di,.hp,.ref,.cta{break-inside:avoid;box-shadow:none}
+  a[href]:after{content:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="in">
+    <img class="logomark" src="data:image/png;base64,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" alt="Bayzat">
+    <div class="right">
+      <button class="btn" id="pdfLocked" type="button">Print or PDF</button>
+      <button class="btn solid" id="editBtn" type="button">Edit details</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="herologo" src="data:image/png;base64,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" alt="Bayzat">
+    <p class="eyebrow" id="eyebrow"></p>
+    <h1 id="headline"></h1>
+    <p class="lede" id="lede"></p>
+    <div class="band" id="band"></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <p class="lbl">Confirmed</p>
+    <h2>What you have signed for</h2>
+    <p class="sub">Keep this for your records. Everything below is already in motion.</p>
+    <div class="conf" id="confGrid"></div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <p class="lbl">Your rollout plan</p>
+    <h2 id="planTitle">90 days, jointly owned</h2>
+    <p class="sub" id="planSub"></p>
+    <div class="phases" id="phaseGrid"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="lbl">In the diary</p>
+    <h2>What is already booked</h2>
+    <p class="sub">Nothing here needs chasing. I will send the invites.</p>
+    <div class="diary" id="diaryGrid"></div>
+  </div>
+</section>
+
+<section class="tint">
+  <div class="wrap">
+    <p class="lbl">If you need something</p>
+    <h2>Who to reach, and how fast</h2>
+    <div class="help" id="helpGrid"></div>
+  </div>
+</section>
+
+<section id="refer">
+  <div class="wrap">
+    <div class="ref">
+      <div>
+        <h2 id="refTitle"></h2>
+        <p id="refText"></p>
+      </div>
+      <div class="big"><b id="refBig"></b><span id="refSub"></span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta">
+      <div class="av" id="avatar"></div>
+      <div class="who"><b id="csmName"></b><span id="csmRole"></span></div>
+      <a class="mail" id="mailLink" href="#">Email me</a>
+    </div>
+  </div>
+</section>
+
+<div class="foot"><div class="wrap" id="footNote"></div></div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" aria-label="Edit details">
+  <div class="phead"><h3>Edit details</h3>
+    <button class="btn" id="closeBtn" type="button" style="margin-left:auto">Close</button></div>
+  <div class="pbody">
+
+    <div class="fset">
+      <h4>1. Header</h4>
+      <p class="secnote">The purple band at the top.</p>
+      <div class="f"><label for="e_client">Client name</label><input id="e_client"></div>
+      <div class="f"><label for="e_contact">Contact first name</label>
+        <p class="hint">Used in the headline. Leave blank for a general thank you.</p><input id="e_contact"></div>
+      <div class="f"><label for="e_headline">Headline</label><input id="e_headline"></div>
+      <div class="f"><label for="e_lede">Thank you message</label><textarea id="e_lede"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>2. What you have signed for</h4>
+      <div class="f"><label for="e_conf">The four tiles</label>
+        <p class="hint">One per line: value | label</p><textarea id="e_conf"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>3. Rollout plan</h4>
+      <div class="f"><label for="e_planSub">Line under the heading</label><input id="e_planSub"></div>
+      <div class="f"><label for="e_phases">The three phases</label>
+        <p class="hint">One per line: when | title | owner | item; item; item</p>
+        <textarea id="e_phases" style="min-height:120px"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>4. In the diary</h4>
+      <div class="f"><label for="e_diary">Booked sessions</label>
+        <p class="hint">One per line: title | description | when</p><textarea id="e_diary"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>5. Support</h4>
+      <div class="f"><label for="e_help">Support routes</label>
+        <p class="hint">One per line: title | description</p><textarea id="e_help"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>6. Referral</h4>
+      <p class="secnote">Type None in the heading to remove this section.</p>
+      <div class="f"><label for="e_refTitle">Heading</label><input id="e_refTitle"></div>
+      <div class="f"><label for="e_refText">Line</label><textarea id="e_refText" style="min-height:66px"></textarea></div>
+      <div class="f"><label for="e_refBig">Big number</label><input id="e_refBig"></div>
+      <div class="f"><label for="e_refSub">Under the number</label><input id="e_refSub"></div>
+    </div>
+
+    <div class="fset">
+      <h4>7. Your details</h4>
+      <div class="f"><label for="e_name">Name</label><input id="e_name"></div>
+      <div class="f"><label for="e_role">Role line</label><input id="e_role"></div>
+      <div class="f"><label for="e_email">Email</label><input id="e_email"></div>
+      <div class="f"><label for="e_phone">Phone</label><input id="e_phone"></div>
+      <div class="f"><label for="e_foot">Small print</label><input id="e_foot"></div>
+    </div>
+  </div>
+  <div class="pfoot">
+    <button class="btn solid" id="applyBtn" type="button">Update page</button>
+    <button class="btn" id="saveBtn" type="button">Save as new file</button>
+    <button class="btn" id="clientBtn" type="button">Save client copy</button>
+    <button class="btn" id="printBtn" type="button">Print or PDF</button>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script type="application/json" id="cfg">
+{
+  "locked": false,
+  "client": "ABC Trading LLC",
+  "contact": "Sarah",
+  "headline": "Thank you, Sarah",
+  "lede": "It is a pleasure to continue this partnership with you and the team, and I am genuinely looking forward to the year ahead. Here is what we agreed and what happens next.",
+  "conf": [
+    {"v":"Premium","l":"Your plan"},
+    {"v":"3 years","l":"Term signed"},
+    {"v":"62","l":"Employees covered"},
+    {"v":"Gold","l":"Service package"}
+  ],
+  "planSub": "Each milestone has a named owner on both sides and a date in the calendar.",
+  "phases": [
+    {"when":"First 30 days","h":"Update time off balances","owner":"Bayzat leads",
+     "items":["Review and update employee leave balances together","Daily sessions covering 10 to 15 employees","Complete all balances by the end of the week"]},
+    {"when":"Days 31 to 60","h":"Run payroll","owner":"Client leads",
+     "items":["Process monthly payroll through Bayzat","Generate SIF or bank files directly from the platform","Save time by reducing manual payroll tasks"]},
+    {"when":"Days 61 to 90","h":"Maximise platform usage","owner":"Joint",
+     "items":["Explore all included modules","Apply best practices and automation","Review adoption and optimise platform usage together"]}
+  ],
+  "diary": [
+    {"h":"Kickoff call","p":"We walk through the plan above and agree owners on your side.","w":"This week"},
+    {"h":"Adoption check in","p":"A short call to see what is live and what is still sitting unused.","w":"Day 45"},
+    {"h":"Quarterly business review","p":"Usage, what is working, and what to switch on next.","w":"Every quarter"}
+  ],
+  "help": [
+    {"h":"Day to day questions","p":"In app support chat is the fastest route, answered within business hours."},
+    {"h":"Your team can self serve","p":"The help centre covers most how to questions without waiting for anyone."},
+    {"h":"Anything commercial","p":"Come straight to me. Seats, invoices, new modules, all of it."}
+  ],
+  "refTitle": "Know someone who needs this?",
+  "refText": "If you introduce a business that becomes a Bayzat customer, you earn 10% of their first year contract value up to USD 10,000, and they get three months free. One email to me is all it takes.",
+  "refBig": "10%",
+  "refSub": "up to USD 10,000",
+  "csm": {"name":"Haytham Ghali","role":"Your dedicated Customer Success Manager","email":"haytham@bayzat.com","phone":"+971 4549 0371"},
+  "foot": "Prepared for the named client. Details reflect the signed order form."
+}
+</script>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let CONFIG = JSON.parse($("cfg").textContent);
+
+function hero(){
+  $("eyebrow").textContent = "Renewal confirmed";
+  $("headline").textContent = CONFIG.headline || ("Thank you" + (CONFIG.contact ? ", " + CONFIG.contact : ""));
+  $("lede").textContent = CONFIG.lede;
+  $("band").innerHTML = `<span class="pill">Partnership with <b>${esc(CONFIG.client)}</b></span>`;
+  document.title = "Thank you | " + CONFIG.client;
+}
+function confirmed(){
+  $("confGrid").innerHTML = (CONFIG.conf||[]).map((c,i) =>
+    `<div class="cf k${(i%4)+1}"><b>${esc(c.v)}</b><span>${esc(c.l)}</span></div>`).join("");
+}
+function phases(){
+  $("planSub").textContent = CONFIG.planSub || "";
+  $("phaseGrid").innerHTML = (CONFIG.phases||[]).map(p => `
+    <div class="ph">
+      <div class="when">${esc(p.when)}</div>
+      <h3>${esc(p.h)}</h3>
+      <ul>${(p.items||[]).map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
+      <span class="owner">${esc(p.owner)}</span>
+    </div>`).join("");
+}
+function diary(){
+  $("diaryGrid").innerHTML = (CONFIG.diary||[]).map(d =>
+    `<div class="di"><b>${esc(d.h)}</b><span>${esc(d.p)}</span>${d.w?`<span class="w">${esc(d.w)}</span>`:""}</div>`).join("");
+}
+function help(){
+  $("helpGrid").innerHTML = (CONFIG.help||[]).map(x =>
+    `<div class="hp"><b>${esc(x.h)}</b><span>${esc(x.p)}</span></div>`).join("");
+}
+function referral(){
+  const sec = $("refer");
+  if (!CONFIG.refTitle || /^none$/i.test(CONFIG.refTitle.trim())) { sec.style.display="none"; return; }
+  sec.style.display = "";
+  $("refTitle").textContent = CONFIG.refTitle;
+  $("refText").textContent = CONFIG.refText;
+  $("refBig").textContent = CONFIG.refBig;
+  $("refSub").textContent = CONFIG.refSub;
+}
+function contact(){
+  const c = CONFIG.csm;
+  $("avatar").textContent = (c.name||"").split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase();
+  $("csmName").textContent = c.name;
+  $("csmRole").innerHTML = esc(c.role) + "<br>" + esc(c.email) + " &nbsp;|&nbsp; " + esc(c.phone);
+  const subj = encodeURIComponent("Bayzat, " + CONFIG.client);
+  $("mailLink").href = "mailto:" + c.email + "?subject=" + subj;
+  $("footNote").textContent = CONFIG.foot;
+}
+function applyLock(){
+  const on = CONFIG.locked === true;
+  document.body.classList.toggle("locked", on);
+  if (on) { const b=$("editBtn"); if(b) b.remove(); }
+}
+function renderAll(){ hero(); confirmed(); phases(); diary(); help(); referral(); contact(); applyLock(); }
+
+const lines = s => s.split("\n").map(x=>x.trim()).filter(Boolean);
+const parts = s => s.split("|").map(x=>x.trim());
+const semi  = s => (s||"").split(";").map(x=>x.trim()).filter(Boolean);
+
+function fillForm(){
+  $("e_client").value = CONFIG.client;
+  $("e_contact").value = CONFIG.contact || "";
+  $("e_headline").value = CONFIG.headline || "";
+  $("e_lede").value = CONFIG.lede;
+  $("e_conf").value = CONFIG.conf.map(c => [c.v,c.l].join(" | ")).join("\n");
+  $("e_planSub").value = CONFIG.planSub || "";
+  $("e_phases").value = CONFIG.phases.map(p => [p.when,p.h,p.owner,(p.items||[]).join("; ")].join(" | ")).join("\n");
+  $("e_diary").value = CONFIG.diary.map(d => [d.h,d.p,d.w||""].join(" | ")).join("\n");
+  $("e_help").value = CONFIG.help.map(x => [x.h,x.p].join(" | ")).join("\n");
+  $("e_refTitle").value = CONFIG.refTitle || "";
+  $("e_refText").value = CONFIG.refText || "";
+  $("e_refBig").value = CONFIG.refBig || "";
+  $("e_refSub").value = CONFIG.refSub || "";
+  $("e_name").value = CONFIG.csm.name;
+  $("e_role").value = CONFIG.csm.role;
+  $("e_email").value = CONFIG.csm.email;
+  $("e_phone").value = CONFIG.csm.phone;
+  $("e_foot").value = CONFIG.foot;
+}
+function readForm(){
+  CONFIG.client = $("e_client").value;
+  CONFIG.contact = $("e_contact").value;
+  CONFIG.headline = $("e_headline").value;
+  CONFIG.lede = $("e_lede").value;
+  CONFIG.conf = lines($("e_conf").value).map(l => { const p=parts(l); return {v:p[0],l:p[1]||""}; });
+  CONFIG.planSub = $("e_planSub").value;
+  CONFIG.phases = lines($("e_phases").value).map(l => {
+    const p=parts(l); return {when:p[0],h:p[1]||"",owner:p[2]||"",items:semi(p[3])}; });
+  CONFIG.diary = lines($("e_diary").value).map(l => { const p=parts(l); return {h:p[0],p:p[1]||"",w:p[2]||""}; });
+  CONFIG.help = lines($("e_help").value).map(l => { const p=parts(l); return {h:p[0],p:p[1]||""}; });
+  CONFIG.refTitle = $("e_refTitle").value;
+  CONFIG.refText = $("e_refText").value;
+  CONFIG.refBig = $("e_refBig").value;
+  CONFIG.refSub = $("e_refSub").value;
+  CONFIG.csm = { name:$("e_name").value, role:$("e_role").value, email:$("e_email").value, phone:$("e_phone").value };
+  CONFIG.foot = $("e_foot").value;
+}
+function toast(m){ const e=$("toast"); e.textContent=m; e.classList.add("show");
+  clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove("show"),2400); }
+function openPanel(v){ if(v) fillForm(); $("panel").classList.toggle("open",v); $("scrim").classList.toggle("open",v); }
+
+function exportHtml(locked){
+  if($("panel").classList.contains("open")){ readForm(); renderAll(); }
+  const was = CONFIG.locked;
+  CONFIG.locked = !!locked;
+  document.querySelectorAll("input").forEach(i => i.setAttribute("value", i.value));
+  document.querySelectorAll("textarea").forEach(t => { t.textContent = t.value; });
+  const clone = document.documentElement.cloneNode(true);
+  clone.querySelector("#cfg").textContent = "\n" + JSON.stringify(CONFIG, null, 2) + "\n";
+  const p = clone.querySelector("#panel"), sc = clone.querySelector("#scrim");
+  if (p) p.classList.remove("open");
+  if (sc) sc.classList.remove("open");
+  if (locked) {
+    ["#panel","#scrim","#toast","#editBtn","#clientBtn","#saveBtn","#printBtn"]
+      .forEach(sel => { const el = clone.querySelector(sel); if (el) el.remove(); });
+    const b = clone.querySelector("body"); if (b) b.classList.add("locked");
+  }
+  CONFIG.locked = was;
+  const slug = (CONFIG.client||"client").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["<!DOCTYPE html>\n"+clone.outerHTML],{type:"text/html"}));
+  a.download = (locked ? "thank-you-client-" : "thank-you-") + slug + ".html";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  toast(locked ? "Client copy saved." : "Saved to your downloads folder.");
+}
+
+$("editBtn").onclick = () => openPanel(true);
+$("closeBtn").onclick = () => openPanel(false);
+$("scrim").onclick = () => openPanel(false);
+$("applyBtn").onclick = () => { readForm(); renderAll(); openPanel(false); toast("Page updated."); };
+$("saveBtn").onclick = () => exportHtml(false);
+$("clientBtn").onclick = () => { exportHtml(true); openPanel(false); };
+$("printBtn").onclick = () => { openPanel(false); setTimeout(()=>window.print(),250); };
+$("pdfLocked").onclick = () => window.print();
+document.addEventListener("keydown", e => { if(e.key === "Escape") openPanel(false); });
+
+renderAll();
+</script>
+</body>
+</html>
