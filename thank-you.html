@@ -140,6 +140,10 @@ h2{font-size:clamp(23px,3vw,30px);margin:0 0 10px;font-weight:750;letter-spacing
 .f{margin-bottom:12px}
 .f label{display:block;font-size:12.5px;font-weight:700;margin-bottom:4px}
 .f .hint{margin:0 0 6px;font-size:11.5px;color:var(--dimmer)}
+.pick{display:flex;gap:8px;align-items:center;margin-bottom:7px}
+.pick select{flex:1;background:var(--purple-soft);border:1px solid var(--edge);color:var(--purple);
+  border-radius:9px;padding:8px 11px;font:inherit;font-size:12.5px;font-weight:650;cursor:pointer}
+.pick select:focus{outline:2px solid var(--purple);outline-offset:1px}
 .f input,.f textarea{width:100%;background:#fff;border:1px solid var(--edge);border-radius:10px;
   padding:10px 12px;font:inherit;font-size:13.5px;color:var(--text)}
 .f textarea{min-height:88px;resize:vertical;line-height:1.55}
@@ -271,7 +275,9 @@ h2{font-size:clamp(23px,3vw,30px);margin:0 0 10px;font-weight:750;letter-spacing
       <h4>3. Rollout plan</h4>
       <div class="f"><label for="e_planSub">Line under the heading</label><input id="e_planSub"></div>
       <div class="f"><label for="e_phases">The three phases</label>
-        <p class="hint">One per line: when | title | owner | item; item; item</p>
+        <p class="hint">One per line: when | title | owner | item; item; item. Pick a ready made plan to fill all three.</p>
+        <div class="pick"><select id="p_plan"></select></div>
+        <div class="pick"><select id="p_phase"></select></div>
         <textarea id="e_phases" style="min-height:120px"></textarea></div>
     </div>
 
@@ -358,6 +364,82 @@ h2{font-size:clamp(23px,3vw,30px);margin:0 0 10px;font-weight:750;letter-spacing
 <script>
 const $ = id => document.getElementById(id);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ---------------------------------------------------------------
+// Rollout plan library. Whole plans fill all three phases at once.
+// Single phases append one line. Edit any wording here to change it
+// everywhere.
+// ---------------------------------------------------------------
+const PLAN_LIB = {
+  "Payroll and time off first":[
+    ["First 30 days","Update time off balances","Bayzat leads","Review and update employee leave balances together; Daily sessions covering 10 to 15 employees; Complete all balances by the end of the week"],
+    ["Days 31 to 60","Run payroll","Client leads","Process monthly payroll through Bayzat; Generate SIF or bank files directly from the platform; Save time by reducing manual payroll tasks"],
+    ["Days 61 to 90","Maximise platform usage","Joint","Explore all included modules; Apply best practices and automation; Review adoption and optimise platform usage together"]],
+
+  "Close the adoption gap":[
+    ["First 30 days","Foundations","Bayzat leads","Switch on the two highest value modules; Configure them around your current process; Train the admin team"],
+    ["Days 31 to 60","Roll out to staff","Joint","Announce to all employees; Run a short session for managers; Move requests off email and chat"],
+    ["Days 61 to 90","Measure and adjust","Client leads","Review what is being used and what is not; Fix anything getting in the way; Agree what to switch on next"]],
+
+  "Attendance and scheduling":[
+    ["First 30 days","Set up attendance","Bayzat leads","Configure sites and geofencing; Set working patterns and grace periods; Train the supervisors"],
+    ["Days 31 to 60","Publish rotas","Joint","Build the first month of shifts; Publish to staff phones; Handle swaps in the platform rather than by message"],
+    ["Days 61 to 90","Tie it to payroll","Client leads","Reconcile attendance against payroll; Reduce manual timesheet corrections; Review overtime and coverage patterns"]],
+
+  "Requests and automation":[
+    ["First 30 days","Requests in one place","Bayzat leads","Switch on Employee Ticketing; Set request categories and owners; Announce to all staff"],
+    ["Days 31 to 60","Automate the routine","Joint","Build the first approval workflows; Automate onboarding notifications; Log and review what fires"],
+    ["Days 61 to 90","Knowledge and reporting","Client leads","Load your SOPs into Knowledge Hub; First AI report walkthrough; Adoption review with your team"]],
+
+  "Finance modules":[
+    ["First 30 days","Accounts payable","Bayzat leads","Load vendors and set approval limits; Configure dual authorisation; Process the first invoice batch together"],
+    ["Days 31 to 60","Expenses and cards","Joint","Issue corporate cards with spend controls; Move reimbursements into the platform; Retire the expense spreadsheet"],
+    ["Days 61 to 90","Connect to accounting","Client leads","Map your chart of accounts; Sync payroll and AP into your accounting system; Stop rebuilding exports by hand"]],
+
+  "Re-engage a quiet account":[
+    ["First 30 days","Get the basics live again","Bayzat leads","Audit what is configured and what is not; Clean up employee records and balances; Refresh admin training"],
+    ["Days 31 to 60","Bring employees back in","Joint","Re-activate employees who never logged in; Run a short session on the mobile app; Move one process fully into Bayzat"],
+    ["Days 61 to 90","Build the habit","Client leads","Review usage against where you were; Switch on one more module; Agree a standing quarterly check in"]]
+};
+
+const PHASE_LIB = {
+  "Foundations, Bayzat leads":["First 30 days","Foundations","Bayzat leads","Switch on the agreed modules; Configure around your current process; Train the admin team"],
+  "Update time off balances":["First 30 days","Update time off balances","Bayzat leads","Review and update employee leave balances together; Daily sessions covering 10 to 15 employees; Complete all balances by the end of the week"],
+  "Data clean up":["First 30 days","Clean up your data","Joint","Review employee records for gaps; Upload missing documents; Set expiry reminders"],
+  "Run payroll":["Days 31 to 60","Run payroll","Client leads","Process monthly payroll through Bayzat; Generate SIF or bank files directly from the platform; Save time by reducing manual payroll tasks"],
+  "Requests in one place":["Days 31 to 60","Requests in one place","Joint","Switch on Employee Ticketing; Set request categories and owners; Announce to all staff"],
+  "Roll out to staff":["Days 31 to 60","Roll out to staff","Joint","Announce to all employees; Run a short session for managers; Move requests off email and chat"],
+  "Automate the routine":["Days 31 to 60","Automate the routine","Joint","Build the first approval workflows; Automate onboarding notifications; Review what fires and when"],
+  "Automate and measure":["Days 61 to 90","Automate and measure","Client leads","First AI report walkthrough; Enable the remaining modules; Adoption review with your team"],
+  "Maximise platform usage":["Days 61 to 90","Maximise platform usage","Joint","Explore all included modules; Apply best practices and automation; Review adoption and optimise platform usage together"],
+  "Measure and adjust":["Days 61 to 90","Measure and adjust","Client leads","Review what is being used and what is not; Fix anything getting in the way; Agree what to switch on next"]
+};
+
+function attachPlanPickers(planSelId, phaseSelId, targetId){
+  const ps = document.getElementById(planSelId), fs = document.getElementById(phaseSelId);
+  const ta = () => document.getElementById(targetId);
+  const line = a => a.join(" | ");
+  if (ps){
+    ps.innerHTML = '<option value="">Use a ready made plan…</option>'
+      + Object.keys(PLAN_LIB).map(n=>`<option>${esc(n)}</option>`).join("");
+    ps.onchange = () => {
+      const n = ps.value; if(!n) return;
+      ta().value = PLAN_LIB[n].map(line).join("\n");
+      ps.value = ""; ta().focus();
+    };
+  }
+  if (fs){
+    fs.innerHTML = '<option value="">Add a single phase…</option>'
+      + Object.keys(PHASE_LIB).map(n=>`<option>${esc(n)}</option>`).join("");
+    fs.onchange = () => {
+      const n = fs.value; if(!n) return;
+      const t = ta();
+      t.value = (t.value.trim() ? t.value.replace(/\s*$/,"") + "\n" : "") + line(PHASE_LIB[n]);
+      fs.value = ""; t.focus();
+    };
+  }
+}
+
 let CONFIG = JSON.parse($("cfg").textContent);
 
 function hero(){
@@ -458,7 +540,7 @@ function readForm(){
 }
 function toast(m){ const e=$("toast"); e.textContent=m; e.classList.add("show");
   clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove("show"),2400); }
-function openPanel(v){ if(v) fillForm(); $("panel").classList.toggle("open",v); $("scrim").classList.toggle("open",v); }
+function openPanel(v){ if(v) { fillForm(); attachPlanPickers("p_plan","p_phase","e_phases"); } $("panel").classList.toggle("open",v); $("scrim").classList.toggle("open",v); }
 
 function exportHtml(locked){
   if($("panel").classList.contains("open")){ readForm(); renderAll(); }

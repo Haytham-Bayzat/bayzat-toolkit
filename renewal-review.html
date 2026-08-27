@@ -273,6 +273,10 @@ body.locked .printbasis{display:block;font-size:13px;color:var(--dim);margin:0 0
 .f{margin-bottom:12px}
 .f label{display:block;font-size:12.5px;font-weight:650;margin-bottom:5px}
 .f .hint{margin:0 0 6px;font-size:12px;color:var(--dimmer)}
+.pick{display:flex;gap:8px;align-items:center;margin-bottom:7px}
+.pick select{flex:1;background:var(--purple-soft);border:1px solid var(--edge);color:var(--purple);
+  border-radius:9px;padding:8px 11px;font:inherit;font-size:12.5px;font-weight:650;cursor:pointer}
+.pick select:focus{outline:2px solid var(--purple);outline-offset:1px}
 .f input,.f textarea{width:100%;background:var(--surface);border:1px solid var(--edge);border-radius:10px;
   padding:10px 12px;font:inherit;font-size:14px;color:var(--text)}
 .f textarea{min-height:96px;resize:vertical;line-height:1.5}
@@ -570,8 +574,10 @@ body.locked .step:hover{border-color:var(--edge)}
     <div class="fset">
       <h4>3. Module activation</h4>
       <p class="secnote">The progress meter, the module chips and the Modules live tile in section 2 all count these two lists.</p>
-      <div class="f"><label for="e_on">Live now</label><p class="hint">One module per line.</p><textarea id="e_on"></textarea></div>
-      <div class="f"><label for="e_off">Included, not switched on</label><p class="hint">One module per line.</p><textarea id="e_off"></textarea></div>
+      <div class="f"><label for="e_on">Live now</label><p class="hint">One module per line. Use the dropdown to add from the library.</p>
+        <div class="pick"><select id="p_on"></select></div><textarea id="e_on"></textarea></div>
+      <div class="f"><label for="e_off">Included, not switched on</label><p class="hint">One module per line.</p>
+        <div class="pick"><select id="p_off"></select></div><textarea id="e_off"></textarea></div>
     </div>
 
     <div class="fset">
@@ -597,14 +603,16 @@ body.locked .step:hover{border-color:var(--edge)}
       <h4>5. Add ons</h4>
       <p class="secnote">Released since their last subscription. Delete a line to remove that card.</p>
       <div class="f"><label for="e_releases">Add on cards</label>
-        <p class="hint">One per line: title | description</p><textarea id="e_releases"></textarea></div>
+        <p class="hint">One per line: title | description. The dropdown fills the description for you.</p>
+        <div class="pick"><select id="p_releases"></select></div><textarea id="e_releases"></textarea></div>
     </div>
 
     <div class="fset">
       <h4>6. The three worth starting with</h4>
       <p class="secnote">Your recommendation for this account.</p>
       <div class="f"><label for="e_priorities">Recommendation cards</label>
-        <p class="hint">One per line: title | what it does | why it matters here | impact</p><textarea id="e_priorities"></textarea></div>
+        <p class="hint">One per line: title | what it does | why it matters here | impact. The dropdown writes all four, then reword the why line to match what the client actually said.</p>
+        <div class="pick"><select id="p_priorities"></select></div><textarea id="e_priorities"></textarea></div>
     </div>
 
     <div class="fset">
@@ -618,7 +626,10 @@ body.locked .step:hover{border-color:var(--edge)}
       <h4>8. 90 day rollout</h4>
       <p class="secnote">The three phases with owners.</p>
       <div class="f"><label for="e_phases">Rollout phases</label>
-        <p class="hint">One per line: when | title | owner | item; item; item</p><textarea id="e_phases"></textarea></div>
+        <p class="hint">One per line: when | title | owner | item; item; item. Pick a ready made plan to fill all three, or add phases one at a time.</p>
+        <div class="pick"><select id="p_plan"></select></div>
+        <div class="pick"><select id="p_phase"></select></div>
+        <textarea id="e_phases"></textarea></div>
     </div>
 
     <div class="fset">
@@ -1005,6 +1016,147 @@ function derived(){
   return { contracted, active, runs, requests, minsReq, hrsRun, activation, hours };
 }
 
+
+// ---------------------------------------------------------------
+// Module library. Pick from the dropdowns in the edit panel instead
+// of typing. Edit any line here to change the wording everywhere.
+// Format: name : [what it does, why it matters, impact chip]
+// ---------------------------------------------------------------
+const MODULE_LIB = {
+  "Employee Records":["One record per employee with contracts, visas and documents attached, and expiry reminders built in.","Records live across folders, inboxes and someone's laptop, and expiries get missed.","Nothing expires unnoticed"],
+  "Company Documents":["Trade licence, lease agreements and company paperwork stored in one place with renewal dates tracked.","Company documents sit with whoever handled them last.","One place for everything"],
+  "Employee Documents":["Passports, visas and certificates uploaded against each employee and accessible on demand.","Chasing a document means messaging three people.","No more document hunts"],
+  "Custom Fields":["Track whatever your business needs on an employee record that Bayzat does not ship by default.","Your process has fields no standard HR system has.","The system fits your process"],
+  "Asset Management":["Assign laptops, phones and equipment to employees and track what comes back at offboarding.","Company assets walk out the door and nobody notices until later.","Assets accounted for"],
+  "Letter Requests":["Employees request salary certificates and NOC letters themselves, generated automatically.","HR writes the same three letters over and over.","Letters without the admin"],
+  "Leave Management":["Balances, approvals and accruals calculated automatically, requested and approved in the app.","Balances live on a spreadsheet and go out of step.","Balances always correct"],
+  "Attendance":["Clock in and out from mobile with geofencing, so attendance is captured where the work happens.","Attendance is on paper or a machine nobody reconciles.","Attendance that reconciles"],
+  "Shift Scheduler":["Build rotas and publish them straight to staff phones, with swap requests handled in the platform.","Rotas go out by WhatsApp and change three times before Monday.","Fewer coverage gaps"],
+  "Timesheets":["Log hours against projects and clients, split billable from non billable, export to Excel.","Billable time is reconstructed from memory at month end.","Billable hours captured"],
+  "Payroll":["Run payroll in the platform with WPS compliant SIF files generated directly, no rebuilding.","Payroll takes days and the file gets rebuilt by hand every month.","Days back every month"],
+  "Work Expenses":["Employees submit expenses with receipts, approved in app and settled through the payroll run.","Expenses arrive as photos in a chat and get reimbursed late.","No more receipt chasing"],
+  "Air Tickets":["Ticket entitlements tracked per employee and requested through the platform.","Entitlements are tracked manually and disputed later.","Entitlements tracked"],
+  "Onboarding and Offboarding":["New joiners and leavers follow a checklist so nothing is missed on either side.","Every joiner is handled slightly differently.","Consistent every time"],
+  "Performance Catch-ups":["Record one to ones with notes, attachments and linked goals, private when the conversation needs it.","One to ones happen but nothing is written down.","Conversations on record"],
+  "Goal-based Reviews":["Review cycles run over a quarter or more, with goals set, tracked and rated on the platform.","Reviews live in documents and ratings vary by manager.","Fair, consistent reviews"],
+  "360 Review":["Peer, manager and self feedback gathered in one cycle with a confidential summary report.","Feedback only ever comes from one direction.","A fuller picture"],
+  "Knowledge Hub":["One searchable home for SOPs, policies and process guides, kept current in one place.","New joiners and cover staff ask the same handful of questions again and again.","Less repeat asking"],
+  "Employee Ticketing":["Staff raise requests in one place with an owner, a status and a response time.","Requests arrive by WhatsApp and get lost when someone is off.","Nothing gets missed"],
+  "Workflows":["Approvals, notifications and handovers trigger automatically on what employees actually do.","Routine steps depend on someone remembering to do them.","Runs without chasing"],
+  "Task Manager":["Assign internal work with owners and deadlines, tracked from one dashboard with overdue items surfaced.","Internal work sits in people's heads with no visible deadline.","Clear ownership"],
+  "AI Report Generator":["Ask a question in plain language and get the HR report back immediately.","Reporting means exporting and rebuilding sheets by hand.","Hours back each month"],
+  "Pre-Built Reports":["Standard HR and payroll reports ready to run without building anything.","Every report request turns into a manual export.","Reports on demand"],
+  "Employee Surveys":["Run surveys across the company and see the results without a separate tool.","Employee sentiment is guesswork between exit interviews.","You find out early"],
+  "Announcements":["Post company news to everyone in the app instead of a group email nobody opens.","Announcements get lost in inboxes and chat groups.","People actually see it"],
+  "Perks":["Discounts and offers across hundreds of stores and restaurants, available to every employee.","Benefits stop at salary and insurance.","A benefit that costs nothing"],
+  "Wellness Hub":["Fitness tracking, challenges, mental health support and rewards, all in the employee app.","Wellness is talked about but nothing is actually offered.","Wellness people use"],
+  "Health Services":["Employees see a doctor, get medicine and manage claims from the same app they use for HR.","Insurance admin lands back on HR every time.","Insurance off your plate"],
+  "Accounting Integrations":["Payroll data flows into your accounting system instead of being rebuilt in Excel.","Finance asks for payroll in their format every single month.","One set of numbers"],
+  "Accounts Payable":["Supplier invoices captured, approved and paid in one flow with dual authorisation.","Invoices sit across inboxes with no single view of what is outstanding.","One view of spend"],
+  "Global Payroll":["Pay employees outside the UAE through TransferMate inside your normal payroll run.","Each country runs its own process with its own approvals.","One payroll process"],
+  "Corporate Cards":["Issue expense cards to employees with spend controls, and see card spend and reimbursements together.","Month end means chasing receipts and manual reimbursement.","Spend under control"],
+  "Digital Business Cards":["Shareable digital cards for your team, updated centrally when details change.","Printed cards go out of date the moment someone changes role.","Always current"],
+  "Employee Self Service":["Employees update their own details, request time off and find their documents without asking HR.","Every small request comes through HR first.","HR stops being the bottleneck"]
+};
+
+function libNames(){ return Object.keys(MODULE_LIB).sort(); }
+
+// build a dropdown that appends the right shape of line into a textarea
+function attachPicker(selId, targetId, shape){
+  const sel = document.getElementById(selId);
+  if (!sel) return;
+  sel.innerHTML = '<option value="">Add a module…</option>'
+    + libNames().map(n => `<option>${esc(n)}</option>`).join("");
+  sel.onchange = () => {
+    const n = sel.value;
+    if (!n) return;
+    const m = MODULE_LIB[n];
+    let line;
+    if (shape === "name")      line = n;
+    else if (shape === "addon") line = n + " | " + m[0];
+    else                        line = [n, m[0], m[1], m[2]].join(" | ");
+    const ta = document.getElementById(targetId);
+    ta.value = (ta.value.trim() ? ta.value.replace(/\s*$/,"") + "\n" : "") + line;
+    sel.value = "";
+    ta.focus();
+  };
+}
+
+// ---------------------------------------------------------------
+// Rollout plan library. Whole plans fill all three phases at once.
+// Single phases append one line. Edit any wording here to change it
+// everywhere.
+// ---------------------------------------------------------------
+const PLAN_LIB = {
+  "Payroll and time off first":[
+    ["First 30 days","Update time off balances","Bayzat leads","Review and update employee leave balances together; Daily sessions covering 10 to 15 employees; Complete all balances by the end of the week"],
+    ["Days 31 to 60","Run payroll","Client leads","Process monthly payroll through Bayzat; Generate SIF or bank files directly from the platform; Save time by reducing manual payroll tasks"],
+    ["Days 61 to 90","Maximise platform usage","Joint","Explore all included modules; Apply best practices and automation; Review adoption and optimise platform usage together"]],
+
+  "Close the adoption gap":[
+    ["First 30 days","Foundations","Bayzat leads","Switch on the two highest value modules; Configure them around your current process; Train the admin team"],
+    ["Days 31 to 60","Roll out to staff","Joint","Announce to all employees; Run a short session for managers; Move requests off email and chat"],
+    ["Days 61 to 90","Measure and adjust","Client leads","Review what is being used and what is not; Fix anything getting in the way; Agree what to switch on next"]],
+
+  "Attendance and scheduling":[
+    ["First 30 days","Set up attendance","Bayzat leads","Configure sites and geofencing; Set working patterns and grace periods; Train the supervisors"],
+    ["Days 31 to 60","Publish rotas","Joint","Build the first month of shifts; Publish to staff phones; Handle swaps in the platform rather than by message"],
+    ["Days 61 to 90","Tie it to payroll","Client leads","Reconcile attendance against payroll; Reduce manual timesheet corrections; Review overtime and coverage patterns"]],
+
+  "Requests and automation":[
+    ["First 30 days","Requests in one place","Bayzat leads","Switch on Employee Ticketing; Set request categories and owners; Announce to all staff"],
+    ["Days 31 to 60","Automate the routine","Joint","Build the first approval workflows; Automate onboarding notifications; Log and review what fires"],
+    ["Days 61 to 90","Knowledge and reporting","Client leads","Load your SOPs into Knowledge Hub; First AI report walkthrough; Adoption review with your team"]],
+
+  "Finance modules":[
+    ["First 30 days","Accounts payable","Bayzat leads","Load vendors and set approval limits; Configure dual authorisation; Process the first invoice batch together"],
+    ["Days 31 to 60","Expenses and cards","Joint","Issue corporate cards with spend controls; Move reimbursements into the platform; Retire the expense spreadsheet"],
+    ["Days 61 to 90","Connect to accounting","Client leads","Map your chart of accounts; Sync payroll and AP into your accounting system; Stop rebuilding exports by hand"]],
+
+  "Re-engage a quiet account":[
+    ["First 30 days","Get the basics live again","Bayzat leads","Audit what is configured and what is not; Clean up employee records and balances; Refresh admin training"],
+    ["Days 31 to 60","Bring employees back in","Joint","Re-activate employees who never logged in; Run a short session on the mobile app; Move one process fully into Bayzat"],
+    ["Days 61 to 90","Build the habit","Client leads","Review usage against where you were; Switch on one more module; Agree a standing quarterly check in"]]
+};
+
+const PHASE_LIB = {
+  "Foundations, Bayzat leads":["First 30 days","Foundations","Bayzat leads","Switch on the agreed modules; Configure around your current process; Train the admin team"],
+  "Update time off balances":["First 30 days","Update time off balances","Bayzat leads","Review and update employee leave balances together; Daily sessions covering 10 to 15 employees; Complete all balances by the end of the week"],
+  "Data clean up":["First 30 days","Clean up your data","Joint","Review employee records for gaps; Upload missing documents; Set expiry reminders"],
+  "Run payroll":["Days 31 to 60","Run payroll","Client leads","Process monthly payroll through Bayzat; Generate SIF or bank files directly from the platform; Save time by reducing manual payroll tasks"],
+  "Requests in one place":["Days 31 to 60","Requests in one place","Joint","Switch on Employee Ticketing; Set request categories and owners; Announce to all staff"],
+  "Roll out to staff":["Days 31 to 60","Roll out to staff","Joint","Announce to all employees; Run a short session for managers; Move requests off email and chat"],
+  "Automate the routine":["Days 31 to 60","Automate the routine","Joint","Build the first approval workflows; Automate onboarding notifications; Review what fires and when"],
+  "Automate and measure":["Days 61 to 90","Automate and measure","Client leads","First AI report walkthrough; Enable the remaining modules; Adoption review with your team"],
+  "Maximise platform usage":["Days 61 to 90","Maximise platform usage","Joint","Explore all included modules; Apply best practices and automation; Review adoption and optimise platform usage together"],
+  "Measure and adjust":["Days 61 to 90","Measure and adjust","Client leads","Review what is being used and what is not; Fix anything getting in the way; Agree what to switch on next"]
+};
+
+function attachPlanPickers(planSelId, phaseSelId, targetId){
+  const ps = document.getElementById(planSelId), fs = document.getElementById(phaseSelId);
+  const ta = () => document.getElementById(targetId);
+  const line = a => a.join(" | ");
+  if (ps){
+    ps.innerHTML = '<option value="">Use a ready made plan…</option>'
+      + Object.keys(PLAN_LIB).map(n=>`<option>${esc(n)}</option>`).join("");
+    ps.onchange = () => {
+      const n = ps.value; if(!n) return;
+      ta().value = PLAN_LIB[n].map(line).join("\n");
+      ps.value = ""; ta().focus();
+    };
+  }
+  if (fs){
+    fs.innerHTML = '<option value="">Add a single phase…</option>'
+      + Object.keys(PHASE_LIB).map(n=>`<option>${esc(n)}</option>`).join("");
+    fs.onchange = () => {
+      const n = fs.value; if(!n) return;
+      const t = ta();
+      t.value = (t.value.trim() ? t.value.replace(/\s*$/,"") + "\n" : "") + line(PHASE_LIB[n]);
+      fs.value = ""; t.focus();
+    };
+  }
+}
+
 const PKG_BLURB = {
   "Essential":  "core HR and payroll",
   "Premium":    "the full HR operation",
@@ -1288,6 +1440,14 @@ function renderAll(){
 const lines = s => s.split("\n").map(x => x.trim()).filter(Boolean);
 const parts = s => s.split("|").map(x => x.trim());
 
+function buildPickers(){
+  attachPicker("p_on","e_on","name");
+  attachPicker("p_off","e_off","name");
+  attachPicker("p_releases","e_releases","addon");
+  attachPicker("p_priorities","e_priorities","full");
+  attachPlanPickers("p_plan","p_phase","e_phases");
+}
+
 function fillForm(){
   $("e_client").value = CONFIG.client; $("e_package").value = CONFIG.package;
   $("e_since").value = CONFIG.since; $("e_renewal").value = CONFIG.renewalDate;
@@ -1422,7 +1582,7 @@ function toast(msg){
   clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("show"), 2200);
 }
 function openPanel(v){
-  if(v) fillForm();
+  if(v) { fillForm(); buildPickers(); }
   $("panel").classList.toggle("open", v);
   $("scrim").classList.toggle("open", v);
 }
