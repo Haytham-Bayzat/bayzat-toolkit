@@ -448,7 +448,7 @@ function applyLock(){
 }
 
 function exportHtml(locked){
-  if($("panel").classList.contains("open")){ readForm(); render(); }
+  if($("panel") && $("panel").classList.contains("open")){ readForm(); render(); }
   const was = CONFIG.locked;
   CONFIG.locked = !!locked;
   document.querySelectorAll("input").forEach(i => i.setAttribute("value", i.value));
@@ -590,10 +590,15 @@ function readForm(){
 
 function toast(m){ const e=$("toast"); e.textContent=m; e.classList.add("show");
   clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove("show"),2200); }
-function openPanel(v){ if(v) fillForm(); $("panel").classList.toggle("open",v); $("scrim").classList.toggle("open",v); }
+function openPanel(v){
+  if (!$("panel")) return;
+  if(v) fillForm();
+  $("panel").classList.toggle("open", v);
+  if ($("scrim")) $("scrim").classList.toggle("open", v);
+}
 
 function saveFile(){
-  if($("panel").classList.contains("open")){ readForm(); render(); }
+  if($("panel") && $("panel").classList.contains("open")){ readForm(); render(); }
   const clone = document.documentElement.cloneNode(true);
   clone.querySelector("#cfg").textContent = "\n" + JSON.stringify(CONFIG, null, 2) + "\n";
   clone.querySelector("#panel").classList.remove("open");
@@ -607,20 +612,21 @@ function saveFile(){
   toast("Saved to your downloads folder.");
 }
 function toPdf(){
-  if($("panel").classList.contains("open")){ readForm(); render(); }
+  if($("panel") && $("panel").classList.contains("open")){ readForm(); render(); }
   openPanel(false);
   setTimeout(()=>window.print(),250);
 }
 
-$("editBtn").onclick = () => openPanel(true);
-$("closeBtn").onclick = () => openPanel(false);
-$("scrim").onclick = () => openPanel(false);
-$("applyBtn").onclick = () => { readForm(); render(); openPanel(false); toast("Page updated."); };
-$("saveBtn").onclick = () => exportHtml(false);
-$("saveBtn2").onclick = () => exportHtml(false);
-$("clientBtn").onclick = () => { exportHtml(true); openPanel(false); };
-$("pdfBtn").onclick = toPdf;
-$("pdfBtn2").onclick = toPdf;
+const bind = (id, fn) => { const el = $(id); if (el) el.onclick = fn; };
+bind("editBtn", () => openPanel(true));
+bind("closeBtn", () => openPanel(false));
+bind("scrim", () => openPanel(false));
+bind("applyBtn", () => { readForm(); render(); openPanel(false); toast("Page updated."); });
+bind("saveBtn", () => exportHtml(false));
+bind("saveBtn2", () => exportHtml(false));
+bind("clientBtn", () => { exportHtml(true); openPanel(false); });
+bind("pdfBtn", toPdf);
+bind("pdfBtn2", toPdf);
 document.addEventListener("keydown", e => { if(e.key === "Escape") openPanel(false); });
 
 render();

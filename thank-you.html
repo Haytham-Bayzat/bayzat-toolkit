@@ -540,10 +540,15 @@ function readForm(){
 }
 function toast(m){ const e=$("toast"); e.textContent=m; e.classList.add("show");
   clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove("show"),2400); }
-function openPanel(v){ if(v) { fillForm(); attachPlanPickers("p_plan","p_phase","e_phases"); } $("panel").classList.toggle("open",v); $("scrim").classList.toggle("open",v); }
+function openPanel(v){
+  if (!$("panel")) return;
+  if(v) { fillForm(); attachPlanPickers("p_plan","p_phase","e_phases"); }
+  $("panel").classList.toggle("open", v);
+  if ($("scrim")) $("scrim").classList.toggle("open", v);
+}
 
 function exportHtml(locked){
-  if($("panel").classList.contains("open")){ readForm(); renderAll(); }
+  if($("panel") && $("panel").classList.contains("open")){ readForm(); renderAll(); }
   const was = CONFIG.locked;
   CONFIG.locked = !!locked;
   document.querySelectorAll("input").forEach(i => i.setAttribute("value", i.value));
@@ -568,14 +573,15 @@ function exportHtml(locked){
   toast(locked ? "Client copy saved." : "Saved to your downloads folder.");
 }
 
-$("editBtn").onclick = () => openPanel(true);
-$("closeBtn").onclick = () => openPanel(false);
-$("scrim").onclick = () => openPanel(false);
-$("applyBtn").onclick = () => { readForm(); renderAll(); openPanel(false); toast("Page updated."); };
-$("saveBtn").onclick = () => exportHtml(false);
-$("clientBtn").onclick = () => { exportHtml(true); openPanel(false); };
-$("printBtn").onclick = () => { openPanel(false); setTimeout(()=>window.print(),250); };
-$("pdfLocked").onclick = () => window.print();
+const bind = (id, fn) => { const el = $(id); if (el) el.onclick = fn; };
+bind("editBtn", () => openPanel(true));
+bind("closeBtn", () => openPanel(false));
+bind("scrim", () => openPanel(false));
+bind("applyBtn", () => { readForm(); renderAll(); openPanel(false); toast("Page updated."); });
+bind("saveBtn", () => exportHtml(false));
+bind("clientBtn", () => { exportHtml(true); openPanel(false); });
+bind("printBtn", () => { openPanel(false); setTimeout(()=>window.print(),250); });
+bind("pdfLocked", () => window.print());
 document.addEventListener("keydown", e => { if(e.key === "Escape") openPanel(false); });
 
 renderAll();

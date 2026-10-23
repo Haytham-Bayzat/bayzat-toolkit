@@ -293,6 +293,32 @@ body.locked .plans{margin-top:4px}
 body.locked .step{cursor:default}
 body.locked .step:hover{border-color:var(--edge)}
 
+/* total box */
+.sumcard{background:var(--surface);border:1px solid var(--edge);border-radius:16px;
+  box-shadow:var(--shadow);max-width:720px;overflow:hidden}
+.sumhead{display:flex;justify-content:space-between;gap:16px;padding:13px 26px;
+  background:var(--surface-2);border-bottom:1px solid var(--edge);
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:750}
+.sumline{display:flex;justify-content:space-between;gap:24px;align-items:baseline;
+  padding:14px 26px;border-bottom:1px solid var(--edge)}
+.sumline .nm{font-size:12.5px;font-weight:500;color:var(--dim);line-height:1.45}
+.sumline .nm b{display:block;color:var(--text);font-weight:720;font-size:14.5px;margin-bottom:2px}
+.sumline .vl{font-size:15px;font-weight:750;color:var(--text);white-space:nowrap}
+.sumline .vl.inc{font-size:13px;font-weight:720;color:var(--mint)}
+.sumgrand{display:flex;justify-content:space-between;gap:24px;align-items:baseline;
+  padding:17px 26px;background:var(--purple-soft)}
+.sumgrand .lb{font-size:14px;font-weight:780;color:var(--text)}
+.sumgrand .lb span{display:block;font-size:12.5px;font-weight:500;color:var(--dim);margin-top:3px}
+.sumgrand .big{font-size:25px;font-weight:800;letter-spacing:-.02em;color:var(--text);
+  text-align:right;white-space:nowrap;line-height:1}
+.sumgrand .big small{display:block;font-size:12px;font-weight:500;color:var(--dim);margin-top:6px}
+.sumextra{display:flex;justify-content:space-between;gap:16px;padding:11px 26px;
+  border-top:1px solid var(--edge);font-size:13px;color:var(--dim)}
+.sumextra b{color:var(--text);font-weight:720;white-space:nowrap}
+.sumfoot{margin:16px 0 0;font-size:12.5px;color:var(--dimmer);line-height:1.6;max-width:720px}
+@media(max-width:560px){.sumhead,.sumline,.sumgrand,.sumextra{padding-left:18px;padding-right:18px}
+  .sumgrand .big{font-size:22px}}
+
 @media print{
   @page{size:A4 portrait;margin:11mm}
 
@@ -334,8 +360,8 @@ body.locked .step:hover{border-color:var(--edge)}
   .sub{font-size:12.5px;margin-bottom:14px;break-after:avoid;page-break-after:avoid}
 
   /* keep a block with its own heading */
-  .grid,.plans,.actwrap,.svcwrap,.steps{break-inside:avoid;page-break-inside:avoid}
-  .card,.kpi,.plan,.phase,.svccard,.meter,.mod,.step{break-inside:avoid;page-break-inside:avoid;
+  .grid,.plans,.actwrap,.svcwrap,.steps,.sumcard{break-inside:avoid;page-break-inside:avoid}
+  .card,.kpi,.plan,.phase,.svccard,.meter,.mod,.step,.sumline,.sumgrand{break-inside:avoid;page-break-inside:avoid;
     box-shadow:none!important}
 
   .card,.plan,.svccard,.meter,.mod,.step{border-color:#DCD4F0!important}
@@ -370,6 +396,7 @@ body.locked .step:hover{border-color:var(--edge)}
       <a href="#pricing">Renewal</a>
       <a href="#service">Support</a>
       <a href="#studio">Studio</a>
+      <a href="#summary">Total</a>
       <a href="#next">Next steps</a>
       <button class="btn" id="themeBtn" type="button">Dark mode</button>
       <button class="btn" id="pdfLocked" type="button">Print or PDF</button>
@@ -508,6 +535,16 @@ body.locked .step:hover{border-color:var(--edge)}
     <p class="sub">Automate internal processes and extend the platform to fit the way your business runs.</p>
     <p class="optchip">Optional add on, not part of your current subscription</p>
     <div class="svcwrap" id="stuWrap"></div>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="wrap">
+    <p class="sechead">The whole picture</p>
+    <h2 id="sumTitle">Your total</h2>
+    <p class="sub" id="sumSub"></p>
+    <div class="sumcard" id="sumCard"></div>
+    <p class="sumfoot" id="sumFoot"></p>
   </div>
 </section>
 
@@ -679,14 +716,29 @@ body.locked .step:hover{border-color:var(--edge)}
     </div>
 
     <div class="fset">
-      <h4>12. Next steps</h4>
+      <h4>12. Your total</h4>
+      <p class="secnote">One box that adds the plan and the service package together. Turn it off on a price sensitive account where you would rather walk them through the parts.</p>
+      <div class="f"><label for="e_sumShow">Show the total box</label>
+        <p class="hint">Yes or No.</p><input id="e_sumShow"></div>
+      <div class="f"><label for="e_sumTerm">Which term the total uses</label>
+        <p class="hint">For example 3 years. Blank follows the recommended option in the renewal cards.</p>
+        <input id="e_sumTerm"></div>
+      <div class="f"><label for="e_sumStudio">Include Studio in the total</label>
+        <p class="hint">Yes or No. Leave it out while Studio is still just an idea you are floating.</p>
+        <input id="e_sumStudio"></div>
+      <div class="f"><label for="e_sumNote">Note under the total</label>
+        <textarea id="e_sumNote"></textarea></div>
+    </div>
+
+    <div class="fset">
+      <h4>13. Next steps</h4>
       <p class="secnote">The tickable checklist at the bottom of the page.</p>
       <div class="f"><label for="e_steps">The steps</label>
         <p class="hint">One per line: action | timing | owner</p><textarea id="e_steps"></textarea></div>
     </div>
 
     <div class="fset">
-      <h4>13. Your details</h4>
+      <h4>14. Your details</h4>
       <p class="secnote">The contact block in the footer.</p>
       <div class="f"><label for="e_name">Name</label><input id="e_name"></div>
       <div class="f"><label for="e_role">Role line</label><input id="e_role"></div>
@@ -951,6 +1003,12 @@ body.locked .step:hover{border-color:var(--edge)}
     "discount": 0,
     "note": "Renewed annually alongside your subscription.",
     "fee": 0
+  },
+  "summary": {
+    "show": true,
+    "term": "",
+    "includeStudio": false,
+    "note": "Figures are shown per year so you can compare them against your budget. The renewal paperwork will set out the same amounts against your chosen payment schedule."
   },
   "studio": {
     "show": true,
@@ -1407,6 +1465,7 @@ function phases(){
     </div>`).join("");
 }
 function buildPricingControls(){
+  if (!$("discFields")) return;
   $("discFields").innerHTML = `<label>Discount by term, %</label>
     <div class="discgrp">${CONFIG.terms.map((t,i) =>
       `<span class="one"><span>${esc(t.label)}</span>
@@ -1420,8 +1479,9 @@ function buildPricingControls(){
 }
 
 function pricing(){
-  const hc = Math.max(1, Number($("hc").value) || 1);
-  const list = Math.max(0.5, Number($("rate").value) || 0.5);
+  const hcEl = $("hc"), rtEl = $("rate");
+  const hc = Math.max(1, (hcEl ? Number(hcEl.value) : Number(CONFIG.headcount)) || 1);
+  const list = Math.max(0.5, (rtEl ? Number(rtEl.value) : Number(CONFIG.listRate)) || 0.5);
   CONFIG.headcount = hc; CONFIG.listRate = list;
 
   // live discount and recommended controls feed straight back into CONFIG
@@ -1457,7 +1517,70 @@ function pricing(){
         <div style="margin-top:14px">${(t.perks||[]).map(p => `<div class="perk">&#8226; ${esc(p)}</div>`).join("")}</div>
       </div>`;
   }).join("");
+  if (typeof summary === "function") summary();
 }
+function summary(){
+  const sm = CONFIG.summary || {};
+  const sec = $("summary");
+  if (!sec) return;
+  const link = document.querySelector('a[href="#summary"]');
+  const hide = () => { sec.style.display = "none"; if (link) link.style.display = "none"; };
+  const showIt = () => { sec.style.display = ""; if (link) link.style.display = ""; };
+  if (sm.show === false) { hide(); return; }
+
+  const want = (sm.term||"").trim().toLowerCase();
+  const term = (want && CONFIG.terms.find(t => (t.label||"").toLowerCase() === want))
+            || CONFIG.terms.find(t => t.best)
+            || CONFIG.terms[CONFIG.terms.length-1];
+  if (!term) { hide(); return; }
+
+  const hc = Math.max(1, Number(CONFIG.headcount)||1);
+  const list = Math.max(0, Number(CONFIG.listRate)||0);
+  const netRate = list * (1 - (Number(term.discount)||0));
+  const subAnnual = netRate * hc * 12;
+  const months = Number(term.months)||12;
+  const years = months/12;
+
+  const rows = [];
+  let annual = 0;
+
+  rows.push({ h: esc(CONFIG.bundleName || CONFIG.package || "Subscription") + " plan",
+              s: hc + " employees at AED " + netRate.toFixed(2) + " per employee, per month",
+              v: subAnnual });
+  annual += subAnnual;
+
+  const sv = CONFIG.service || {};
+  const svAnnual = (Number(sv.price)||0) * (1 - (Number(sv.discount)||0)/100);
+  if (sv.show !== false && svAnnual > 0) {
+    rows.push({ h: "Service package, " + esc(sv.tier||""), s: "Support and training", v: svAnnual });
+    annual += svAnnual;
+  }
+
+  const st = CONFIG.studio || {};
+  const stAnnual = (Number(st.price)||0) * (1 - (Number(st.discount)||0)/100);
+  if (sm.includeStudio && st.show !== false && stAnnual > 0) {
+    rows.push({ h: "Bayzat Studio, " + esc(st.tier||""), s: "Optional add on", v: stAnnual });
+    annual += stAnnual;
+  }
+
+  if (annual <= 0) { hide(); return; }
+  showIt();
+
+  $("sumSub").textContent = "Everything in this review over " + (term.label||"") + ", in one place.";
+  $("sumCard").innerHTML =
+    `<div class="sumhead"><span>Item</span><span>Per year</span></div>`
+    + rows.map(r => `<div class="sumline"><span class="nm"><b>${r.h}</b>${r.s}</span>
+        <span class="vl">${money(r.v)}</span></div>`).join("")
+    + `<div class="sumgrand">
+        <span class="lb">Total per year<span>${esc(term.label||"")} term, ${esc(term.payment||"")}</span></span>
+        <span class="big">${money(annual)}<small>${money(annual/12)} per month</small></span>
+      </div>`
+    + (years > 1 ? `<div class="sumextra"><span>Across the full ${esc(term.label||"")}</span>
+        <b>${money(annual*years)}</b></div>` : "");
+  $("sumFoot").textContent = sm.note || "";
+  $("sumFoot").style.display = sm.note ? "" : "none";
+}
+
 function steps(){
   $("steps").innerHTML = CONFIG.steps.map(s => `
     <button class="step" type="button" aria-pressed="false">
@@ -1483,11 +1606,11 @@ function applyLock(){
 }
 
 function renderAll(){
-  $("hc").value = CONFIG.headcount;
-  $("rate").value = CONFIG.listRate;
+  if ($("hc")) $("hc").value = CONFIG.headcount;
+  if ($("rate")) $("rate").value = CONFIG.listRate;
   hero(); tiles("kpis", CONFIG.kpis); tiles("valueGrid", CONFIG.value);
   modules(); cards("releases", CONFIG.releases); coming(); priorities(); phases(); service(); studio();
-  buildPricingControls(); pricing(); steps(); footerBlock(); applyLock();
+  buildPricingControls(); pricing(); steps(); footerBlock(); summary(); applyLock();
   document.title = CONFIG.client + " | Bayzat renewal review";
 }
 
@@ -1526,6 +1649,11 @@ function fillForm(){
   $("e_coming").value = (CONFIG.coming||[]).map(c => [c.h,c.status,c.when,c.p].join(" | ")).join("\n");
   $("e_priorities").value = CONFIG.priorities.map(p => [p.h,p.p,p.why,p.impact].join(" | ")).join("\n");
   $("e_phases").value = CONFIG.phases.map(p => [p.when,p.h,p.owner,(p.items||[]).join("; ")].join(" | ")).join("\n");
+  const sm0 = CONFIG.summary || {};
+  $("e_sumShow").value = sm0.show === false ? "No" : "Yes";
+  $("e_sumTerm").value = sm0.term || "";
+  $("e_sumStudio").value = sm0.includeStudio ? "Yes" : "No";
+  $("e_sumNote").value = sm0.note || "";
   $("e_steps").value = CONFIG.steps.map(s => [s.t,s.m,s.who].join(" | ")).join("\n");
   const sv0 = CONFIG.service || {};
   $("e_svc_tier").value = sv0.show === false ? "None" : (sv0.tier || "Bronze");
@@ -1609,6 +1737,13 @@ function readForm(){
     return {h:p[0],p:p[1]||"",why:p[2]||"",impact:p[3]||""}; });
   CONFIG.phases = lines($("e_phases").value).map(l => { const p = parts(l);
     return {when:p[0],h:p[1]||"",owner:p[2]||"",items:(p[3]||"").split(";").map(x=>x.trim()).filter(Boolean)}; });
+  const yesVal = v => /^(y|yes|true|on|1)$/i.test((v||"").trim());
+  CONFIG.summary = {
+    show: yesVal($("e_sumShow").value),
+    term: $("e_sumTerm").value,
+    includeStudio: yesVal($("e_sumStudio").value),
+    note: $("e_sumNote").value
+  };
   CONFIG.steps = lines($("e_steps").value).map(l => { const p = parts(l); return {t:p[0],m:p[1]||"",who:p[2]||""}; });
   const tierRaw = ($("e_svc_tier").value || "").trim();
   const tierKey = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1).toLowerCase();
@@ -1637,12 +1772,13 @@ function toast(msg){
   clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("show"), 2200);
 }
 function openPanel(v){
+  if (!$("panel")) return;
   if(v) { fillForm(); buildPickers(); }
   $("panel").classList.toggle("open", v);
-  $("scrim").classList.toggle("open", v);
+  if ($("scrim")) $("scrim").classList.toggle("open", v);
 }
 function exportHtml(locked){
-  if($("panel").classList.contains("open")){ readForm(); renderAll(); }
+  if($("panel") && $("panel").classList.contains("open")){ readForm(); renderAll(); }
   const wasLocked = CONFIG.locked;
   CONFIG.locked = !!locked;
 
@@ -1694,21 +1830,22 @@ function saveFile(){
   toast("Saved to your downloads folder.");
 }
 
-$("editBtn").onclick = () => openPanel(true);
-$("closeBtn").onclick = () => openPanel(false);
-$("scrim").onclick = () => openPanel(false);
-$("applyBtn").onclick = () => { readForm(); buildPricingControls(); renderAll(); openPanel(false); toast("Page updated."); };
-$("pdfLocked").onclick = () => window.print();
-$("saveBtn").onclick = () => exportHtml(false);
-$("clientBtn").onclick = () => { exportHtml(true); openPanel(false); };
-$("printBtn").onclick = () => { openPanel(false); setTimeout(() => window.print(), 250); };
-$("themeBtn").onclick = () => {
+const bind = (id, fn) => { const el = $(id); if (el) el.onclick = fn; };
+bind("editBtn", () => openPanel(true));
+bind("closeBtn", () => openPanel(false));
+bind("scrim", () => openPanel(false));
+bind("applyBtn", () => { readForm(); buildPricingControls(); renderAll(); openPanel(false); toast("Page updated."); });
+bind("pdfLocked", () => window.print());
+bind("saveBtn", () => exportHtml(false));
+bind("clientBtn", () => { exportHtml(true); openPanel(false); });
+bind("printBtn", () => { openPanel(false); setTimeout(() => window.print(), 250); });
+bind("themeBtn", () => {
   const dark = document.documentElement.dataset.theme === "dark";
   document.documentElement.dataset.theme = dark ? "light" : "dark";
   $("themeBtn").textContent = dark ? "Dark mode" : "Light mode";
-};
-["hc","rate"].forEach(id => $(id).addEventListener("input", pricing));
-$("steps").addEventListener("click", e => {
+});
+["hc","rate"].forEach(id => { const el = $(id); if (el) el.addEventListener("input", pricing); });
+if ($("steps")) $("steps").addEventListener("click", e => {
   const b = e.target.closest(".step"); if(!b) return;
   const on = b.classList.toggle("done");
   b.setAttribute("aria-pressed", on ? "true" : "false");

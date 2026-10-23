@@ -93,6 +93,21 @@ body{margin:0;background:var(--bg);color:var(--text);
 .badge{position:absolute;top:-9px;right:14px;background:var(--purple-2);color:#fff;font-size:9px;
   font-weight:800;letter-spacing:.1em;padding:4px 10px;border-radius:99px}
 
+.sumbox{border:1px solid var(--edge);border-radius:12px;overflow:hidden;margin-top:9px}
+.sumr{display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+  padding:9px 15px;border-bottom:1px solid var(--edge)}
+.sumr .n{font-size:12.5px;font-weight:700}
+.sumr .n span{display:block;font-size:10.5px;font-weight:500;color:var(--dim);margin-top:1px}
+.sumr .v{font-size:13px;font-weight:800;white-space:nowrap}
+.sumtot{display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+  padding:11px 15px;background:var(--purple-soft)}
+.sumtot .n{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.sumtot .v{font-size:20px;font-weight:800;color:var(--purple);letter-spacing:-.01em;white-space:nowrap}
+.sumtot .v span{display:block;font-size:10px;font-weight:500;color:var(--dim);text-align:right;margin-top:2px}
+.sumterm{padding:8px 15px;border-top:1px solid var(--edge);font-size:10.5px;color:var(--dim);
+  display:flex;justify-content:space-between;gap:10px}
+.sumterm b{font-weight:750;color:var(--text)}
+
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .stp{background:var(--tint);border-radius:10px;padding:10px 11px}
 .stp b{display:block;font-size:11.5px;line-height:1.35}
@@ -187,6 +202,7 @@ body.locked #editBtn,body.locked #saveBtn{display:none!important}
       </div>
       <div id="svcBlock"></div>
       <div id="stuBlock"></div>
+      <div id="sumBlock"></div>
       <div class="block">
         <p class="lbl">Next steps</p>
         <div class="steps" id="steps"></div>
@@ -229,6 +245,18 @@ body.locked #editBtn,body.locked #saveBtn{display:none!important}
         <p class="hint">One per line: label | months | discount % | payment terms | total override (leave blank to calculate)</p>
         <textarea id="e_terms" style="min-height:110px"></textarea></div>
     </div>
+    <div class="fset">
+      <h4>Your total</h4>
+      <p class="secnote">Adds the subscription and the service package into one figure.</p>
+      <div class="f"><label for="e_sumShow">Show the total</label>
+        <p class="hint">Yes or No.</p><input id="e_sumShow"></div>
+      <div class="f"><label for="e_sumTerm">Which term it uses</label>
+        <p class="hint">For example 3 years. Blank follows the recommended option.</p>
+        <input id="e_sumTerm"></div>
+      <div class="f"><label for="e_sumStudio">Include Studio</label>
+        <p class="hint">Yes or No.</p><input id="e_sumStudio"></div>
+    </div>
+
     <div class="fset">
       <h4>Service package</h4>
       <div class="f"><label for="e_svc_tier">Package</label>
@@ -300,6 +328,11 @@ body.locked #editBtn,body.locked #saveBtn{display:none!important}
     {"t":"Approval and signature","who":"You"},
     {"t":"Kick off the 90 day plan","who":"Joint"}
   ],
+  "summary": {
+    "show": true,
+    "term": "",
+    "includeStudio": false
+  },
   "service": {"show":true,"tier":"Gold","price":1750,"discount":0},
   "studio": {"show":true,"tier":"Advanced","price":4000,"discount":0},
   "contact": "Haytham Ghali  |  Customer Success, Bayzat  |  haytham@bayzat.com  |  +971 4549 0371"
@@ -359,6 +392,53 @@ function serviceRow(){
 }
 
 
+function sumBlock(){
+  const el = $("sumBlock");
+  if (!el) return;
+  const sm = CONFIG.summary || {};
+  if (sm.show === false) { el.innerHTML = ""; return; }
+
+  const want = (sm.term||"").trim().toLowerCase();
+  const term = (want && CONFIG.terms.find(t => (t.label||"").toLowerCase() === want))
+            || CONFIG.terms.find(t => t.best)
+            || CONFIG.terms[CONFIG.terms.length-1];
+  if (!term) { el.innerHTML = ""; return; }
+
+  const hc = Math.max(1, Number(CONFIG.headcount)||1);
+  const list = Math.max(0, Number(CONFIG.listRate)||0);
+  const rate = list * (1 - (Number(term.discount)||0));
+  const months = Number(term.months)||12;
+  const years = months/12;
+  const subAnnual = (term.total && Number(term.total) > 0)
+    ? Number(term.total) / years
+    : rate * hc * 12;
+
+  const rows = [];
+  let annual = 0;
+  rows.push([ "Subscription", hc + " employees at AED " + rate.toFixed(2) + " pppm", subAnnual ]);
+  annual += subAnnual;
+
+  const sv = CONFIG.service || {};
+  const svA = (Number(sv.price)||0) * (1 - (Number(sv.discount)||0)/100);
+  if (sv.show !== false && svA > 0) { rows.push(["Service package, " + (sv.tier||""), "Support and training", svA]); annual += svA; }
+
+  const st = CONFIG.studio || {};
+  const stA = (Number(st.price)||0) * (1 - (Number(st.discount)||0)/100);
+  if (sm.includeStudio && st.show !== false && stA > 0) { rows.push(["Bayzat Studio, " + (st.tier||""), "Optional add on", stA]); annual += stA; }
+
+  if (annual <= 0) { el.innerHTML = ""; return; }
+
+  el.innerHTML = `<p class="lbl" style="margin-top:16px">Your total</p>
+    <div class="sumbox">
+      ${rows.map(r => `<div class="sumr"><span class="n">${esc(r[0])}<span>${esc(r[1])}</span></span>
+        <span class="v">${money(r[2])}</span></div>`).join("")}
+      <div class="sumtot"><span class="n">Total per year</span>
+        <span class="v">${money(annual)}<span>${money(annual/12)} per month</span></span></div>
+      <div class="sumterm"><span>${esc(term.label||"")} term, ${esc(term.payment||"")}</span>
+        ${years > 1 ? `<span>Across the full term <b>${money(annual*years)}</b></span>` : ""}</div>
+    </div>`;
+}
+
 function applyLock(){
   const on = CONFIG.locked === true;
   document.body.classList.toggle("locked", on);
@@ -366,7 +446,7 @@ function applyLock(){
 }
 
 function exportHtml(locked){
-  if($("panel").classList.contains("open")){ readForm(); render(); }
+  if($("panel") && $("panel").classList.contains("open")){ readForm(); render(); }
   const was = CONFIG.locked;
   CONFIG.locked = !!locked;
   document.querySelectorAll("input").forEach(i => i.setAttribute("value", i.value));
@@ -425,6 +505,7 @@ function render(){
 
   serviceRow();
   studioRow();
+  sumBlock();
   $("steps").innerHTML = CONFIG.steps.map(s =>
     `<div class="stp"><b>${esc(s.t)}</b><span>${esc(s.who)}</span></div>`).join("");
   $("contact").textContent = CONFIG.contact;
@@ -446,6 +527,10 @@ function fillForm(){
   $("e_callout").value = CONFIG.callout;
   $("e_terms").value = CONFIG.terms.map(t =>
     [t.label,t.months,Math.round((t.discount||0)*100),t.payment,(t.total||"")].join(" | ")).join("\n");
+  const sm0 = CONFIG.summary || {};
+  $("e_sumShow").value = sm0.show === false ? "No" : "Yes";
+  $("e_sumTerm").value = sm0.term || "";
+  $("e_sumStudio").value = sm0.includeStudio ? "Yes" : "No";
   const sv0 = CONFIG.service || {};
   $("e_svc_tier").value = sv0.show === false ? "None" : (sv0.tier || "Bronze");
   $("e_svc_price").value = sv0.price || 0;
@@ -474,6 +559,12 @@ function readForm(){
   });
   if(t.length){ let bi=0; t.forEach((x,i)=>{ if(x.months>t[bi].months) bi=i; });
     t.forEach((x,i)=>{ x.best = (i===bi && t.length>1); }); CONFIG.terms = t; }
+  const yesVal = v => /^(y|yes|true|on|1)$/i.test((v||"").trim());
+  CONFIG.summary = {
+    show: yesVal($("e_sumShow").value),
+    term: $("e_sumTerm").value,
+    includeStudio: yesVal($("e_sumStudio").value)
+  };
   const tierRaw = ($("e_svc_tier").value || "").trim();
   const tierKey = tierRaw.charAt(0).toUpperCase() + tierRaw.slice(1).toLowerCase();
   CONFIG.service = {
@@ -496,10 +587,15 @@ function readForm(){
 
 function toast(m){ const e=$("toast"); e.textContent=m; e.classList.add("show");
   clearTimeout(e._t); e._t=setTimeout(()=>e.classList.remove("show"),2200); }
-function openPanel(v){ if(v) fillForm(); $("panel").classList.toggle("open",v); $("scrim").classList.toggle("open",v); }
+function openPanel(v){
+  if (!$("panel")) return;
+  if(v) fillForm();
+  $("panel").classList.toggle("open", v);
+  if ($("scrim")) $("scrim").classList.toggle("open", v);
+}
 
 function saveFile(){
-  if($("panel").classList.contains("open")){ readForm(); render(); }
+  if($("panel") && $("panel").classList.contains("open")){ readForm(); render(); }
   const clone = document.documentElement.cloneNode(true);
   clone.querySelector("#cfg").textContent = "\n" + JSON.stringify(CONFIG, null, 2) + "\n";
   clone.querySelector("#panel").classList.remove("open");
@@ -513,20 +609,21 @@ function saveFile(){
   toast("Saved to your downloads folder.");
 }
 function toPdf(){
-  if($("panel").classList.contains("open")){ readForm(); render(); }
+  if($("panel") && $("panel").classList.contains("open")){ readForm(); render(); }
   openPanel(false);
   setTimeout(()=>window.print(),250);
 }
 
-$("editBtn").onclick = () => openPanel(true);
-$("closeBtn").onclick = () => openPanel(false);
-$("scrim").onclick = () => openPanel(false);
-$("applyBtn").onclick = () => { readForm(); render(); openPanel(false); toast("Summary updated."); };
-$("saveBtn").onclick = () => exportHtml(false);
-$("saveBtn2").onclick = () => exportHtml(false);
-$("clientBtn").onclick = () => { exportHtml(true); openPanel(false); };
-$("pdfBtn").onclick = toPdf;
-$("pdfBtn2").onclick = toPdf;
+const bind = (id, fn) => { const el = $(id); if (el) el.onclick = fn; };
+bind("editBtn", () => openPanel(true));
+bind("closeBtn", () => openPanel(false));
+bind("scrim", () => openPanel(false));
+bind("applyBtn", () => { readForm(); render(); openPanel(false); toast("Summary updated."); });
+bind("saveBtn", () => exportHtml(false));
+bind("saveBtn2", () => exportHtml(false));
+bind("clientBtn", () => { exportHtml(true); openPanel(false); });
+bind("pdfBtn", toPdf);
+bind("pdfBtn2", toPdf);
 document.addEventListener("keydown", e => { if(e.key === "Escape") openPanel(false); });
 
 render();
