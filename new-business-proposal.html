@@ -1349,6 +1349,7 @@ function fillForm(){
     [it.name, it.desc||"", Number(it.employees)||CONFIG.headcount,
      Number(it.rate)||0, Number(it.discount)||0, it.inPlan||""].join(" | ")).join("\n");
   $("e_modTo").value = md.attachTo || "";
+  if (typeof refreshModPick === "function") refreshModPick();
   $("e_modNote").value = md.note || "";
   $("e_terms").value = CONFIG.terms.map(t =>
     [t.label,t.months,Number(t.discount)||0,t.payment,(t.perks||[]).join("; ")].join(" | ")).join("\n");
@@ -1489,17 +1490,42 @@ function exportHtml(locked){
   toast(locked ? "Client copy saved. Internal controls removed." : "Saved to your downloads folder.");
 }
 
+function modsUsed(){
+  const box = $("e_mods");
+  if (!box) return [];
+  return box.value.split("\n").map(l => l.split("|")[0].trim()).filter(Boolean);
+}
+
+function refreshModPick(){
+  const sel = $("e_modPick");
+  if (!sel) return;
+  const used = modsUsed().map(x => x.toLowerCase());
+  const head = used.length
+    ? "Choose a module to add, " + used.length + " already added"
+    : "Choose a module to add";
+  sel.innerHTML = `<option value="">${esc(head)}</option>`
+    + Object.keys(MOD_LIB).map(k => used.includes(k.toLowerCase())
+        ? `<option value="${esc(k)}" disabled>\u2713 ${esc(k)} (already added)</option>`
+        : `<option value="${esc(k)}">${esc(k)}</option>`).join("");
+}
+
 if ($("e_modPick")) {
-$("e_modPick").innerHTML = '<option value="">Choose a module to add</option>'
-  + Object.keys(MOD_LIB).map(k => `<option>${esc(k)}</option>`).join("");
+refreshModPick();
+$("e_mods").addEventListener("input", refreshModPick);
 $("e_modPick").addEventListener("change", () => {
   const k = $("e_modPick").value;
   if (!k) return;
   const box = $("e_mods");
+  if (modsUsed().some(x => x.toLowerCase() === k.toLowerCase())) {
+    $("e_modPick").value = ""; refreshModPick();
+    toast(k + " is already in the list.");
+    return;
+  }
   const line = [k, MOD_LIB[k], Number($("e_hc").value) || CONFIG.headcount, 0, 0, ""].join(" | ");
   box.value = (box.value.trim() ? box.value.replace(/\s+$/,"") + "\n" : "") + line;
   $("e_modPick").value = "";
   box.focus();
+  refreshModPick();
   toast(k + " added. Set the price below.");
 });
 }

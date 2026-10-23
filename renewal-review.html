@@ -1061,25 +1061,79 @@ const MODULE_LIB = {
 
 function libNames(){ return Object.keys(MODULE_LIB).sort(); }
 
+// which textarea is which, for the "already in another list" note
+const LIST_LABEL = {
+  e_on:        "Live now",
+  e_off:       "Included, not switched on",
+  e_releases:  "Add on cards",
+  e_priorities:"What to prioritise"
+};
+
+// module names already sitting in a textarea, read from the first field of each line
+function usedIn(id){
+  const ta = document.getElementById(id);
+  if (!ta) return [];
+  return ta.value.split("\n").map(l => l.split("|")[0].trim()).filter(Boolean);
+}
+
+const PICKERS = [];
+
+// refresh one dropdown so it shows what is already chosen
+function refreshPicker(rec){
+  const mine = usedIn(rec.targetId).map(x => x.toLowerCase());
+  const elsewhere = {};
+  Object.keys(LIST_LABEL).forEach(id => {
+    if (id === rec.targetId) return;
+    usedIn(id).forEach(n => { elsewhere[n.toLowerCase()] = LIST_LABEL[id]; });
+  });
+  const head = mine.length
+    ? "Add a module, " + mine.length + " already in this list"
+    : "Add a module…";
+  rec.sel.innerHTML = `<option value="">${esc(head)}</option>`
+    + libNames().map(n => {
+        const k = n.toLowerCase();
+        if (mine.includes(k))
+          return `<option value="${esc(n)}" disabled>✓ ${esc(n)} (already added)</option>`;
+        if (elsewhere[k])
+          return `<option value="${esc(n)}">${esc(n)} (in ${esc(elsewhere[k])})</option>`;
+        return `<option value="${esc(n)}">${esc(n)}</option>`;
+      }).join("");
+}
+
+function refreshPickers(){ PICKERS.forEach(refreshPicker); }
+
 // build a dropdown that appends the right shape of line into a textarea
 function attachPicker(selId, targetId, shape){
   const sel = document.getElementById(selId);
   if (!sel) return;
-  sel.innerHTML = '<option value="">Add a module…</option>'
-    + libNames().map(n => `<option>${esc(n)}</option>`).join("");
+  let rec = PICKERS.find(r => r.selId === selId);
+  if (!rec) {
+    rec = { selId, targetId, shape, sel };
+    PICKERS.push(rec);
+    const ta0 = document.getElementById(targetId);
+    if (ta0) ta0.addEventListener("input", refreshPickers);
+  }
+  rec.sel = sel; rec.targetId = targetId; rec.shape = shape;
   sel.onchange = () => {
     const n = sel.value;
     if (!n) return;
+    const ta = document.getElementById(targetId);
+    if (usedIn(targetId).some(x => x.toLowerCase() === n.toLowerCase())) {
+      sel.value = ""; refreshPickers();
+      if (typeof toast === "function") toast(n + " is already in this list.");
+      return;
+    }
     const m = MODULE_LIB[n];
     let line;
     if (shape === "name")      line = n;
     else if (shape === "addon") line = n + " | " + m[0];
     else                        line = [n, m[0], m[1], m[2]].join(" | ");
-    const ta = document.getElementById(targetId);
     ta.value = (ta.value.trim() ? ta.value.replace(/\s*$/,"") + "\n" : "") + line;
     sel.value = "";
     ta.focus();
+    refreshPickers();
   };
+  refreshPicker(rec);
 }
 
 // ---------------------------------------------------------------
@@ -1446,6 +1500,7 @@ function buildPickers(){
   attachPicker("p_releases","e_releases","addon");
   attachPicker("p_priorities","e_priorities","full");
   attachPlanPickers("p_plan","p_phase","e_phases");
+  refreshPickers();
 }
 
 function fillForm(){
